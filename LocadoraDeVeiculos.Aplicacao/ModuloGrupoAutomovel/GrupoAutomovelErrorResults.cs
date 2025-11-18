@@ -7,7 +7,7 @@ public abstract class GrupoAutomovelErrorResults
     public static Error NomeDuplicadoError(string nome)
     {
         return new Error("Nome duplicado")
-            .CausedBy($"Um médico com o nome '{nome}' já foi cadastrado")
+            .CausedBy($"Um grupo de automóvel com o nome '{nome}' já foi cadastrado")
             .WithMetadata("ErrorType", "BadRequest");
     }
 }
