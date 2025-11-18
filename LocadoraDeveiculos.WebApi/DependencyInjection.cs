@@ -1,7 +1,10 @@
 ﻿using FluentValidation;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
 using LocadoraDeVeiculos.WebApi.Filters;
+using LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -41,7 +44,7 @@ public static class DependencyInjection
 
     public static void ConfigureRepositories(this IServiceCollection services)
     {
-        //services.AddScoped<IRepositorioFuncionario, RepositorioFuncionarioEmOrm>();
+        services.AddScoped<IRepositorioFuncionario, RepositorioFuncionarioEmOrm>();
         //services.AddScoped<IRepositorioGrupoAutomovel, RepositorioGrupoAutomovelEmOrm>();
         //services.AddScoped<IRepositorioAutomovelo, RepositorioAutomovelEmOrm>();
         //services.AddScoped<IRepositorioCliente, RepositorioClienteEmOrm>();
@@ -154,7 +157,7 @@ public static class DependencyInjection
 
     public static void ConfigureFluentValidation(this IServiceCollection services)
     {
-        //services.AddValidatorsFromAssemblyContaining<ValidadorFuncionario>();
+        services.AddValidatorsFromAssemblyContaining<ValidadorFuncionario>();
     }
 
     public static void ConfigureSerilog(this IServiceCollection services, ILoggingBuilder logging, IConfiguration config)
@@ -178,7 +181,7 @@ public static class DependencyInjection
     {
         services.AddMediatR(cfg =>
         {
-            //cfg.RegisterServicesFromAssemblyContaining<InserirFuncionarioRequest>();
+            cfg.RegisterServicesFromAssemblyContaining<InserirFuncionarioRequest>();
         });
     }
 }
