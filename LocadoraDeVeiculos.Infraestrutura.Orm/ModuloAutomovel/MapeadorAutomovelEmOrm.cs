@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAutomovel;
 
-public class MapadorAutomovelEmOrm : IEntityTypeConfiguration<Automovel>
+public class MapeadorAutomovelEmOrm : IEntityTypeConfiguration<Automovel>
 {
     public void Configure(EntityTypeBuilder<Automovel> modelBuilder)
     {
