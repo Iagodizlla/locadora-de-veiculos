@@ -1,0 +1,3 @@
+﻿namespace LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Excluir;
+
+public record ExcluirFuncionarioResponse;

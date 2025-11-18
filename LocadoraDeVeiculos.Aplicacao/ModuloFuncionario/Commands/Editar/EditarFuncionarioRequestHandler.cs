@@ -1,0 +1,71 @@
+﻿using FluentResults;
+using FluentValidation;
+using LocadoraDeVeiculos.Aplicacao.Compartilhado;
+using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario;
+using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
+using MediatR;
+
+namespace LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Editar;
+
+public class EditarFuncionarioRequestHandler(
+    IRepositorioFuncionario repositorioFuncionario,
+    IContextoPersistencia contexto,
+    IValidator<Funcionario> validador
+) : IRequestHandler<EditarFuncionarioRequest, Result<EditarFuncionarioResponse>>
+{
+    public async Task<Result<EditarFuncionarioResponse>> Handle(EditarFuncionarioRequest request, CancellationToken cancellationToken)
+    {
+        var funcionarioSelecionado = await repositorioFuncionario.SelecionarPorIdAsync(request.Id);
+
+        if (funcionarioSelecionado == null)
+            return Result.Fail(ErrorResults.NotFoundError(request.Id));
+
+        funcionarioSelecionado.Nome = request.Nome;
+        funcionarioSelecionado.Salario = request.Salario;
+        funcionarioSelecionado.Admissao = request.Admissao;
+
+        var resultadoValidacao = 
+            await validador.ValidateAsync(funcionarioSelecionado, cancellationToken);
+        
+        if (!resultadoValidacao.IsValid)
+        {
+            var erros = resultadoValidacao.Errors
+                .Select(failure => failure.ErrorMessage)
+                .ToList();
+
+            return Result.Fail(ErrorResults.BadRequestError(erros));
+        }
+
+        var medicos = await repositorioFuncionario.SelecionarTodosAsync();
+
+        if (NomeDuplicado(funcionarioSelecionado, medicos))
+            return Result.Fail(FuncionarioErrorResults.NomeDuplicadoError(funcionarioSelecionado.Nome));
+        
+        try
+        {
+            await repositorioFuncionario.EditarAsync(funcionarioSelecionado);
+
+            await contexto.GravarAsync();
+        }
+        catch (Exception ex)
+        {
+            await contexto.RollbackAsync();
+            
+            return Result.Fail(ErrorResults.InternalServerError(ex));
+        }
+ 
+        return Result.Ok(new EditarFuncionarioResponse(funcionarioSelecionado.Id));
+    }
+    
+    private bool NomeDuplicado(Funcionario medico, IList<Funcionario> medicos)
+    {
+        return medicos
+            .Where(r => r.Id != medico.Id)
+            .Any(registro => string.Equals(
+                registro.Nome,
+                medico.Nome,
+                StringComparison.CurrentCultureIgnoreCase)
+            );
+    }
+}
