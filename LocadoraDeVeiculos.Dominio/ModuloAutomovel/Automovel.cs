@@ -11,7 +11,7 @@ public class Automovel : EntidadeBase
     public string Cor { get; set; }
     public int Ano { get; set; }
     public int CapacidadeTanque { get; set; }
-    public GrupoAutomovel? GrupoAutomovel { get; set; }
+    public GrupoAutomovel GrupoAutomovel { get; set; }
     public string Foto { get; set; }
     public ECombustivel Combustivel { get; set; }
 
