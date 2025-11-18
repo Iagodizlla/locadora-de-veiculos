@@ -1,7 +1,9 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
+using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloGrupoAutomovel;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +17,7 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
         if (tenantProvider is not null)
         {
             modelBuilder.Entity<Funcionario>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
-            //modelBuilder.Entity<GrupoAutomovel>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
+            modelBuilder.Entity<GrupoAutomovel>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
             //modelBuilder.Entity<Plano>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
             //modelBuilder.Entity<Automovel>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
             //modelBuilder.Entity<Cliente>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
@@ -26,7 +28,7 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
         }
 
         modelBuilder.ApplyConfiguration(new MapeadorFuncionarioEmOrm());
-        //modelBuilder.ApplyConfiguration(new MapeadorGrupoAutomovelEmOrm());
+        modelBuilder.ApplyConfiguration(new MapeadorGrupoAutomovelEmOrm());
         //modelBuilder.ApplyConfiguration(new MapeadorPlanoEmOrm());
         //modelBuilder.ApplyConfiguration(new MapeadorAutomovelEmOrm());
         //modelBuilder.ApplyConfiguration(new MapeadorClienteEmOrm());

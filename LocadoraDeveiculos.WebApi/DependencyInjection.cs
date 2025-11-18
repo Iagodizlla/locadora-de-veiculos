@@ -2,8 +2,10 @@
 using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
+using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.WebApi.Filters;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -45,7 +47,7 @@ public static class DependencyInjection
     public static void ConfigureRepositories(this IServiceCollection services)
     {
         services.AddScoped<IRepositorioFuncionario, RepositorioFuncionarioEmOrm>();
-        //services.AddScoped<IRepositorioGrupoAutomovel, RepositorioGrupoAutomovelEmOrm>();
+        services.AddScoped<IRepositorioGrupoAutomovel, RepositorioGrupoAutomovelEmOrm>();
         //services.AddScoped<IRepositorioAutomovelo, RepositorioAutomovelEmOrm>();
         //services.AddScoped<IRepositorioCliente, RepositorioClienteEmOrm>();
         //services.AddScoped<IRepositorioPlano, RepositorioPlanoEmOrm>();
