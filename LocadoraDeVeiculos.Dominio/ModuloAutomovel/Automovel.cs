@@ -15,6 +15,8 @@ public class Automovel : EntidadeBase
     public string Foto { get; set; }
     public ECombustivel Combustivel { get; set; }
 
+    public Guid GrupoAutomovelId { get; set; }
+
     public Automovel() { }
 
     public Automovel(string placa, string marca, string modelo, string cor, int ano, int capacidadeTanque, GrupoAutomovel grupoAutomovel, string foto, ECombustivel combustivel) : this()
