@@ -13,14 +13,14 @@ public class ExcluirFuncionarioRequestHandler(
 {
     public async Task<Result<ExcluirFuncionarioResponse>> Handle(ExcluirFuncionarioRequest request, CancellationToken cancellationToken)
     {
-        var medicoSelecionado = await repositorioFuncionario.SelecionarPorIdAsync(request.Id);
+        var funcionarioSelecionado = await repositorioFuncionario.SelecionarPorIdAsync(request.Id);
 
-        if (medicoSelecionado is null)
+        if (funcionarioSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
         try
         {
-            await repositorioFuncionario.ExcluirAsync(medicoSelecionado);
+            await repositorioFuncionario.ExcluirAsync(funcionarioSelecionado);
 
             await contexto.GravarAsync();
         }

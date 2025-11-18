@@ -13,16 +13,16 @@ public class SelecionarFuncionarioPorIdRequestHandler(
 {
     public async Task<Result<SelecionarFuncionarioPorIdResponse>> Handle(SelecionarFuncionarioPorIdRequest request, CancellationToken cancellationToken)
     {
-        var medicoSelecionado = await repositorioFuncionario.SelecionarPorIdAsync(request.Id);
+        var funcionarioSelecionado = await repositorioFuncionario.SelecionarPorIdAsync(request.Id);
 
-        if (medicoSelecionado is null)
+        if (funcionarioSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
         var resposta = new SelecionarFuncionarioPorIdResponse(
-            medicoSelecionado.Id,
-            medicoSelecionado.Nome,
-            medicoSelecionado.Salario,
-            medicoSelecionado.Admissao
+            funcionarioSelecionado.Id,
+            funcionarioSelecionado.Nome,
+            funcionarioSelecionado.Salario,
+            funcionarioSelecionado.Admissao
         );
 
         return Result.Ok(resposta);

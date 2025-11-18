@@ -37,9 +37,9 @@ public class EditarFuncionarioRequestHandler(
             return Result.Fail(ErrorResults.BadRequestError(erros));
         }
 
-        var medicos = await repositorioFuncionario.SelecionarTodosAsync();
+        var funcionarios = await repositorioFuncionario.SelecionarTodosAsync();
 
-        if (NomeDuplicado(funcionarioSelecionado, medicos))
+        if (NomeDuplicado(funcionarioSelecionado, funcionarios))
             return Result.Fail(FuncionarioErrorResults.NomeDuplicadoError(funcionarioSelecionado.Nome));
         
         try
@@ -58,13 +58,13 @@ public class EditarFuncionarioRequestHandler(
         return Result.Ok(new EditarFuncionarioResponse(funcionarioSelecionado.Id));
     }
     
-    private bool NomeDuplicado(Funcionario medico, IList<Funcionario> medicos)
+    private bool NomeDuplicado(Funcionario funcionario, IList<Funcionario> funcionarios)
     {
-        return medicos
-            .Where(r => r.Id != medico.Id)
+        return funcionarios
+            .Where(r => r.Id != funcionario.Id)
             .Any(registro => string.Equals(
                 registro.Nome,
-                medico.Nome,
+                funcionario.Nome,
                 StringComparison.CurrentCultureIgnoreCase)
             );
     }
