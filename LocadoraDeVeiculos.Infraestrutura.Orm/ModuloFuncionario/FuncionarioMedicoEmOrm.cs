@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
 
-public class FuncionarioFuncionarioEmOrm : IEntityTypeConfiguration<Funcionario>
+public class MapeadorFuncionarioEmOrm : IEntityTypeConfiguration<Funcionario>
 {
     public void Configure(EntityTypeBuilder<Funcionario> modelBuilder)
     {

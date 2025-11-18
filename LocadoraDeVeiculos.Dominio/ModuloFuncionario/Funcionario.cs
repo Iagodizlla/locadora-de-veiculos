@@ -8,7 +8,9 @@ public class Funcionario : EntidadeBase
     public double Salario { get; set; }
     public DateTimeOffset Admissao { get; set; }
 
-    public Funcionario(string nome, double salario, DateTimeOffset admissao)
+    public Funcionario() { }
+
+    public Funcionario(string nome, double salario, DateTimeOffset admissao) : this()
     {
         this.Nome = nome;
         this.Salario = salario;
