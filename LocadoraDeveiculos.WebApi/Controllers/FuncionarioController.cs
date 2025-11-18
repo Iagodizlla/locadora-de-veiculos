@@ -1,17 +1,14 @@
-﻿using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarPorId;
+﻿using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Editar;
+using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Excluir;
+using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
+using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarPorId;
 using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarTodos;
 using LocadoraDeVeiculos.WebApi.Extensions;
-using LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Editar;
-using LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Excluir;
-using LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
-using LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarPorId;
-using LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarTodos;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LocadoreDeVeiculos.WebApi.Controllers;
+namespace LocadoraDeVeiculos.WebApi.Controllers;
 
 [ApiController]
 [Authorize]

@@ -54,7 +54,7 @@ public static class AuthDependencyInjection
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(chaveEmBytes),
                 ValidAudience = audienciaValida,
-                ValidIssuer = "OrganizaMed",
+                ValidIssuer = "LocadoraVeiculo",
                 ValidateAudience = true,
                 ValidateIssuer = true,
                 ValidateLifetime = true,

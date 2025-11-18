@@ -1,11 +1,9 @@
 ﻿using FluentResults;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
-using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarPorId;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
-using LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarPorId;
 using MediatR;
 
-namespace OrganizaMed.Aplicacao.ModuloFuncionario.Commands.SelecionarPorId;
+namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarPorId;
 
 public class SelecionarFuncionarioPorIdRequestHandler(
     IRepositorioFuncionario repositorioFuncionario

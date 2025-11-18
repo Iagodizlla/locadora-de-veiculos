@@ -1,7 +1,7 @@
 ﻿using FluentResults;
 using MediatR;
 
-namespace LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Editar;
+namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Editar;
 
 public record EditarFuncionarioPartialRequest(string Nome, double Salario, DateTimeOffset Admissao);
 

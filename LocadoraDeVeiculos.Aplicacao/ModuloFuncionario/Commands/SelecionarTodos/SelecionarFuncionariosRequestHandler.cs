@@ -1,6 +1,5 @@
 ﻿using FluentResults;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
-using LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarTodos;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarTodos;

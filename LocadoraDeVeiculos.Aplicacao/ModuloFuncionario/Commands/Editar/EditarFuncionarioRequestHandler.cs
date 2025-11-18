@@ -6,7 +6,7 @@ using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using MediatR;
 
-namespace LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Editar;
+namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Editar;
 
 public class EditarFuncionarioRequestHandler(
     IRepositorioFuncionario repositorioFuncionario,

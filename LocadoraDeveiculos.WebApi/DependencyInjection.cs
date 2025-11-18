@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
+using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
 using LocadoraDeVeiculos.WebApi.Filters;
-using LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -69,7 +69,7 @@ public static class DependencyInjection
 
         services.AddSwaggerGen(options =>
         {
-            options.SwaggerDoc("v1", new OpenApiInfo { Title = "OrganizaMed API", Version = "v1" });
+            options.SwaggerDoc("v1", new OpenApiInfo { Title = "LocadoraVeiculo API", Version = "v1" });
 
             options.MapType<TimeSpan>(() => new OpenApiSchema
             {
@@ -167,7 +167,7 @@ public static class DependencyInjection
             .WriteTo.Console()
             .WriteTo.NewRelicLogs(
                 endpointUrl: "https://log-api.newrelic.com/log/v1",
-                applicationName: "organiza-med-api",
+                applicationName: "locadora-veiculo-api",
                 licenseKey: config["NEWRELIC_LICENSE_KEY"]
             )
             .CreateLogger();

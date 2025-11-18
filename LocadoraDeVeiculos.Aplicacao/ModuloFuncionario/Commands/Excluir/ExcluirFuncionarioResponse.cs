@@ -1,3 +1,3 @@
-﻿namespace LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Excluir;
+﻿namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Excluir;
 
 public record ExcluirFuncionarioResponse;

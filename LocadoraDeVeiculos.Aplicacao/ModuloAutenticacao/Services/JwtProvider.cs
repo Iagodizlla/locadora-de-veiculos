@@ -37,7 +37,7 @@ public class JwtProvider : ITokenProvider
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Issuer = "OrganizaMed",
+            Issuer = "LocadoraVeiculo",
             Audience = audienciaValida,
             Subject = new ClaimsIdentity(new[]
             {

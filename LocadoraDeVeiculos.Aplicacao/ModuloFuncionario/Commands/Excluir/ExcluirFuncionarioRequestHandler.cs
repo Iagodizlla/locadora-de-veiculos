@@ -4,7 +4,7 @@ using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using MediatR;
 
-namespace LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Excluir;
+namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Excluir;
 
 public class ExcluirFuncionarioRequestHandler(
     IRepositorioFuncionario repositorioFuncionario,

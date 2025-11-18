@@ -1,3 +1,3 @@
-﻿namespace LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Editar;
+﻿namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Editar;
 
 public record EditarFuncionarioResponse(Guid Id);

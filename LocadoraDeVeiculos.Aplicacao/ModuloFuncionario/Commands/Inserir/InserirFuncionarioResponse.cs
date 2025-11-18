@@ -1,3 +1,3 @@
-﻿namespace LocadoreDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
+﻿namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
 
 public record InserirFuncionarioResponse(Guid Id);
