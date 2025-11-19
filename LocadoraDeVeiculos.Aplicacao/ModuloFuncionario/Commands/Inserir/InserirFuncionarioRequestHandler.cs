@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
 
 public class InserirFuncionarioRequestHandler(
-    UserManager<Funcionario> userManager,
+    //UserManager<Funcionario> userManager,
     IContextoPersistencia contexto,
     IRepositorioFuncionario repositorioFuncionario,
     ITenantProvider tenantProvider,
@@ -46,7 +46,7 @@ public class InserirFuncionarioRequestHandler(
         // inserção
         try
         {
-            await userManager.AddToRoleAsync(funcionario, "Funcionario");
+            //await userManager.AddToRoleAsync(funcionario, "Funcionario");
 
             await repositorioFuncionario.InserirAsync(funcionario);
 
