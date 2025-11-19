@@ -20,7 +20,7 @@ public class InserirGrupoAutomovelRequestHandler(
     {
         var grupoAutomovel = new GrupoAutomovel(request.Nome)
         {
-            UsuarioId = tenantProvider.UsuarioId.GetValueOrDefault()
+            EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
 
         // validações

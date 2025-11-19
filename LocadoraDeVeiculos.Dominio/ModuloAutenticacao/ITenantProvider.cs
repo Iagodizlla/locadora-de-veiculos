@@ -2,5 +2,5 @@
 
 public interface ITenantProvider
 {
-    Guid? UsuarioId { get; }
+    Guid? EmpresaId { get; }
 }

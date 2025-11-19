@@ -20,12 +20,12 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
     {
         if (tenantProvider is not null)
         {
-            modelBuilder.Entity<Funcionario>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
-            modelBuilder.Entity<GrupoAutomovel>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
+            modelBuilder.Entity<Funcionario>().HasQueryFilter(m => m.UsuarioId == tenantProvider.EmpresaId);
+            modelBuilder.Entity<GrupoAutomovel>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             //modelBuilder.Entity<Plano>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
-            modelBuilder.Entity<Automovel>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
+            modelBuilder.Entity<Automovel>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             //modelBuilder.Entity<Cliente>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
-            modelBuilder.Entity<Condutor>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
+            modelBuilder.Entity<Condutor>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             //modelBuilder.Entity<Taxa>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
             //modelBuilder.Entity<Aluguel>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
             //modelBuilder.Entity<Configuracao>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);

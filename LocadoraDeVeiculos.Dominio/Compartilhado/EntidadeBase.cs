@@ -11,6 +11,6 @@ public abstract class EntidadeBase
         Id = Guid.NewGuid();
     }
 
-    public Guid UsuarioId { get; set; }
-    public Usuario? Usuario { get; set; }
+    public Guid EmpresaId { get; set; }
+    public Usuario? Empresa { get; set; }
 }

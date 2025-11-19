@@ -20,7 +20,7 @@ public class InserirCondutorRequestHandler(
     {
         var condutor = new Condutor(request.Nome, request.Cnh, request.Categoria, request.ValidadeCnh)
         {
-            UsuarioId = tenantProvider.UsuarioId.GetValueOrDefault()
+            EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
 
         // validações

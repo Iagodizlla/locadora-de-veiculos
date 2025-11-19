@@ -20,7 +20,7 @@ public class InserirAutomovelRequestHandler(
     {
         var automovel = new Automovel(request.Placa, request.Marca, request.Modelo, request.Cor, request.Ano, request.CapacidadeTanque, request.GrupoAutomovel, request.Foto, request.Combustivel)
         {
-            UsuarioId = tenantProvider.UsuarioId.GetValueOrDefault()
+            EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
 
         // validações
