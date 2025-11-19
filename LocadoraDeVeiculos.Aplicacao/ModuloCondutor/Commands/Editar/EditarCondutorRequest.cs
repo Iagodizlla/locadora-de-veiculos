@@ -1,0 +1,10 @@
+﻿using FluentResults;
+using LocadoraDeVeiculos.Dominio.ModuloCondutor;
+using MediatR;
+
+namespace LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Editar;
+
+public record EditarCondutorPartialRequest(string Nome, string Cnh, ECategoria Categoria, DateTimeOffset ValidadeCnh);
+
+public record EditarCondutorRequest(Guid Id, string Nome, string Cnh, ECategoria Categoria, DateTimeOffset ValidadeCnh)
+    : IRequest<Result<EditarCondutorResponse>>;
