@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
 
 public class InserirFuncionarioRequestHandler(
-    UserManager<Usuario> userManager,
+    //UserManager<Funcionario> userManager,
     IContextoPersistencia contexto,
     IRepositorioFuncionario repositorioFuncionario,
     ITenantProvider tenantProvider,
@@ -21,30 +21,9 @@ public class InserirFuncionarioRequestHandler(
     public async Task<Result<InserirFuncionarioResponse>> Handle(
         InserirFuncionarioRequest request, CancellationToken cancellationToken)
     {
-        var usuario = new Usuario
-        {
-            UserName = request.UserName,
-            Email = request.Email
-        };
-
-        var usuarioResult = await userManager.CreateAsync(usuario, request.Password);
-
-        if (!usuarioResult.Succeeded)
-        {
-            var erros = usuarioResult
-                .Errors
-                .Select(failure => failure.Description)
-                .ToList();
-
-            return Result.Fail(ErrorResults.BadRequestError(erros));
-        }
-
-        await userManager.AddToRoleAsync(usuario, "Funcionario");
-
         var funcionario = new Funcionario(request.Nome, request.Salario, request.Admissao)
         {
-            EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault(),
-            UsuarioId = usuario.Id
+            UsuarioId = tenantProvider.UsuarioId.GetValueOrDefault()
         };
 
         // validações
@@ -67,6 +46,8 @@ public class InserirFuncionarioRequestHandler(
         // inserção
         try
         {
+            //await userManager.AddToRoleAsync(funcionario, "Funcionario");
+
             await repositorioFuncionario.InserirAsync(funcionario);
 
             await contexto.GravarAsync();

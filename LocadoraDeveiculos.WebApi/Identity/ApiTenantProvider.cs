@@ -6,7 +6,7 @@ namespace LocadoraDeVeiculos.WebApi.Identity;
 
 public class ApiTenantProvider(IHttpContextAccessor contextAccessor) : ITenantProvider
 {
-    public Guid? EmpresaId
+    public Guid? UsuarioId
     {
         get
         {

@@ -31,12 +31,5 @@ public class MapeadorFuncionarioEmOrm : IEntityTypeConfiguration<Funcionario>
             .HasForeignKey(a => a.UsuarioId)
             .IsRequired()
             .OnDelete(DeleteBehavior.NoAction);
-
-        modelBuilder.HasOne(c => c.Empresa)
-               .WithMany()
-               .HasForeignKey(f => f.EmpresaId)
-               .OnDelete(DeleteBehavior.Restrict);
-
-        modelBuilder.HasIndex(f => new { f.EmpresaId, f.Excluido });
     }
 }

@@ -5,9 +5,3 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
 public class Cargo : IdentityRole<Guid>
 {
 }
-
-public enum ECargo
-{
-    Administrador,
-    Funcionario
-}
