@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 
 namespace LocadoraDeVeiculos.Dominio.ModuloCliente;
 
@@ -16,11 +15,10 @@ public class ValidadorCliente : AbstractValidator<Cliente>
             });
 
         RuleFor(m => m.Endereco)
-            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
+            .NotNull().WithMessage("O campo {PropertyName} é obrigatório")
             .DependentRules(() =>
             {
-                RuleFor(m => m.Endereco).MinimumLength(5)
-                    .WithMessage("O campo {PropertyName} deve conter no mínimo {MinLength} caracteres");
+                RuleFor(m => m.Endereco).SetValidator(new ValidadorEndereco());
             });
 
         RuleFor(m => m.Telefone)
@@ -32,51 +30,20 @@ public class ValidadorCliente : AbstractValidator<Cliente>
             });
     }
 }
-
-public class ValidadorPessoaFisica : AbstractValidator<PessoaFisica>
+public class ValidadorEndereco : AbstractValidator<Endereco>
 {
-    public ValidadorPessoaFisica()
+    public ValidadorEndereco()
     {
-        RuleFor(m => m.Cpf)
+        RuleFor(e => e.Logradouro)
+            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório");
+        RuleFor(e => e.Cidade)
+            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório");
+        RuleFor(e => e.Estado)
+            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório");
+        RuleFor(e => e.Bairro)
+            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório");
+        RuleFor(e => e.Numero)
             .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
-            .DependentRules(() =>
-            {
-                RuleFor(m => m.Cpf).MinimumLength(11)
-                    .WithMessage("O campo {PropertyName} deve conter no mínimo {MinLength} caracteres");
-            });
-        RuleFor(m => m.Rg)
-            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
-            .DependentRules(() =>
-            {
-                RuleFor(m => m.Rg).MinimumLength(7)
-                    .WithMessage("O campo {PropertyName} deve conter no mínimo {MinLength} caracteres");
-            });
-        RuleFor(m => m.Cnh)
-            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
-            .DependentRules(() =>
-            {
-                RuleFor(m => m.Cnh).MinimumLength(11)
-                    .WithMessage("O campo {PropertyName} deve conter no mínimo {MinLength} caracteres");
-            });
-    }
-}
-
-public class ValidadorPessoaJuridica : AbstractValidator<PessoaJuridica>
-{
-    public ValidadorPessoaJuridica()
-    {
-        RuleFor(m => m.Cnpj)
-            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
-            .DependentRules(() =>
-            {
-                RuleFor(m => m.Cnpj).MinimumLength(14)
-                    .WithMessage("O campo {PropertyName} deve conter no mínimo {MinLength} caracteres");
-            });
-        RuleFor(m => m.RepresentanteLegal)
-            .NotNull().WithMessage("O campo {PropertyName} é obrigatório")
-            .DependentRules(() =>
-            {
-                RuleFor(m => m.RepresentanteLegal).SetValidator(new ValidadorPessoaFisica());
-            });
+            .GreaterThan(0).WithMessage("O campo {PropertyName} deve ser maior que zero");
     }
 }
