@@ -6,10 +6,12 @@ using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
 
 public class InserirFuncionarioRequestHandler(
+    UserManager<Funcionario> userManager,
     IContextoPersistencia contexto,
     IRepositorioFuncionario repositorioFuncionario,
     ITenantProvider tenantProvider,
@@ -44,6 +46,8 @@ public class InserirFuncionarioRequestHandler(
         // inserção
         try
         {
+            await userManager.AddToRoleAsync(funcionario, "Funcionario");
+
             await repositorioFuncionario.InserirAsync(funcionario);
 
             await contexto.GravarAsync();

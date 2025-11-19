@@ -33,6 +33,7 @@ public class RegistrarUsuarioRequestHandler(
             return Result.Fail(ErrorResults.BadRequestError(erros));
         }
 
+        await userManager.AddToRoleAsync(usuario, "Administrador");
         var tokenAcesso = tokenProvider.GerarTokenDeAcesso(usuario) as TokenResponse;
 
         if (tokenAcesso == null)
