@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
+using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 
 namespace LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 
@@ -56,7 +58,11 @@ public class ValidadorAutomovel : AbstractValidator<Automovel>
             .GreaterThan(0).WithMessage("O campo {PropertyName} deve ser maior que zero");
 
         RuleFor(m => m.GrupoAutomovel)
-            .NotNull().WithMessage("O campo {PropertyName} é obrigatório");
+            .NotNull().WithMessage("O campo {PropertyName} é obrigatório")
+            .DependentRules(() =>
+            {
+                RuleFor(m => m.GrupoAutomovel).SetValidator(new ValidadorGrupoAutomovel());
+            });
 
         RuleFor(m => m.Combustivel)
             .IsInEnum().WithMessage("O campo {PropertyName} é obrigatório");
