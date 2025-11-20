@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
+using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloAutomovel.Commands.Inserir;
@@ -11,6 +12,7 @@ namespace LocadoraDeVeiculos.Aplicacao.ModuloAutomovel.Commands.Inserir;
 public class InserirAutomovelRequestHandler(
     IContextoPersistencia contexto,
     IRepositorioAutomovel repositorioAutomovel,
+    IRepositorioGrupoAutomovel repositorioGrupo,
     ITenantProvider tenantProvider,
     IValidator<Automovel> validador
 ) : IRequestHandler<InserirAutomovelRequest, Result<InserirAutomovelResponse>>
@@ -18,7 +20,12 @@ public class InserirAutomovelRequestHandler(
     public async Task<Result<InserirAutomovelResponse>> Handle(
         InserirAutomovelRequest request, CancellationToken cancellationToken)
     {
-        var automovel = new Automovel(request.Placa, request.Marca, request.Modelo, request.Cor, request.Ano, request.CapacidadeTanque, request.GrupoAutomovel, request.Foto, request.Combustivel)
+        var grupo = await repositorioGrupo.SelecionarPorIdAsync(request.GrupoAutomovelId);
+
+        if (GrupoNaoEncontrado(grupo))
+            return Result.Fail(AutomovelErrorResults.GrupoNaoEncontradoError());
+
+        var automovel = new Automovel(request.Placa, request.Marca, request.Modelo, request.Cor, request.Ano, request.CapacidadeTanque, grupo, request.Foto, request.Combustivel)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
@@ -39,9 +46,6 @@ public class InserirAutomovelRequestHandler(
 
         if (PlacaDuplicado(automovel, automoveisRegistrados))
             return Result.Fail(AutomovelErrorResults.PlacaDuplicadoError(automovel.Placa));
-
-        if (GrupoNaoEncontrado(automovel))
-            return Result.Fail(AutomovelErrorResults.GrupoNaoEncontradoError());
 
         // inserção
         try
@@ -69,8 +73,8 @@ public class InserirAutomovelRequestHandler(
                 StringComparison.CurrentCultureIgnoreCase)
             );
     }
-    private bool GrupoNaoEncontrado(Automovel automovel)
+    private bool GrupoNaoEncontrado(GrupoAutomovel grupo)
     {
-        return automovel.GrupoAutomovel == null;
+        return grupo == null;
     }
 }
