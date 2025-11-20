@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.WebApi.Config;
+using LocadoraDeVeiculos.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Serilog;
 
@@ -6,7 +7,7 @@ namespace LocadoraDeVeiculos.WebApi;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,8 @@ public class Program
         app.UseGlobalExceptionHandler();
 
         app.AutoMigrateDatabase();
+
+        await app.IdentitySeederAsync();
 
         app.UseSwagger();
 
