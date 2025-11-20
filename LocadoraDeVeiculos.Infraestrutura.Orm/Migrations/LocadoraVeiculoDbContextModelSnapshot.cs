@@ -134,6 +134,9 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Foto")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -153,14 +156,11 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<Guid>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("GrupoAutomovelId");
+                    b.HasIndex("EmpresaId");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("GrupoAutomovelId");
 
                     b.ToTable("TBAutomovel", (string)null);
                 });
@@ -177,19 +177,19 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<Guid>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset>("ValidadeCnh")
                         .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("EmpresaId");
 
                     b.ToTable("TBCondutor", (string)null);
                 });
@@ -202,6 +202,12 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<DateTimeOffset>("Admissao")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Excluido")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
@@ -209,12 +215,15 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<double>("Salario")
                         .HasColumnType("float");
 
-                    b.Property<Guid>("UsuarioId")
+                    b.Property<Guid?>("UsuarioId")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UsuarioId");
+
+                    b.HasIndex("EmpresaId", "Excluido");
 
                     b.ToTable("TBFuncionario", (string)null);
                 });
@@ -224,16 +233,16 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid>("UsuarioId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("EmpresaId");
 
                     b.ToTable("TBGrupoAutomovel", (string)null);
                 });
@@ -343,54 +352,62 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloAutomovel.Automovel", b =>
                 {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel.GrupoAutomovel", "GrupoAutomovel")
                         .WithMany()
                         .HasForeignKey("GrupoAutomovelId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                    b.Navigation("Empresa");
 
                     b.Navigation("GrupoAutomovel");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloCondutor.Condutor", b =>
                 {
-                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Usuario")
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Empresa")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Usuario");
+                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloFuncionario.Funcionario", b =>
                 {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Usuario")
                         .WithMany()
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Empresa");
 
                     b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel.GrupoAutomovel", b =>
                 {
-                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Usuario")
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Empresa")
                         .WithMany()
-                        .HasForeignKey("UsuarioId")
+                        .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Usuario");
+                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
