@@ -2,6 +2,7 @@
 using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
+using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
@@ -10,6 +11,7 @@ using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAutomovel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCondutor;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloGrupoAutomovel;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloGrupoCliente;
 using LocadoraDeVeiculos.WebApi.Filters;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -53,7 +55,7 @@ public static class DependencyInjection
         services.AddScoped<IRepositorioFuncionario, RepositorioFuncionarioEmOrm>();
         services.AddScoped<IRepositorioGrupoAutomovel, RepositorioGrupoAutomovelEmOrm>();
         services.AddScoped<IRepositorioAutomovel, RepositorioAutomovelEmOrm>();
-        //services.AddScoped<IRepositorioCliente, RepositorioClienteEmOrm>();
+        services.AddScoped<IRepositorioCliente, RepositorioClienteEmOrm>();
         //services.AddScoped<IRepositorioPlano, RepositorioPlanoEmOrm>();
         services.AddScoped<IRepositorioCondutor, RepositorioCondutorEmOrm>();
         //services.AddScoped<IRepositorioTaxa, RepositorioTaxaEmOrm>();
