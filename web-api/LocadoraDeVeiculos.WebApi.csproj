@@ -32,8 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LocadoraDeVeiculos.Aplicacao\LocadoraDeVeiculos.Aplicacao.csproj" />
-    <ProjectReference Include="..\LocadoraDeVeiculos.Infraestrutura.Orm\LocadoraDeVeiculos.Infraestrutura.Orm.csproj" />
+    <ProjectReference Include="..\aplicacao\LocadoraDeVeiculos.Aplicacao.csproj" />
+    <ProjectReference Include="..\infra\LocadoraDeVeiculos.Infraestrutura.Orm.csproj" />
   </ItemGroup>
 
 </Project>

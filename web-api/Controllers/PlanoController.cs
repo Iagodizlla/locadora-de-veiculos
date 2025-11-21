@@ -32,7 +32,7 @@ public class PlanoController(IMediator mediator) : ControllerBase
         var editarRequest = new EditarPlanoRequest(
             id,
             request.TipoPlano,
-            request.GrupoAutomovel,
+            request.GrupoAutomovelId,
             request.PrecoDiario,
             request.PrecoPorKm,
             request.KmLivres,

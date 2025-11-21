@@ -1,6 +1,5 @@
 ﻿using LocadoraDeVeiculos.WebApi.Config;
 using LocadoraDeVeiculos.WebApi.Extensions;
-using Microsoft.AspNetCore.Builder;
 using Serilog;
 
 namespace LocadoraDeVeiculos.WebApi;
