@@ -20,7 +20,17 @@ public class InserirClienteRequestHandler(
     public async Task<Result<InserirClienteResponse>> Handle(
         InserirClienteRequest request, CancellationToken cancellationToken)
     {
-        var cliente = new Cliente(request.Nome, request.Endereco, request.Telefone, request.TipoCliente, request.Documento, request.Cnh)
+        var endereco = new Endereco(
+            request.Endereco.Logradouro,
+            request.Endereco.Numero,
+            request.Endereco.Bairro,
+            request.Endereco.Cidade,
+            request.Endereco.Estado
+        )
+        {
+            EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
+        };
+        var cliente = new Cliente(request.Nome, endereco, request.Telefone, request.TipoCliente, request.Documento, request.Cnh)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };

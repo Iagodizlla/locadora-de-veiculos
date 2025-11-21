@@ -15,13 +15,21 @@ public class EditarClienteRequestHandler(
 {
     public async Task<Result<EditarClienteResponse>> Handle(EditarClienteRequest request, CancellationToken cancellationToken)
     {
+        var endereco = new Endereco(
+           request.Endereco.Logradouro,
+           request.Endereco.Numero,
+           request.Endereco.Bairro,
+           request.Endereco.Cidade,
+           request.Endereco.Estado
+        );
+
         var clienteSelecionado = await repositorioCliente.SelecionarPorIdAsync(request.Id);
 
         if (clienteSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
         clienteSelecionado.Nome = request.Nome;
-        clienteSelecionado.Endereco = request.Endereco;
+        clienteSelecionado.Endereco = endereco;
         clienteSelecionado.Telefone = request.Telefone;
         clienteSelecionado.ClienteTipo = request.TipoCliente;
         clienteSelecionado.Documento = request.Documento;
