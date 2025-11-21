@@ -16,7 +16,7 @@ public class SelecionarPlanosRequestHandler(
         {
             QuantidadeRegistros = registros.Count,
             Registros = registros
-                .Select(r => new SelecionarPlanosDto(r.Id, r.TipoPlano, r.GrupoAutomovel, r.PrecoDiario, r.PrecoPorKm, r.KmLivres, r.PrecoPorKmExplorado, r.KmLivres))
+                .Select(r => new SelecionarPlanosDto(r.Id, r.TipoPlano, r.GrupoAutomovel, r.PrecoDiario, r.PrecoPorKm, r.KmLivres, r.PrecoPorKmExplorado, r.PrecoLivre))
         };
 
         return Result.Ok(response);
