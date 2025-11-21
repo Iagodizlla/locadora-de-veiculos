@@ -1,6 +1,8 @@
-﻿namespace LocadoraDeVeiculos.Dominio.ModuloCliente;
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
 
-public class Endereco
+namespace LocadoraDeVeiculos.Dominio.ModuloCliente;
+
+public class Endereco : EntidadeBase
 {
     public string Logradouro { get; set; }
     public int Numero { get; set; }
