@@ -2,12 +2,14 @@
 using FluentValidation;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlano;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloPlano.Commands.Editar;
 
 public class EditarPlanoRequestHandler(
+    IRepositorioGrupoAutomovel repositorioGrupo,
     IRepositorioPlano repositorioPlano,
     IContextoPersistencia contexto,
     IValidator<Plano> validador
@@ -15,13 +17,18 @@ public class EditarPlanoRequestHandler(
 {
     public async Task<Result<EditarPlanoResponse>> Handle(EditarPlanoRequest request, CancellationToken cancellationToken)
     {
+        var grupo = await repositorioGrupo.SelecionarPorIdAsync(request.GrupoAutomovelId);
+
+        if (GrupoNaoEncontrado(grupo))
+            return Result.Fail(PlanoErrorResults.GrupoNaoEncontradoError());
+
         var planoSelecionado = await repositorioPlano.SelecionarPorIdAsync(request.Id);
 
         if (planoSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
         planoSelecionado.TipoPlano = request.TipoPlano;
-        planoSelecionado.GrupoAutomovel = request.GrupoAutomovel;
+        planoSelecionado.GrupoAutomovel = grupo;
         planoSelecionado.PrecoDiario = request.PrecoDiario;
         planoSelecionado.PrecoPorKm = request.PrecoPorKm;
         planoSelecionado.KmLivres = request.KmLivres;
@@ -42,9 +49,6 @@ public class EditarPlanoRequestHandler(
 
         var planos = await repositorioPlano.SelecionarTodosAsync();
 
-        if(GrupoNaoEncontrado(planoSelecionado))
-            return Result.Fail(PlanoErrorResults.GrupoNaoEncontradoError());
-
         if(GrupoDuplicado(planoSelecionado, planos))
             return Result.Fail(PlanoErrorResults.GrupoDuplicadoError(planoSelecionado.GrupoAutomovel.Nome));
 
@@ -64,9 +68,9 @@ public class EditarPlanoRequestHandler(
         return Result.Ok(new EditarPlanoResponse(planoSelecionado.Id));
     }
 
-    private bool GrupoNaoEncontrado(Plano plano)
+    private bool GrupoNaoEncontrado(GrupoAutomovel grupo)
     {
-        return plano.GrupoAutomovel == null;
+        return grupo == null;
     }
 
     private bool GrupoDuplicado(Plano plano, IList<Plano> planos)
