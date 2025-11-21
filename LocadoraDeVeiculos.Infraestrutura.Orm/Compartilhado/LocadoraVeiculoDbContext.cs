@@ -5,11 +5,13 @@ using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
+using LocadoraDeVeiculos.Dominio.ModuloPlano;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAutomovel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCliente;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCondutor;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloGrupoAutomovel;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloPlano;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,7 +26,7 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
         {
             modelBuilder.Entity<Funcionario>().HasQueryFilter(m => m.UsuarioId == tenantProvider.EmpresaId);
             modelBuilder.Entity<GrupoAutomovel>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
-            //modelBuilder.Entity<Plano>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
+            modelBuilder.Entity<Plano>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<Automovel>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<Cliente>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<Condutor>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
@@ -35,7 +37,7 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
 
         modelBuilder.ApplyConfiguration(new MapeadorFuncionarioEmOrm());
         modelBuilder.ApplyConfiguration(new MapeadorGrupoAutomovelEmOrm());
-        //modelBuilder.ApplyConfiguration(new MapeadorPlanoEmOrm());
+        modelBuilder.ApplyConfiguration(new MapeadorPlanoEmOrm());
         modelBuilder.ApplyConfiguration(new MapeadorAutomovelEmOrm());
         modelBuilder.ApplyConfiguration(new MapeadorClienteEmOrm());
         modelBuilder.ApplyConfiguration(new MapeadorCondutorEmOrm());
