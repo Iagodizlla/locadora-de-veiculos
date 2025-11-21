@@ -15,7 +15,7 @@ public class ValidadorPlano : AbstractValidator<Plano>
             .Must(plano => plano.TipoPlano == ETipoPlano.Diario ||
                            plano.TipoPlano == ETipoPlano.Controlado ||
                            plano.TipoPlano == ETipoPlano.Livre)
-            .WithMessage("O tipo do plano deve ser Diário, Km Controlado ou Livre.");
+            .WithMessage("O tipo do plano deve ser Diário, Controlado ou Livre.");
 
         RuleFor(m => m.GrupoAutomovel)
             .NotNull().WithMessage("O campo {PropertyName} é obrigatório")
@@ -25,18 +25,20 @@ public class ValidadorPlano : AbstractValidator<Plano>
             });
 
         RuleFor(plano => plano.PrecoDiario)
-            .GreaterThan(0).WithMessage("O valor diário deve ser maior que zero.");
+            .GreaterThan(0).When(plano => plano.TipoPlano != ETipoPlano.Livre)
+            .WithMessage("O valor diário deve ser maior que zero para o plano Diário ou Controlado.");
 
         RuleFor(plano => plano.PrecoPorKm)
-            .GreaterThanOrEqualTo(0).WithMessage("O valor por km deve ser maior ou igual a zero.");
+            .GreaterThan(0).When(plano => plano.TipoPlano == ETipoPlano.Diario)
+            .WithMessage("O valor por km deve ser maior que zero para o plano Diário.");
 
         RuleFor(plano => plano.KmLivres)
             .GreaterThan(0).When(plano => plano.TipoPlano == ETipoPlano.Controlado)
-            .WithMessage("O limite de quilometragem deve ser maior que zero para o plano Km Controlado.");
+            .WithMessage("O limite de quilometragem deve ser maior que zero para o plano Controlado.");
 
         RuleFor(plano => plano.PrecoPorKmExplorado)
             .GreaterThan(0).When(plano => plano.TipoPlano == ETipoPlano.Controlado)
-            .WithMessage("O valor por km explorado deve ser maior que zero para o plano Km Controlado.");
+            .WithMessage("O valor por km explorado deve ser maior que zero para o plano Controlado.");
 
         RuleFor(plano => plano.PrecoLivre)
             .GreaterThan(0).When(plano => plano.TipoPlano == ETipoPlano.Livre)
