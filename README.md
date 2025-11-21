@@ -1,4 +1,4 @@
-# Locadora de Veículos — Backend
+# Locadora de Veículos
 
 <p align="left">
   <img src="https://skillicons.dev/icons?i=cs" height="50"/>
