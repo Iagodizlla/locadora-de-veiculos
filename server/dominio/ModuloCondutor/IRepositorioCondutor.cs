@@ -7,4 +7,5 @@ public interface IRepositorioCondutor
     Task<bool> ExcluirAsync(Condutor entidadeParaRemover);
     Task<List<Condutor>> SelecionarTodosAsync();
     Task<Condutor?> SelecionarPorIdAsync(Guid id);
+    Task<Condutor?> SelecionarPorCpfAsync(string cpf);
 }
