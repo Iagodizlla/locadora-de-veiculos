@@ -311,12 +311,12 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TipoPlano = table.Column<int>(type: "int", nullable: false),
-                    PrecoDiario = table.Column<double>(type: "float", nullable: true),
-                    PrecoPorKm = table.Column<double>(type: "float", nullable: true),
-                    KmLivres = table.Column<double>(type: "float", nullable: true),
-                    PrecoPorKmExplorado = table.Column<double>(type: "float", nullable: true),
-                    PrecoLivre = table.Column<double>(type: "float", nullable: true),
+                    PrecoDiario = table.Column<double>(type: "float", nullable: false),
+                    PrecoDiarioControlado = table.Column<double>(type: "float", nullable: false),
+                    PrecoPorKm = table.Column<double>(type: "float", nullable: false),
+                    KmLivres = table.Column<double>(type: "float", nullable: false),
+                    PrecoPorKmExplorado = table.Column<double>(type: "float", nullable: false),
+                    PrecoLivre = table.Column<double>(type: "float", nullable: false),
                     GrupoAutomovelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EmpresaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },

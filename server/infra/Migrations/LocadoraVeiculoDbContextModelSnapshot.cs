@@ -334,23 +334,23 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<Guid>("GrupoAutomovelId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double?>("KmLivres")
+                    b.Property<double>("KmLivres")
                         .HasColumnType("float");
 
-                    b.Property<double?>("PrecoDiario")
+                    b.Property<double>("PrecoDiario")
                         .HasColumnType("float");
 
-                    b.Property<double?>("PrecoLivre")
+                    b.Property<double>("PrecoDiarioControlado")
                         .HasColumnType("float");
 
-                    b.Property<double?>("PrecoPorKm")
+                    b.Property<double>("PrecoLivre")
                         .HasColumnType("float");
 
-                    b.Property<double?>("PrecoPorKmExplorado")
+                    b.Property<double>("PrecoPorKm")
                         .HasColumnType("float");
 
-                    b.Property<int>("TipoPlano")
-                        .HasColumnType("int");
+                    b.Property<double>("PrecoPorKmExplorado")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
