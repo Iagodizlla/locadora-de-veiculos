@@ -18,7 +18,7 @@ public class InserirCondutorRequestHandler(
     public async Task<Result<InserirCondutorResponse>> Handle(
         InserirCondutorRequest request, CancellationToken cancellationToken)
     {
-        var condutor = new Condutor(request.Nome, request.Cnh, request.Categoria, request.ValidadeCnh)
+        var condutor = new Condutor(request.Nome, request.Cnh, request.Cpf, request.Telefone, request.Categoria, request.ValidadeCnh)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };

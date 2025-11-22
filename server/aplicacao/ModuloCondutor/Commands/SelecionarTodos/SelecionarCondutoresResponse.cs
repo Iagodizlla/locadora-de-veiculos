@@ -2,7 +2,7 @@
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarTodos;
 
-public record SelecionarCondutoresDto(Guid Id, string Nome, string Cnh, ECategoria Categoria, DateTimeOffset ValidadeCnh);
+public record SelecionarCondutoresDto(Guid Id, string Nome, string Cnh, string Cpf, string Telefone, ECategoria Categoria, DateTimeOffset ValidadeCnh);
 
 public record SelecionarCondutoresResponse
 {

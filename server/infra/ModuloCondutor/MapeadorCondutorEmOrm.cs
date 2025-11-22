@@ -22,6 +22,14 @@ public class MapeadorCondutorEmOrm : IEntityTypeConfiguration<Condutor>
             .IsRequired()
             .HasColumnType("nvarchar(20)");
 
+        modelBuilder.Property(c => c.Cpf)
+            .IsRequired()
+            .HasColumnType("nvarchar(14)");
+
+        modelBuilder.Property(c => c.Telefone)
+            .IsRequired()
+            .HasColumnType("nvarchar(20)");
+
         modelBuilder.Property(c => c.Categoria)
             .IsRequired()
             .HasColumnType("int");

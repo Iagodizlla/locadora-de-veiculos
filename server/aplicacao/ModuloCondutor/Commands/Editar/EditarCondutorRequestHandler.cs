@@ -22,6 +22,7 @@ public class EditarCondutorRequestHandler(
 
         condutorSelecionado.Nome = request.Nome;
         condutorSelecionado.Cnh = request.Cnh;
+        condutorSelecionado.Telefone = request.Telefone;
         condutorSelecionado.Categoria = request.Categoria;
         condutorSelecionado.ValidadeCnh = request.ValidadeCnh;
 

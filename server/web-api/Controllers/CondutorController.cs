@@ -34,6 +34,8 @@ public class CondutorController(IMediator mediator) : ControllerBase
             id,
             request.Nome,
             request.Cnh,
+            request.Cpf,
+            request.Telefone,
             request.Categoria,
             request.ValidadeCnh
         );
