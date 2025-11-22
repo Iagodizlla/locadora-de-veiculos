@@ -16,4 +16,11 @@ public abstract class GrupoAutomovelErrorResults
             .CausedBy("Não é possível excluir um grupo de automóvel que ainda possui automóveis cadastrados")
             .WithMetadata("ErrorType", "BadRequest");
     }
+
+    public static Error GrupoPossuiPlanosError()
+    {
+        return new Error("Grupo possui planos vinculados")
+            .CausedBy("Não é possível excluir um grupo de automóvel que ainda possui planos cadastrados")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
 }

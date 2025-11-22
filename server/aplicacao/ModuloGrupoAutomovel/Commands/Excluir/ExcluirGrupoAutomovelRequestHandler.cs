@@ -3,11 +3,13 @@ using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
+using LocadoraDeVeiculos.Dominio.ModuloPlano;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloGrupoAutomovel.Commands.Excluir;
 
 public class ExcluirGrupoAutomovelRequestHandler(
+    IRepositorioPlano repositorioPlano,
     IRepositorioAutomovel repositorioAutomovel,
     IRepositorioGrupoAutomovel repositorioGrupoAutomovel,
     IContextoPersistencia contexto
@@ -21,10 +23,11 @@ public class ExcluirGrupoAutomovelRequestHandler(
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
         // 🔥 REGRA DE NEGÓCIO: verificar se há automóveis vinculados
-        var existeAutomovel = await repositorioAutomovel.ExisteAutomovelComGrupoAsync(request.Id);
-
-        if (existeAutomovel)
+        if (await repositorioAutomovel.ExisteAutomovelComGrupoAsync(request.Id))
             return Result.Fail(GrupoAutomovelErrorResults.GrupoPossuiAutomoveisError());
+
+        if (await repositorioPlano.ExistePlanoComGrupoAsync(request.Id))
+            return Result.Fail(GrupoAutomovelErrorResults.GrupoPossuiPlanosError());
 
         try
         {
