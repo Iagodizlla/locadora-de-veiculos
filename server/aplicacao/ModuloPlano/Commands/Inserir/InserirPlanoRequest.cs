@@ -5,5 +5,5 @@ using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloPlano.Commands.Inserir;
 
-public record InserirPlanoRequest(ETipoPlano TipoPlano, Guid GrupoAutomovelId, double? PrecoDiario, double? PrecoPorKm, double? KmLivres, double? PrecoporKmExplorado, double? PrecoLivre)
+public record InserirPlanoRequest(Guid GrupoAutomovelId, double PrecoDiario, double PrecoDiarioControlado, double PrecoPorKm, double KmLivres, double PrecoporKmExplorado, double PrecoLivre)
     : IRequest<Result<InserirPlanoResponse>>;

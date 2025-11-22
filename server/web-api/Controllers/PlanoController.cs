@@ -31,9 +31,9 @@ public class PlanoController(IMediator mediator) : ControllerBase
     {
         var editarRequest = new EditarPlanoRequest(
             id,
-            request.TipoPlano,
             request.GrupoAutomovelId,
             request.PrecoDiario,
+            request.PrecoDiarioControlado,
             request.PrecoPorKm,
             request.KmLivres,
             request.PrecoporKmExplorado,

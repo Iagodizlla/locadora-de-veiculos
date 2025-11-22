@@ -13,29 +13,29 @@ public class MapeadorPlanoEmOrm : IEntityTypeConfiguration<Plano>
         modelBuilder.Property(x => x.Id)
             .ValueGeneratedNever();
 
-        modelBuilder.Property(b => b.TipoPlano)
-            .HasColumnType("int")
-            .IsRequired();
-
         modelBuilder.Property(b => b.PrecoDiario)
             .HasColumnType("float")
-            .IsRequired(false);
+            .IsRequired();
+
+        modelBuilder.Property(b => b.PrecoDiarioControlado)
+            .HasColumnType("float")
+            .IsRequired();
 
         modelBuilder.Property(b => b.PrecoPorKm)
             .HasColumnType("float")
-            .IsRequired(false);
+            .IsRequired();
 
         modelBuilder.Property(b => b.KmLivres)
             .HasColumnType("float")
-            .IsRequired(false);
+            .IsRequired();
 
         modelBuilder.Property(b => b.PrecoPorKmExplorado)
             .HasColumnType("float")
-            .IsRequired(false);
+            .IsRequired();
 
         modelBuilder.Property(b => b.PrecoLivre)
             .HasColumnType("float")
-            .IsRequired(false);
+            .IsRequired();
 
         modelBuilder.HasOne(a => a.GrupoAutomovel)
             .WithMany()

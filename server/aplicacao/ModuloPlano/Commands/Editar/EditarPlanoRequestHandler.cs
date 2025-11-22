@@ -27,9 +27,9 @@ public class EditarPlanoRequestHandler(
         if (planoSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
-        planoSelecionado.TipoPlano = request.TipoPlano;
         planoSelecionado.GrupoAutomovel = grupo;
         planoSelecionado.PrecoDiario = request.PrecoDiario;
+        planoSelecionado.PrecoDiarioControlado = request.PrecoDiarioControlado;
         planoSelecionado.PrecoPorKm = request.PrecoPorKm;
         planoSelecionado.KmLivres = request.KmLivres;
         planoSelecionado.PrecoPorKmExplorado = request.PrecoporKmExplorado;

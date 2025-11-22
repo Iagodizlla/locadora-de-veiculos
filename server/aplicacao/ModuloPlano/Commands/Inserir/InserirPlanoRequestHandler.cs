@@ -25,7 +25,7 @@ public class InserirPlanoRequestHandler(
         if (GrupoNaoEncontrado(grupo))
             return Result.Fail(PlanoErrorResults.GrupoNaoEncontradoError());
 
-        var plano = new Plano(request.TipoPlano, grupo, request.PrecoDiario, request.PrecoPorKm, request.KmLivres, request.PrecoporKmExplorado, request.PrecoLivre)
+        var plano = new Plano(grupo, request.PrecoDiario, request.PrecoDiarioControlado, request.PrecoPorKm, request.KmLivres, request.PrecoporKmExplorado, request.PrecoLivre)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };

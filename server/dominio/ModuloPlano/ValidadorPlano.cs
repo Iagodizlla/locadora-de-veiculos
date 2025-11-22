@@ -7,16 +7,6 @@ public class ValidadorPlano : AbstractValidator<Plano>
 {
     public ValidadorPlano()
     {
-        RuleFor(plano => plano.TipoPlano)
-            .IsInEnum()
-            .WithMessage("O tipo do plano é inválido.");
-
-        RuleFor(plano => plano)
-            .Must(plano => plano.TipoPlano == ETipoPlano.Diario ||
-                           plano.TipoPlano == ETipoPlano.Controlado ||
-                           plano.TipoPlano == ETipoPlano.Livre)
-            .WithMessage("O tipo do plano deve ser Diário, Controlado ou Livre.");
-
         RuleFor(m => m.GrupoAutomovel)
             .NotNull().WithMessage("O campo {PropertyName} é obrigatório")
             .DependentRules(() =>
@@ -25,23 +15,27 @@ public class ValidadorPlano : AbstractValidator<Plano>
             });
 
         RuleFor(plano => plano.PrecoDiario)
-            .GreaterThan(0).When(plano => plano.TipoPlano != ETipoPlano.Livre)
-            .WithMessage("O valor diário deve ser maior que zero para o plano Diário ou Controlado.");
+            .GreaterThan(0)
+            .WithMessage("O valor diário do plano diário deve ser maior que zero.");
 
         RuleFor(plano => plano.PrecoPorKm)
-            .GreaterThan(0).When(plano => plano.TipoPlano == ETipoPlano.Diario)
-            .WithMessage("O valor por km deve ser maior que zero para o plano Diário.");
+            .GreaterThan(0)
+            .WithMessage("O valor por km deve ser maior que zero.");
+
+        RuleFor(plano => plano.PrecoDiarioControlado)
+            .GreaterThan(0)
+            .WithMessage("O valor diário do plano controlado deve ser maior que zero.");
 
         RuleFor(plano => plano.KmLivres)
-            .GreaterThan(0).When(plano => plano.TipoPlano == ETipoPlano.Controlado)
-            .WithMessage("O limite de quilometragem deve ser maior que zero para o plano Controlado.");
+            .GreaterThan(0)
+            .WithMessage("O limite de quilometragem deve ser maior que zero.");
 
         RuleFor(plano => plano.PrecoPorKmExplorado)
-            .GreaterThan(0).When(plano => plano.TipoPlano == ETipoPlano.Controlado)
-            .WithMessage("O valor por km explorado deve ser maior que zero para o plano Controlado.");
+            .GreaterThan(0)
+            .WithMessage("O valor por km extrapolado deve ser maior que zero.");
 
         RuleFor(plano => plano.PrecoLivre)
-            .GreaterThan(0).When(plano => plano.TipoPlano == ETipoPlano.Livre)
-            .WithMessage("O valor do plano livre deve ser maior que zero para o plano Livre.");
+            .GreaterThan(0)
+            .WithMessage("O valor do plano livre deve ser maior que zero.");
     }
 }

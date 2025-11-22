@@ -18,9 +18,9 @@ public class SelecionarPlanoPorIdRequestHandler(
 
         var resposta = new SelecionarPlanoPorIdResponse(
             planoSelecionado.Id,
-            planoSelecionado.TipoPlano,
             planoSelecionado.GrupoAutomovel,
             planoSelecionado.PrecoDiario,
+            planoSelecionado.PrecoDiarioControlado,
             planoSelecionado.PrecoPorKm,
             planoSelecionado.KmLivres,
             planoSelecionado.PrecoPorKmExplorado,
