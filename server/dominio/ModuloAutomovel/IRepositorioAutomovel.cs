@@ -7,4 +7,5 @@ public interface IRepositorioAutomovel
     Task<bool> ExcluirAsync(Automovel entidadeParaRemover);
     Task<List<Automovel>> SelecionarTodosAsync();
     Task<Automovel?> SelecionarPorIdAsync(Guid id);
+    Task<bool> ExisteAutomovelComGrupoAsync(Guid grupoAutomovelId);
 }

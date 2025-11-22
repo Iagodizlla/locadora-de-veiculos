@@ -21,4 +21,9 @@ public class RepositorioAutomovelEmOrm(IContextoPersistencia context)
             .Include(a => a.GrupoAutomovel)
             .FirstOrDefaultAsync(a => a.Id == id);
     }
+    public async Task<bool> ExisteAutomovelComGrupoAsync(Guid grupoAutomovelId)
+    {
+        return await registros
+            .AnyAsync(a => a.GrupoAutomovelId == grupoAutomovelId);
+    }
 }
