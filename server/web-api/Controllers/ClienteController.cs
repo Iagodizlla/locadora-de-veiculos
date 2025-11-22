@@ -36,7 +36,8 @@ public class ClienteController(IMediator mediator) : ControllerBase
             request.Telefone,
             request.TipoCliente,
             request.Documento,
-            request.Cnh
+            request.Cnh,
+            request.Condutor
         );
 
         var resultado = await mediator.Send(editarRequest);

@@ -23,7 +23,8 @@ public class SelecionarClientePorIdRequestHandler(
             clienteSelecionado.Telefone,
             clienteSelecionado.ClienteTipo,
             clienteSelecionado.Documento,
-            clienteSelecionado.Cnh
+            clienteSelecionado.Cnh,
+            clienteSelecionado.Condutor
         );
 
         return Result.Ok(resposta);

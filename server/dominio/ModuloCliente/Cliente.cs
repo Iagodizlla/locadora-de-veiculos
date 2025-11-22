@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 
 namespace LocadoraDeVeiculos.Dominio.ModuloCliente;
 
@@ -10,10 +11,12 @@ public class Cliente : EntidadeBase
     public ETipoCliente ClienteTipo { get; set; }
     public string Documento { get; set; }
     public string? Cnh { get; set; }
+    public Condutor? Condutor { get; set; }
+    public Guid? CondutorId { get; set; }
 
     public Cliente() { }
 
-    public Cliente(string nome, Endereco endereco, string telefone, ETipoCliente clienteTipo, string documento, string? cnh) : this()
+    public Cliente(string nome, Endereco endereco, string telefone, ETipoCliente clienteTipo, string documento, string? cnh, Condutor? condutor) : this()
     {
         Nome = nome;
         Endereco = endereco;
@@ -21,5 +24,6 @@ public class Cliente : EntidadeBase
         ClienteTipo = clienteTipo;
         Documento = documento;
         Cnh = cnh;
+        Condutor = condutor;
     }
 }

@@ -16,7 +16,7 @@ public class SelecionarClientesRequestHandler(
         {
             QuantidadeRegistros = registros.Count,
             Registros = registros
-                .Select(r => new SelecionarClientesDto(r.Id, r.Nome, r.Endereco, r.Telefone, r.ClienteTipo, r.Documento, r.Cnh))
+                .Select(r => new SelecionarClientesDto(r.Id, r.Nome, r.Endereco, r.Telefone, r.ClienteTipo, r.Documento, r.Cnh, r.Condutor))
         };
 
         return Result.Ok(response);
