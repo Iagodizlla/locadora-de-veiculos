@@ -7,4 +7,5 @@ public interface IRepositorioPlano
     Task<bool> ExcluirAsync(Plano entidadeParaRemover);
     Task<List<Plano>> SelecionarTodosAsync();
     Task<Plano?> SelecionarPorIdAsync(Guid id);
+    Task<bool> ExistePlanoComGrupoAsync(Guid grupoAutomovelId);
 }
