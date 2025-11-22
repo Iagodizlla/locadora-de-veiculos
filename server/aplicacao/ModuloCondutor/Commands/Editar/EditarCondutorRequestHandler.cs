@@ -42,7 +42,13 @@ public class EditarCondutorRequestHandler(
 
         if (CnhDuplicado(condutorSelecionado, condutores))
             return Result.Fail(CondutorErrorResults.CnhDuplicadoError(condutorSelecionado.Cnh));
-        
+
+        if (CpfDuplicado(condutorSelecionado, condutores))
+            return Result.Fail(CondutorErrorResults.CpfDuplicadoError(condutorSelecionado.Cpf));
+
+        if (TelefoneDuplicado(condutorSelecionado, condutores))
+            return Result.Fail(CondutorErrorResults.TelefoneDuplicadoError(condutorSelecionado.Telefone));
+
         try
         {
             await repositorioCondutor.EditarAsync(condutorSelecionado);
@@ -66,6 +72,25 @@ public class EditarCondutorRequestHandler(
             .Any(registro => string.Equals(
                 registro.Cnh,
                 condutor.Cnh,
+                StringComparison.CurrentCultureIgnoreCase)
+            );
+    }
+
+    public bool CpfDuplicado(Condutor condutor, IList<Condutor> condutores)
+    {
+        return condutores
+            .Any(registro => string.Equals(
+                registro.Cnh,
+                condutor.Cnh,
+                StringComparison.CurrentCultureIgnoreCase)
+            );
+    }
+    public bool TelefoneDuplicado(Condutor condutor, IList<Condutor> condutores)
+    {
+        return condutores
+            .Any(registro => string.Equals(
+                registro.Telefone,
+                condutor.Telefone,
                 StringComparison.CurrentCultureIgnoreCase)
             );
     }

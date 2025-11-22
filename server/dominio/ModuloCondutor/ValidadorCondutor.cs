@@ -13,6 +13,22 @@ public class ValidadorCondutor : AbstractValidator<Condutor>
                     .WithMessage("O campo {PropertyName} deve conter no mínimo {MinLength} caracteres");
             });
 
+        RuleFor(m => m.Cpf)
+            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
+            .DependentRules(() =>
+            {
+                RuleFor(m => m.Cpf).MinimumLength(11)
+                    .WithMessage("O campo {PropertyName} deve conter no mínimo {MinLength} caracteres");
+            });
+
+        RuleFor(m => m.Telefone)
+            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
+            .DependentRules(() =>
+            {
+                RuleFor(m => m.Telefone).MinimumLength(8)
+                    .WithMessage("O campo {PropertyName} deve conter no mínimo {MinLength} caracteres");
+            });
+
         RuleFor(m => m.Cnh)
             .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
             .DependentRules(() =>

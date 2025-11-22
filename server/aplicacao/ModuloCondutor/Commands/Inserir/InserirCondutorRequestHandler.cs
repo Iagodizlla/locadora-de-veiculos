@@ -40,6 +40,12 @@ public class InserirCondutorRequestHandler(
         if (CnhDuplicado(condutor, condutoresRegistrados))
             return Result.Fail(CondutorErrorResults.CnhDuplicadoError(condutor.Cnh));
 
+        if (CpfDuplicado(condutor, condutoresRegistrados))
+            return Result.Fail(CondutorErrorResults.CpfDuplicadoError(condutor.Cpf));
+
+        if (TelefoneDuplicado(condutor, condutoresRegistrados))
+            return Result.Fail(CondutorErrorResults.TelefoneDuplicadoError(condutor.Telefone));
+
         // inserção
         try
         {
@@ -63,6 +69,24 @@ public class InserirCondutorRequestHandler(
             .Any(registro => string.Equals(
                 registro.Cnh,
                 condutor.Cnh,
+                StringComparison.CurrentCultureIgnoreCase)
+            );
+    }
+    public bool CpfDuplicado(Condutor condutor, IList<Condutor> condutores)
+    {
+        return condutores
+            .Any(registro => string.Equals(
+                registro.Cnh,
+                condutor.Cnh,
+                StringComparison.CurrentCultureIgnoreCase)
+            );
+    }
+    public bool TelefoneDuplicado(Condutor condutor, IList<Condutor> condutores)
+    {
+        return condutores
+            .Any(registro => string.Equals(
+                registro.Telefone,
+                condutor.Telefone,
                 StringComparison.CurrentCultureIgnoreCase)
             );
     }

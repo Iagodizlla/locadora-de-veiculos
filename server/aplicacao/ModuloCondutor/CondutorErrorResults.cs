@@ -10,4 +10,18 @@ public abstract class CondutorErrorResults
             .CausedBy($"Um condutor com a CNH '{cnh}' já foi cadastrado")
             .WithMetadata("ErrorType", "BadRequest");
     }
+
+    public static Error TelefoneDuplicadoError(string telefone)
+    {
+        return new Error("Telefone duplicado")
+            .CausedBy($"Um condutor com o telefone '{telefone}' já foi cadastrado")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
+
+    public static Error CpfDuplicadoError(string cpf)
+    {
+        return new Error("CPF duplicado")
+            .CausedBy($"Um condutor com o CPF '{cpf}' já foi cadastrado")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
 }
