@@ -32,8 +32,9 @@ public class RegistrarUsuarioRequestHandler(
 
             return Result.Fail(ErrorResults.BadRequestError(erros));
         }
+        usuario.AssociarEmpresa(usuario.Id);
 
-        await userManager.AddToRoleAsync(usuario, "Administrador");
+        await userManager.AddToRoleAsync(usuario, "Adm");
         var tokenAcesso = tokenProvider.GerarTokenDeAcesso(usuario) as TokenResponse;
 
         if (tokenAcesso == null)

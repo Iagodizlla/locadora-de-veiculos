@@ -41,9 +41,10 @@ public class JwtProvider : ITokenProvider
             Audience = audienciaValida,
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, usuario.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, usuario.EmpresaId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, usuario.Email!),
-                new Claim(JwtRegisteredClaimNames.UniqueName, usuario.UserName!)
+                new Claim(JwtRegisteredClaimNames.UniqueName, usuario.UserName!),
+                new Claim("usuario_id", usuario.Id.ToString())
             }),
             SigningCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(chaveEmBytes),

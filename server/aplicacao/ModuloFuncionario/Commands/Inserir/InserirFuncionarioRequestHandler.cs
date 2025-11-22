@@ -39,6 +39,8 @@ public class InserirFuncionarioRequestHandler(
             return Result.Fail(ErrorResults.BadRequestError(erros));
         }
 
+        usuario.AssociarEmpresa(tenantProvider.EmpresaId.GetValueOrDefault());
+
         await userManager.AddToRoleAsync(usuario, "Funcionario");
 
         var funcionario = new Funcionario(request.Nome, request.Salario, request.Admissao)

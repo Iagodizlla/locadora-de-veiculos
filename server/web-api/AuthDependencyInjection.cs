@@ -4,8 +4,6 @@ using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
 using LocadoraDeVeiculos.WebApi.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -16,6 +14,7 @@ public static class AuthDependencyInjection
     public static void ConfigureIdentityProviders(this IServiceCollection services)
     {
         services.AddScoped<ITokenProvider, JwtProvider>();
+        services.AddScoped<IContextoUsuario, ApiTenantProvider>();
         services.AddScoped<ITenantProvider, ApiTenantProvider>();
 
         services.AddIdentity<Usuario, Cargo>(options =>

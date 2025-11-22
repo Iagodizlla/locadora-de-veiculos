@@ -8,6 +8,6 @@ public class Cargo : IdentityRole<Guid>
 
 public enum ECargo
 {
-    Administrador,
+    Adm,
     Funcionario
 }
