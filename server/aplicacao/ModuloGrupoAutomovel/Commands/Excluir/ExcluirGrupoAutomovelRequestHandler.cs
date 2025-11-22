@@ -1,12 +1,14 @@
 ﻿using FluentResults;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloGrupoAutomovel.Commands.Excluir;
 
 public class ExcluirGrupoAutomovelRequestHandler(
+    IRepositorioAutomovel repositorioAutomovel,
     IRepositorioGrupoAutomovel repositorioGrupoAutomovel,
     IContextoPersistencia contexto
 ) : IRequestHandler<ExcluirGrupoAutomovelRequest, Result<ExcluirGrupoAutomovelResponse>>
@@ -17,6 +19,12 @@ public class ExcluirGrupoAutomovelRequestHandler(
 
         if (grupoAutomovelSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
+
+        // 🔥 REGRA DE NEGÓCIO: verificar se há automóveis vinculados
+        var existeAutomovel = await repositorioAutomovel.ExisteAutomovelComGrupoAsync(request.Id);
+
+        if (existeAutomovel)
+            return Result.Fail(GrupoAutomovelErrorResults.GrupoPossuiAutomoveisError());
 
         try
         {
