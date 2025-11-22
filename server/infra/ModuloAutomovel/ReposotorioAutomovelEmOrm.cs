@@ -26,4 +26,12 @@ public class RepositorioAutomovelEmOrm(IContextoPersistencia context)
         return await registros
             .AnyAsync(a => a.GrupoAutomovelId == grupoAutomovelId);
     }
+
+    public async Task<List<Automovel>> SelecionarPorGrupoAsync(Guid grupoAutomovelId)
+    {
+        return await registros
+        .Include(a => a.GrupoAutomovel)
+        .Where(a => a.GrupoAutomovelId == grupoAutomovelId)
+        .ToListAsync();
+    }
 }

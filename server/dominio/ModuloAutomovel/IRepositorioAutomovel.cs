@@ -8,4 +8,5 @@ public interface IRepositorioAutomovel
     Task<List<Automovel>> SelecionarTodosAsync();
     Task<Automovel?> SelecionarPorIdAsync(Guid id);
     Task<bool> ExisteAutomovelComGrupoAsync(Guid grupoAutomovelId);
+    Task<List<Automovel>> SelecionarPorGrupoAsync(Guid grupoAutomovelId);
 }
