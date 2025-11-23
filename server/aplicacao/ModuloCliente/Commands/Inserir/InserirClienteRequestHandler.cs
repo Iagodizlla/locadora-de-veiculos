@@ -35,7 +35,7 @@ public class InserirClienteRequestHandler(
 
         var condutor = await repositorioCondutor.SelecionarPorCpfAsync(request.CondutorCpf);
 
-        if(request.TipoCliente == ETipoCliente.PessoaFisica)
+        if(request.TipoCliente == ETipoCliente.PessoaJuridica)
         {
             if (CondutorNaoEncontrado(condutor))
                 return Result.Fail(ClienteErrorResults.CondutorNaoEncontradoError());
