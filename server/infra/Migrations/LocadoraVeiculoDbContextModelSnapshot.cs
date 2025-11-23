@@ -254,7 +254,7 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<int>("Categoria")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ClienteId")
+                    b.Property<Guid?>("ClienteId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Cnh")

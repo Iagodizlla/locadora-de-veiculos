@@ -346,7 +346,7 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     Telefone = table.Column<string>(type: "nvarchar(20)", nullable: false),
                     Categoria = table.Column<int>(type: "int", nullable: false),
                     ValidadeCnh = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    ClienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ECliente = table.Column<bool>(type: "bit", nullable: false),
                     EmpresaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },

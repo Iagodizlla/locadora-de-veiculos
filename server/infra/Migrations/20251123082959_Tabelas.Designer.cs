@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 {
     [DbContext(typeof(LocadoraVeiculoDbContext))]
-    [Migration("20251123053724_Tabelas")]
+    [Migration("20251123082959_Tabelas")]
     partial class Tabelas
     {
         /// <inheritdoc />
@@ -257,7 +257,7 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<int>("Categoria")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ClienteId")
+                    b.Property<Guid?>("ClienteId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Cnh")
