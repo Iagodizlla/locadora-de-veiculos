@@ -1,6 +1,7 @@
 ﻿using LocadoraDeVeiculos.Aplicacao.ModuloCliente.Commands.Editar;
 using LocadoraDeVeiculos.Aplicacao.ModuloCliente.Commands.Excluir;
 using LocadoraDeVeiculos.Aplicacao.ModuloCliente.Commands.Inserir;
+using LocadoraDeVeiculos.Aplicacao.ModuloCliente.Commands.SelecionarClientesPF;
 using LocadoraDeVeiculos.Aplicacao.ModuloCliente.Commands.SelecionarClientesPJ;
 using LocadoraDeVeiculos.Aplicacao.ModuloCliente.Commands.SelecionarPorId;
 using LocadoraDeVeiculos.Aplicacao.ModuloCliente.Commands.SelecionarTodos;
@@ -81,6 +82,15 @@ public class ClienteController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> SelecionarClientesPJ()
     {
         var resultado = await mediator.Send(new SelecionarClientesPJRequest());
+
+        return resultado.ToHttpResponse();
+    }
+
+    [HttpGet("pf")]
+    [ProducesResponseType(typeof(SelecionarClientesPFResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> SelecionarClientesPF()
+    {
+        var resultado = await mediator.Send(new SelecionarClientesPFRequest());
 
         return resultado.ToHttpResponse();
     }

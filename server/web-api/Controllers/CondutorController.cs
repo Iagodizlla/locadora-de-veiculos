@@ -86,6 +86,7 @@ public class CondutorController(IMediator mediator) : ControllerBase
 
         return resultado.ToHttpResponse();
     }
+
     [HttpGet("clientes")]
     [ProducesResponseType(typeof(SelecionarCondutoresClientesResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> SelecionarClientes()
