@@ -18,7 +18,7 @@ public class CondutorController(IMediator mediator) : ControllerBase
 {
 
     [HttpPost]
-    [ProducesResponseType(typeof(InserirFuncionarioResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(InserirCondutorResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> Inserir(InserirCondutorRequest request)
     {
         var resultado = await mediator.Send(request);
