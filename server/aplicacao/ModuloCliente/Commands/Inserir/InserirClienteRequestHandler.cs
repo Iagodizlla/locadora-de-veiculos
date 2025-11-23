@@ -4,14 +4,12 @@ using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
 using LocadoraDeVeiculos.Dominio.ModuloCliente;
-using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloCliente.Commands.Inserir;
 
 public class InserirClienteRequestHandler(
-    IRepositorioCondutor repositorioCondutor,
     UserManager<Usuario> userManager,
     IContextoPersistencia contexto,
     IRepositorioCliente repositorioCliente,
@@ -33,15 +31,7 @@ public class InserirClienteRequestHandler(
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
 
-        var condutor = await repositorioCondutor.SelecionarPorCpfAsync(request.CondutorCpf);
-
-        if(request.TipoCliente == ETipoCliente.PessoaJuridica)
-        {
-            if (CondutorNaoEncontrado(condutor))
-                return Result.Fail(ClienteErrorResults.CondutorNaoEncontradoError());
-        }
-
-        var cliente = new Cliente(request.Nome, endereco, request.Telefone, request.TipoCliente, request.Documento, request.Cnh, condutor)
+        var cliente = new Cliente(request.Nome, endereco, request.Telefone, request.TipoCliente, request.Documento, request.Cnh)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
@@ -130,10 +120,5 @@ public class InserirClienteRequestHandler(
         return clientes
             .Where(r => r.Id != cliente.Id)
             .Any(registro => registro.Telefone == cliente.Telefone);
-    }
-
-    private bool CondutorNaoEncontrado(Condutor condutor)
-    {
-        return condutor == null;
     }
 }

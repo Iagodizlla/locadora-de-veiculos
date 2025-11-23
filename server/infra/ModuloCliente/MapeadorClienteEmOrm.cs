@@ -37,12 +37,6 @@ public class MapeadorClienteEmOrm : IEntityTypeConfiguration<Cliente>
         modelBuilder.Property(b => b.Cnh)
             .HasColumnType("nvarchar(20)");
 
-        modelBuilder.HasOne(b => b.Condutor)
-            .WithMany()
-            .HasForeignKey(a => a.CondutorId)
-            .IsRequired(false)
-            .OnDelete(DeleteBehavior.NoAction);
-
         modelBuilder
             .HasOne(a => a.Empresa)
             .WithMany()

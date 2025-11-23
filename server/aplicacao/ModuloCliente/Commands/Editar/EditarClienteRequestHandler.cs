@@ -3,7 +3,6 @@ using FluentValidation;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloCliente;
-using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloCliente.Commands.Editar;
@@ -35,7 +34,6 @@ public class EditarClienteRequestHandler(
         clienteSelecionado.ClienteTipo = request.TipoCliente;
         clienteSelecionado.Documento = request.Documento;
         clienteSelecionado.Cnh = request.Cnh;
-        clienteSelecionado.Condutor = request.Condutor;
 
         var resultadoValidacao = 
             await validador.ValidateAsync(clienteSelecionado, cancellationToken);
@@ -65,12 +63,6 @@ public class EditarClienteRequestHandler(
 
         if (TelefoneDuplicado(clienteSelecionado, clientes))
             return Result.Fail(ClienteErrorResults.TelefoneDuplicadoError(clienteSelecionado.Telefone));
-
-        if (clienteSelecionado.ClienteTipo == ETipoCliente.PessoaJuridica)
-        {
-            if (CondutorNaoEncontrado(clienteSelecionado))
-                return Result.Fail(ClienteErrorResults.CondutorNaoEncontradoError());
-        }
 
         try
         {
@@ -128,10 +120,5 @@ public class EditarClienteRequestHandler(
         return clientes
             .Where(r => r.Id != cliente.Id)
             .Any(registro => registro.Telefone == cliente.Telefone);
-    }
-
-    private bool CondutorNaoEncontrado(Cliente cliente)
-    {
-        return cliente.Condutor == null;
     }
 }

@@ -12,7 +12,6 @@ public class RepositorioClienteEmOrm(IContextoPersistencia context)
     {
         return await registros
             .Include(a => a.Endereco)
-            .Include(a => a.Condutor)
             .ToListAsync();
     }
 
@@ -20,7 +19,6 @@ public class RepositorioClienteEmOrm(IContextoPersistencia context)
     {
         return await registros
             .Include(a => a.Endereco)
-            .Include(a => a.Condutor)
             .FirstOrDefaultAsync(a => a.Id == id);
     }
 

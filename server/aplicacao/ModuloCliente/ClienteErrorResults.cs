@@ -31,11 +31,4 @@ public abstract class ClienteErrorResults
             .CausedBy($"Um cliente com a CNH '{cnh}' já foi cadastrado")
             .WithMetadata("ErrorType", "BadRequest");
     }
-
-    public static Error CondutorNaoEncontradoError()
-    {
-        return new Error("Condutor requisitado não encontrado")
-            .CausedBy("Não foi possível obter o Condutor informado na requisição")
-            .WithMetadata("ErrorType", "BadRequest");
-    }
 }

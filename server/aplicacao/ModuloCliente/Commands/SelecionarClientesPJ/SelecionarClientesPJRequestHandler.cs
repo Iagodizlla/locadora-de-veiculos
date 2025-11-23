@@ -22,8 +22,7 @@ public class SelecionarClientesPJRequestHandler(
                 c.Endereco,
                 c.Telefone,
                 c.Documento,
-                c.Cnh,
-                c.Condutor
+                c.Cnh
             ))
             .ToList();
 

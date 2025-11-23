@@ -1,5 +1,4 @@
 ﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
-using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloCliente.Commands.SelecionarClientesPJ;
 
@@ -9,8 +8,7 @@ public record SelecionarClientesPJDto(
     Endereco Endereco,
     string Telefone,
     string Documento,
-    string? Cnh,
-    Condutor? Condutor
+    string? Cnh
 );
 public record SelecionarClientesPJResponse
 {
