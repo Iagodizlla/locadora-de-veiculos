@@ -45,11 +45,11 @@ public class ValidadorCondutor : AbstractValidator<Condutor>
         RuleFor(m => m.Categoria)
             .IsInEnum().WithMessage("O campo {PropertyName} é obrigatório");
 
-        When(m => m.ECliente == false, () =>
-        {
-            RuleFor(m => m.Cliente)
-                .NotNull().WithMessage("O campo {PropertyName} é obrigatório")
-                .SetValidator(new ValidadorCliente());
-        });
-    }       
+
+        //RuleFor(m => m.Cliente)
+        //    .NotNull().WithMessage("O campo {PropertyName} é obrigatório")
+        //    .SetValidator(new ValidadorCliente())
+        //    .When(m => m.ECliente == false);
+
+    }
 }
