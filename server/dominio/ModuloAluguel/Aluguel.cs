@@ -1,5 +1,6 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
+using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using LocadoraDeVeiculos.Dominio.ModuloPlano;
 using LocadoraDeVeiculos.Dominio.ModuloTaxa;
@@ -13,10 +14,12 @@ public class Aluguel : EntidadeBase
     public Condutor Condutor { get; set; }
     public Automovel Automovel { get; set; }
     public Plano Plano { get; set; }
+    public Cliente Cliente { get; set; }
     public List<Taxa> Taxas { get; set; }
     public Guid AutomovelId { get; set; }
     public Guid CondutorId { get; set; }
     public Guid PlanoId { get; set; }
+    public Guid ClienteId { get; set; }
     #endregion
     #region Datas
     public DateTimeOffset DataSaida { get; set; }
@@ -37,10 +40,11 @@ public class Aluguel : EntidadeBase
     public bool Status { get; set; }
     #endregion
     public Aluguel() { }
-    public Aluguel(Condutor condutor, Automovel automovel, Plano plano, List<Taxa> taxas, DateTimeOffset dataSaida, DateTimeOffset dataRetornoPrevista,
+    public Aluguel(Cliente cliente, Condutor condutor, Automovel automovel, Plano plano, List<Taxa> taxas, DateTimeOffset dataSaida, DateTimeOffset dataRetornoPrevista,
         DateTimeOffset? dataDevolucao, int quilometragemInicial, int? quilometragemFinal, int nivelCombustivelNaSaida, int? nivelCombustivelNaDevolucao,
         bool seguroCliente, bool seguroTerceiro, double? valorSeguroPorDia, bool status) : this()
     {
+        Cliente = cliente;
         Condutor = condutor;
         Automovel = automovel;
         Plano = plano;
