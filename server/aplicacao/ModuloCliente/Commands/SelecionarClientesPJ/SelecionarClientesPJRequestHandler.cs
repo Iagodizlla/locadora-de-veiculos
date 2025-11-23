@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using LocadoraDeVeiculos.Aplicacao.ModuloCliente.Commands.SelecionarClientesPF;
 using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using MediatR;
 
@@ -12,24 +13,20 @@ public class SelecionarClientesPJRequestHandler(
         SelecionarClientesPJRequest request,
         CancellationToken cancellationToken)
     {
-        var todos = await repositorioCliente.SelecionarTodosAsync();
-
-        var pj = todos
-            .Where(c => c.ClienteTipo == ETipoCliente.PessoaJuridica)
-            .Select(c => new SelecionarClientesPJDto(
-                c.Id,
-                c.Nome,
-                c.Endereco,
-                c.Telefone,
-                c.Documento,
-                c.Cnh
-            ))
-            .ToList();
+        var registros = await repositorioCliente.SelecionarClientesPJAsync();
 
         var response = new SelecionarClientesPJResponse
         {
-            QuantidadeRegistros = pj.Count,
-            Registros = pj
+            QuantidadeRegistros = registros.Count,
+            Registros = registros
+                .Select(c => new SelecionarClientesPJDto(
+                    c.Id,
+                    c.Nome,
+                    c.Endereco,
+                    c.Telefone,
+                    c.Documento,
+                    c.Cnh
+                ))
         };
 
         return Result.Ok(response);
