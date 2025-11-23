@@ -3,7 +3,7 @@
 public enum ECombustivel
 {
     Gasolina = 0,
-    Etanol = 1,
+    Gas = 1,
     Diesel = 2,
-    Flex = 3
+    Alcool = 3
 }
