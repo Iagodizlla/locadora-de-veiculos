@@ -31,4 +31,11 @@ public class RepositorioCondutorEmOrm(IContextoPersistencia context)
             .Where(c => c.ECliente == false)
             .ToListAsync();
     }
+
+    public async Task<List<Condutor>> SelecionarClientesAsync()
+    {
+        return await registros
+            .Where(c => c.ECliente == true)
+            .ToListAsync();
+    }
 }

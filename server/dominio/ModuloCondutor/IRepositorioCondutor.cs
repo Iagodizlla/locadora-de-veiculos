@@ -9,4 +9,5 @@ public interface IRepositorioCondutor
     Task<Condutor?> SelecionarPorIdAsync(Guid id);
     Task<Condutor?> SelecionarPorCpfAsync(string cpf);
     Task<List<Condutor>> SelecionarNaoClientesAsync();
+    Task<List<Condutor>> SelecionarClientesAsync();
 }
