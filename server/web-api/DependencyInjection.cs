@@ -13,7 +13,7 @@ using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAutomovel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCondutor;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloGrupoAutomovel;
-using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloGrupoCliente;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCliente;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloPlano;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloTaxa;
 using LocadoraDeVeiculos.WebApi.Filters;
