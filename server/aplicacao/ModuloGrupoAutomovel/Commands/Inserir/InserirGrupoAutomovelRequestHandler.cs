@@ -35,9 +35,9 @@ public class InserirGrupoAutomovelRequestHandler(
             return Result.Fail(ErrorResults.BadRequestError(erros));
         }
 
-        var funcionariosRegistrados = await repositorioGrupoAutomovel.SelecionarTodosAsync();
+        var grupoAutomoveisRegistrados = await repositorioGrupoAutomovel.SelecionarTodosAsync();
 
-        if (NomeDuplicado(grupoAutomovel, funcionariosRegistrados))
+        if (NomeDuplicado(grupoAutomovel, grupoAutomoveisRegistrados))
             return Result.Fail(GrupoAutomovelErrorResults.NomeDuplicadoError(grupoAutomovel.Nome));
 
         // inserção
