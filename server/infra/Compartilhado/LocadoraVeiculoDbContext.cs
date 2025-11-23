@@ -6,12 +6,14 @@ using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlano;
+using LocadoraDeVeiculos.Dominio.ModuloTaxa;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAutomovel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCliente;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCondutor;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloPlano;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloTaxa;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +32,7 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
             modelBuilder.Entity<Automovel>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<Cliente>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<Condutor>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
-            //modelBuilder.Entity<Taxa>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
+            modelBuilder.Entity<Taxa>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             //modelBuilder.Entity<Aluguel>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
             //modelBuilder.Entity<Configuracao>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
         }
@@ -41,7 +43,7 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
         modelBuilder.ApplyConfiguration(new MapeadorAutomovelEmOrm());
         modelBuilder.ApplyConfiguration(new MapeadorClienteEmOrm());
         modelBuilder.ApplyConfiguration(new MapeadorCondutorEmOrm());
-        //modelBuilder.ApplyConfiguration(new MapeadorTaxaEmOrm());
+        modelBuilder.ApplyConfiguration(new MapeadorTaxaEmOrm());
         //modelBuilder.ApplyConfiguration(new MapeadorAluguelEmOrm());
         //modelBuilder.ApplyConfiguration(new MapeadorConfiguracaoEmOrm());
 
