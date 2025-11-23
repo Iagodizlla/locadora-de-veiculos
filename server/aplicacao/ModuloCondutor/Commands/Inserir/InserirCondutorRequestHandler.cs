@@ -27,16 +27,21 @@ public class InserirCondutorRequestHandler(
             cliente = await repositorioCliente.SelecionarPorIdAsync(request.ClienteId.GetValueOrDefault());
         }
 
-        if (request.ECliente != false)
+        if (request.ECliente == true)
         {
             if (ClienteNaoEncontrado(cliente))
                 return Result.Fail(CondutorErrorResults.ClienteNaoEncontradoError(request.ClienteId.GetValueOrDefault()));
         }
-
-        var condutor = new Condutor(request.Nome, request.Cnh, request.Cpf, request.Telefone, request.Categoria, request.ValidadeCnh, cliente, request.ECliente)
+        else
         {
-            EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
-        };
+            if (ClienteEncontrado(cliente))
+                return Result.Fail(CondutorErrorResults.ClienteEncontradoError(request.ClienteId.GetValueOrDefault()));
+        }
+
+            var condutor = new Condutor(request.Nome, request.Cnh, request.Cpf, request.Telefone, request.Categoria, request.ValidadeCnh, cliente, request.ECliente)
+            {
+                EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
+            };
 
         // validações
         var resultadoValidacao = await validador.ValidateAsync(condutor);
@@ -109,5 +114,10 @@ public class InserirCondutorRequestHandler(
     public bool ClienteNaoEncontrado(Cliente cliente)
     {
         return cliente == null;
+    }
+
+    public bool ClienteEncontrado(Cliente cliente)
+    {
+        return cliente != null;
     }
 }

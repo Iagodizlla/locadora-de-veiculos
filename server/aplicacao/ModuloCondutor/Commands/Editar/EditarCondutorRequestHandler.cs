@@ -52,10 +52,15 @@ public class EditarCondutorRequestHandler(
         if (TelefoneDuplicado(condutorSelecionado, condutores))
             return Result.Fail(CondutorErrorResults.TelefoneDuplicadoError(condutorSelecionado.Telefone));
 
-        if (condutorSelecionado.ECliente == false)
+        if (condutorSelecionado.ECliente == true)
         {
             if (ClienteNaoEncontrado(condutorSelecionado.Cliente))
                 return Result.Fail(CondutorErrorResults.ClienteNaoEncontradoError(condutorSelecionado.Cliente.Id));
+        }
+        else
+        {
+            if (ClienteEncontrado(condutorSelecionado.Cliente))
+                return Result.Fail(CondutorErrorResults.ClienteEncontradoError(request.Cliente.Id));
         }
 
         try
@@ -106,5 +111,10 @@ public class EditarCondutorRequestHandler(
     public bool ClienteNaoEncontrado(Cliente cliente)
     {
         return cliente == null;
+    }
+
+    public bool ClienteEncontrado(Cliente cliente)
+    {
+        return cliente != null;
     }
 }
