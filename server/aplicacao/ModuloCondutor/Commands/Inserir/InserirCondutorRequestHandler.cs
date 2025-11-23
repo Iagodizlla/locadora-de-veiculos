@@ -23,8 +23,11 @@ public class InserirCondutorRequestHandler(
     {
         var cliente = await repositorioCliente.SelecionarPorIdAsync(request.ClienteId);
 
-        if(ClienteNaoEncontrado(cliente))
-            return Result.Fail(CondutorErrorResults.ClienteNaoEncontradoError(request.ClienteId));
+        if (request.ECliente == true)
+        {
+            if (ClienteNaoEncontrado(cliente))
+                return Result.Fail(CondutorErrorResults.ClienteNaoEncontradoError(request.ClienteId));
+        }
 
         var condutor = new Condutor(request.Nome, request.Cnh, request.Cpf, request.Telefone, request.Categoria, request.ValidadeCnh, cliente, request.ECliente)
         {

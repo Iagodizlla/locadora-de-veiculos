@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using LocadoraDeVeiculos.Dominio.ModuloCliente;
 namespace LocadoraDeVeiculos.Dominio.ModuloCondutor;
 
 public class ValidadorCondutor : AbstractValidator<Condutor>
@@ -44,7 +45,11 @@ public class ValidadorCondutor : AbstractValidator<Condutor>
         RuleFor(m => m.Categoria)
             .IsInEnum().WithMessage("O campo {PropertyName} é obrigatório");
 
-        RuleFor(m => m.Cliente)
-            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório");
+        When(m => m.ECliente == true, () =>
+        {
+            RuleFor(m => m.Cliente)
+                .NotNull().WithMessage("O campo {PropertyName} é obrigatório")
+                .SetValidator(new ValidadorCliente());
+        });
     }       
 }
