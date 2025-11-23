@@ -3,14 +3,12 @@ using FluentValidation;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
-using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Inserir;
 
 public class InserirCondutorRequestHandler(
-    IRepositorioCliente repositorioCliente,
     IContextoPersistencia contexto,
     IRepositorioCondutor repositorioCondutor,
     ITenantProvider tenantProvider,
@@ -21,27 +19,11 @@ public class InserirCondutorRequestHandler(
         InserirCondutorRequest request, CancellationToken cancellationToken)
 
     {
-        Cliente? cliente = null!;
-        if (request.ClienteId.HasValue)
-        {
-            cliente = await repositorioCliente.SelecionarPorIdAsync(request.ClienteId.GetValueOrDefault());
-        }
 
-        if (request.ECliente == true)
+        var condutor = new Condutor(request.Nome, request.Cnh, request.Cpf, request.Telefone, request.Categoria, request.ValidadeCnh, request.ECliente)
         {
-            if (ClienteNaoEncontrado(cliente))
-                return Result.Fail(CondutorErrorResults.ClienteNaoEncontradoError(request.ClienteId.GetValueOrDefault()));
-        }
-        else
-        {
-            if (ClienteEncontrado(cliente))
-                return Result.Fail(CondutorErrorResults.ClienteEncontradoError(request.ClienteId.GetValueOrDefault()));
-        }
-
-            var condutor = new Condutor(request.Nome, request.Cnh, request.Cpf, request.Telefone, request.Categoria, request.ValidadeCnh, cliente, request.ECliente)
-            {
-                EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
-            };
+            EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
+        };
 
         // validações
         var resultadoValidacao = await validador.ValidateAsync(condutor);
@@ -109,15 +91,5 @@ public class InserirCondutorRequestHandler(
                 condutor.Telefone,
                 StringComparison.CurrentCultureIgnoreCase)
             );
-    }
-
-    public bool ClienteNaoEncontrado(Cliente cliente)
-    {
-        return cliente == null;
-    }
-
-    public bool ClienteEncontrado(Cliente cliente)
-    {
-        return cliente != null;
     }
 }

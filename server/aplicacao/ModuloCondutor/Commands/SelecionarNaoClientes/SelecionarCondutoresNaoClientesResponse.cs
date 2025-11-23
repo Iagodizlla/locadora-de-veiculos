@@ -1,5 +1,4 @@
-﻿using LocadoraDeVeiculos.Dominio.ModuloCliente;
-using LocadoraDeVeiculos.Dominio.ModuloCondutor;
+﻿using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarNaoClientes;
 
@@ -11,7 +10,6 @@ public record SelecionarCondutoresNaoClientesDto(
     string Telefone,
     ECategoria Categoria,
     DateTimeOffset ValidadeCnh,
-    Cliente? Cliente,
     bool ECliente
 );
 

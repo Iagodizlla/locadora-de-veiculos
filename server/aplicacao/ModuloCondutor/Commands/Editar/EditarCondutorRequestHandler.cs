@@ -2,7 +2,6 @@
 using FluentValidation;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
-using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using MediatR;
 
@@ -26,7 +25,6 @@ public class EditarCondutorRequestHandler(
         condutorSelecionado.Telefone = request.Telefone;
         condutorSelecionado.Categoria = request.Categoria;
         condutorSelecionado.ValidadeCnh = request.ValidadeCnh;
-        condutorSelecionado.Cliente = request.Cliente;
         condutorSelecionado.ECliente = request.ECliente;
 
         var resultadoValidacao = 
@@ -51,17 +49,6 @@ public class EditarCondutorRequestHandler(
 
         if (TelefoneDuplicado(condutorSelecionado, condutores))
             return Result.Fail(CondutorErrorResults.TelefoneDuplicadoError(condutorSelecionado.Telefone));
-
-        if (condutorSelecionado.ECliente == true)
-        {
-            if (ClienteNaoEncontrado(condutorSelecionado.Cliente))
-                return Result.Fail(CondutorErrorResults.ClienteNaoEncontradoError(condutorSelecionado.Cliente.Id));
-        }
-        else
-        {
-            if (ClienteEncontrado(condutorSelecionado.Cliente))
-                return Result.Fail(CondutorErrorResults.ClienteEncontradoError(request.Cliente.Id));
-        }
 
         try
         {
@@ -107,14 +94,5 @@ public class EditarCondutorRequestHandler(
                 condutor.Telefone,
                 StringComparison.CurrentCultureIgnoreCase)
             );
-    }
-    public bool ClienteNaoEncontrado(Cliente cliente)
-    {
-        return cliente == null;
-    }
-
-    public bool ClienteEncontrado(Cliente cliente)
-    {
-        return cliente != null;
     }
 }

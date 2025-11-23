@@ -24,7 +24,6 @@ public class SelecionarCondutorPorIdRequestHandler(
             condutorSelecionado.Telefone,
             condutorSelecionado.Categoria,
             condutorSelecionado.ValidadeCnh,
-            condutorSelecionado.Cliente,
             condutorSelecionado.ECliente
         );
 

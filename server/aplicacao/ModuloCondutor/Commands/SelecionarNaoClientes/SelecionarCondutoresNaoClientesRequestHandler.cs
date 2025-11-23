@@ -24,7 +24,6 @@ public class SelecionarCondutoresNaoClientesRequestHandler(
                     r.Telefone,
                     r.Categoria,
                     r.ValidadeCnh,
-                    r.Cliente,
                     r.ECliente
                 ))
         };
