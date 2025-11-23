@@ -45,7 +45,7 @@ public class ValidadorCondutor : AbstractValidator<Condutor>
         RuleFor(m => m.Categoria)
             .IsInEnum().WithMessage("O campo {PropertyName} é obrigatório");
 
-        When(m => m.ECliente == true, () =>
+        When(m => m.ECliente == false, () =>
         {
             RuleFor(m => m.Cliente)
                 .NotNull().WithMessage("O campo {PropertyName} é obrigatório")

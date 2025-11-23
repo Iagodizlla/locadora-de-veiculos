@@ -52,7 +52,7 @@ public class EditarCondutorRequestHandler(
         if (TelefoneDuplicado(condutorSelecionado, condutores))
             return Result.Fail(CondutorErrorResults.TelefoneDuplicadoError(condutorSelecionado.Telefone));
 
-        if (condutorSelecionado.ECliente == true)
+        if (condutorSelecionado.ECliente == false)
         {
             if (ClienteNaoEncontrado(condutorSelecionado.Cliente))
                 return Result.Fail(CondutorErrorResults.ClienteNaoEncontradoError(condutorSelecionado.Cliente.Id));
