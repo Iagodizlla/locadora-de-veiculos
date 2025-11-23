@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 {
     [DbContext(typeof(LocadoraVeiculoDbContext))]
-    [Migration("20251123005828_Tabelas")]
+    [Migration("20251123053724_Tabelas")]
     partial class Tabelas
     {
         /// <inheritdoc />
@@ -257,6 +257,9 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<int>("Categoria")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Cnh")
                         .IsRequired()
                         .HasColumnType("nvarchar(20)");
@@ -264,6 +267,9 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasColumnType("nvarchar(14)");
+
+                    b.Property<bool>("ECliente")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("EmpresaId")
                         .HasColumnType("uniqueidentifier");
@@ -280,6 +286,8 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
 
                     b.HasIndex("EmpresaId");
 
@@ -375,6 +383,31 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.HasIndex("GrupoAutomovelId");
 
                     b.ToTable("TBPlano", (string)null);
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloTaxa.Taxa", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Servico")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.ToTable("TBTaxa", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -538,11 +571,18 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloCondutor.Condutor", b =>
                 {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloCliente.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Empresa")
                         .WithMany()
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Cliente");
 
                     b.Navigation("Empresa");
                 });
@@ -594,6 +634,17 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Navigation("Empresa");
 
                     b.Navigation("GrupoAutomovel");
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloTaxa.Taxa", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

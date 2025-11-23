@@ -254,6 +254,9 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<int>("Categoria")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Cnh")
                         .IsRequired()
                         .HasColumnType("nvarchar(20)");
@@ -261,6 +264,9 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasColumnType("nvarchar(14)");
+
+                    b.Property<bool>("ECliente")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("EmpresaId")
                         .HasColumnType("uniqueidentifier");
@@ -277,6 +283,8 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
 
                     b.HasIndex("EmpresaId");
 
@@ -560,11 +568,18 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloCondutor.Condutor", b =>
                 {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloCliente.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Empresa")
                         .WithMany()
                         .HasForeignKey("EmpresaId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Cliente");
 
                     b.Navigation("Empresa");
                 });
