@@ -23,4 +23,13 @@ public class RepositorioClienteEmOrm(IContextoPersistencia context)
             .Include(a => a.Condutor)
             .FirstOrDefaultAsync(a => a.Id == id);
     }
+
+    public async Task<List<Cliente>> SelecionarClientesPJAsync()
+    {
+        return await registros
+            .Where(c => c.ClienteTipo == ETipoCliente.PessoaJuridica)
+            .Include(c => c.Endereco)
+            .Include(c => c.Condutor)
+            .ToListAsync();
+    }
 }

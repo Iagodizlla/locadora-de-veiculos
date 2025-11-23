@@ -7,4 +7,5 @@ public interface IRepositorioCliente
     Task<bool> ExcluirAsync(Cliente entidadeParaRemover);
     Task<List<Cliente>> SelecionarTodosAsync();
     Task<Cliente?> SelecionarPorIdAsync(Guid id);
+    Task<List<Cliente>> SelecionarClientesPJAsync();
 }
