@@ -12,11 +12,11 @@ public class Condutor : EntidadeBase
     public ECategoria Categoria { get; set; }
     public DateTimeOffset ValidadeCnh { get; set; }
     public Cliente? Cliente { get; set; }
-    public Guid ClienteId { get; set; }
+    public Guid? ClienteId { get; set; }
     public bool ECliente { get; set; }
 
     public Condutor() { }
-    public Condutor(string nome, string cnh, string cpf, string telefone, ECategoria categoria, DateTimeOffset validadeCnh, Cliente cliente, bool eCliente) : this()
+    public Condutor(string nome, string cnh, string cpf, string telefone, ECategoria categoria, DateTimeOffset validadeCnh, Cliente? cliente, bool eCliente) : this()
     {
         Nome = nome;
         Cnh = cnh;

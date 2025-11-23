@@ -21,12 +21,16 @@ public class InserirCondutorRequestHandler(
         InserirCondutorRequest request, CancellationToken cancellationToken)
 
     {
-        var cliente = await repositorioCliente.SelecionarPorIdAsync(request.ClienteId);
-
-        if (request.ECliente == false)
+        Cliente? cliente = null!;
+        if (request.ClienteId.HasValue)
         {
-            if (ClienteNaoEncontrado(cliente))
-                return Result.Fail(CondutorErrorResults.ClienteNaoEncontradoError(request.ClienteId));
+            cliente = await repositorioCliente.SelecionarPorIdAsync(request.ClienteId.GetValueOrDefault());
+
+            if (request.ECliente == false)
+            {
+                if (ClienteNaoEncontrado(cliente))
+                    return Result.Fail(CondutorErrorResults.ClienteNaoEncontradoError(request.ClienteId.GetValueOrDefault()));
+            }
         }
 
         var condutor = new Condutor(request.Nome, request.Cnh, request.Cpf, request.Telefone, request.Categoria, request.ValidadeCnh, cliente, request.ECliente)
