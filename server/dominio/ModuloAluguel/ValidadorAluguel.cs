@@ -67,6 +67,10 @@ public class ValidadorAluguel : AbstractValidator<Aluguel>
         RuleFor(a => a.Taxas)
             .NotNull()
             .WithMessage("As taxas são obrigatórias.");
+
+        RuleFor(a => a.Cliente)
+            .NotNull()
+            .WithMessage("O cliente é obrigatório.");
         #endregion
     }
 }
