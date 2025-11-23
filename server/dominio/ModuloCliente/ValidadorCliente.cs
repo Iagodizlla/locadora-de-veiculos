@@ -22,12 +22,13 @@ public class ValidadorCliente : AbstractValidator<Cliente>
                 RuleFor(m => m.Endereco).SetValidator(new ValidadorEndereco());
             });
 
-        RuleFor(m => m.Condutor)
-            .NotNull().WithMessage("O campo {PropertyName} é obrigatório")
-            .DependentRules(() =>
-            {
-                RuleFor(m => m.Condutor).SetValidator(new ValidadorCondutor());
-            });
+        When(m => m.ClienteTipo == ETipoCliente.PessoaJuridica, () =>
+        {
+            RuleFor(m => m.Condutor)
+                .NotNull().WithMessage("O campo {PropertyName} é obrigatório")
+                .SetValidator(new ValidadorCondutor());
+        });
+
 
         RuleFor(m => m.Telefone)
             .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")

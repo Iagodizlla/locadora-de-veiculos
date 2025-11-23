@@ -66,8 +66,11 @@ public class EditarClienteRequestHandler(
         if (TelefoneDuplicado(clienteSelecionado, clientes))
             return Result.Fail(ClienteErrorResults.TelefoneDuplicadoError(clienteSelecionado.Telefone));
 
-        if (CondutorNaoEncontrado(clienteSelecionado))
-            return Result.Fail(ClienteErrorResults.CondutorNaoEncontradoError());
+        if (clienteSelecionado.ClienteTipo == ETipoCliente.PessoaJuridica)
+        {
+            if (CondutorNaoEncontrado(clienteSelecionado))
+                return Result.Fail(ClienteErrorResults.CondutorNaoEncontradoError());
+        }
 
         try
         {
