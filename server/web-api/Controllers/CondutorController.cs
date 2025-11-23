@@ -1,6 +1,7 @@
 ﻿using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Editar;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Excluir;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Inserir;
+using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarClientes;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarNaoClientes;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarPorId;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarTodos;
@@ -39,7 +40,6 @@ public class CondutorController(IMediator mediator) : ControllerBase
             request.Telefone,
             request.Categoria,
             request.ValidadeCnh,
-            request.Cliente,
             request.ECliente
         );
 
