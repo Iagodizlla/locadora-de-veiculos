@@ -27,4 +27,12 @@ public class RepositorioCondutorEmOrm(IContextoPersistencia context)
             .Include(a => a.Cliente)
             .FirstOrDefaultAsync(a => a.Id == id);
     }
+
+    public async Task<List<Condutor>> SelecionarNaoClientesAsync()
+    {
+        return await registros
+            .Where(c => c.ECliente == false)
+            .Include(c => c.Cliente)
+            .ToListAsync();
+    }
 }
