@@ -24,4 +24,11 @@ public abstract class CondutorErrorResults
             .CausedBy($"Um condutor com o CPF '{cpf}' já foi cadastrado")
             .WithMetadata("ErrorType", "BadRequest");
     }
+
+    public static Error ClienteNaoEncontradoError(Guid clienteId)
+    {
+        return new Error("Cliente não encontrado")
+            .CausedBy($"Não foi possível encontrar o cliente com Id '{clienteId}' associado ao condutor")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
 }

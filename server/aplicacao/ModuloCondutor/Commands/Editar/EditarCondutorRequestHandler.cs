@@ -2,6 +2,7 @@
 using FluentValidation;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using MediatR;
 
@@ -51,6 +52,9 @@ public class EditarCondutorRequestHandler(
         if (TelefoneDuplicado(condutorSelecionado, condutores))
             return Result.Fail(CondutorErrorResults.TelefoneDuplicadoError(condutorSelecionado.Telefone));
 
+        if(ClienteNaoEncontrado(condutorSelecionado.Cliente))
+            return Result.Fail(CondutorErrorResults.ClienteNaoEncontradoError(condutorSelecionado.Cliente.Id));
+
         try
         {
             await repositorioCondutor.EditarAsync(condutorSelecionado);
@@ -95,5 +99,9 @@ public class EditarCondutorRequestHandler(
                 condutor.Telefone,
                 StringComparison.CurrentCultureIgnoreCase)
             );
+    }
+    public bool ClienteNaoEncontrado(Cliente cliente)
+    {
+        return cliente == null;
     }
 }

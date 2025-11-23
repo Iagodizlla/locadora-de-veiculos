@@ -3,12 +3,14 @@ using FluentValidation;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
+using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Inserir;
 
 public class InserirCondutorRequestHandler(
+    IRepositorioCliente repositorioCliente,
     IContextoPersistencia contexto,
     IRepositorioCondutor repositorioCondutor,
     ITenantProvider tenantProvider,
@@ -17,8 +19,14 @@ public class InserirCondutorRequestHandler(
 {
     public async Task<Result<InserirCondutorResponse>> Handle(
         InserirCondutorRequest request, CancellationToken cancellationToken)
+
     {
-        var condutor = new Condutor(request.Nome, request.Cnh, request.Cpf, request.Telefone, request.Categoria, request.ValidadeCnh)
+        var cliente = await repositorioCliente.SelecionarPorIdAsync(request.ClienteId);
+
+        if(ClienteNaoEncontrado(cliente))
+            return Result.Fail(CondutorErrorResults.ClienteNaoEncontradoError(request.ClienteId));
+
+        var condutor = new Condutor(request.Nome, request.Cnh, request.Cpf, request.Telefone, request.Categoria, request.ValidadeCnh, cliente, request.ECliente)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
@@ -89,5 +97,10 @@ public class InserirCondutorRequestHandler(
                 condutor.Telefone,
                 StringComparison.CurrentCultureIgnoreCase)
             );
+    }
+
+    public bool ClienteNaoEncontrado(Cliente cliente)
+    {
+        return cliente == null;
     }
 }
