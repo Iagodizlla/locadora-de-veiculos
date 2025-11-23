@@ -1,6 +1,7 @@
 ﻿using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Editar;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Excluir;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Inserir;
+using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarNaoClientes;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarPorId;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarTodos;
 using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
@@ -74,6 +75,15 @@ public class CondutorController(IMediator mediator) : ControllerBase
         var selecionarPorIdRequest = new SelecionarCondutorPorIdRequest(id);
 
         var resultado = await mediator.Send(selecionarPorIdRequest);
+
+        return resultado.ToHttpResponse();
+    }
+
+    [HttpGet("nao-clientes")]
+    [ProducesResponseType(typeof(SelecionarCondutoresNaoClientesResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> SelecionarNaoClientes()
+    {
+        var resultado = await mediator.Send(new SelecionarCondutoresNaoClientesRequest());
 
         return resultado.ToHttpResponse();
     }
