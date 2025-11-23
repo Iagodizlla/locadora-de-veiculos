@@ -27,7 +27,14 @@ public class RepositorioClienteEmOrm(IContextoPersistencia context)
         return await registros
             .Where(c => c.ClienteTipo == ETipoCliente.PessoaJuridica)
             .Include(c => c.Endereco)
-            .Include(c => c.Condutor)
+            .ToListAsync();
+    }
+
+    public async Task<List<Cliente>> SelecionarClientesPFAsync()
+    {
+        return await registros
+            .Where(c => c.ClienteTipo == ETipoCliente.PessoaFisica)
+            .Include(c => c.Endereco)
             .ToListAsync();
     }
 }

@@ -8,4 +8,5 @@ public interface IRepositorioCliente
     Task<List<Cliente>> SelecionarTodosAsync();
     Task<Cliente?> SelecionarPorIdAsync(Guid id);
     Task<List<Cliente>> SelecionarClientesPJAsync();
+    Task<List<Cliente>> SelecionarClientesPFAsync();
 }
