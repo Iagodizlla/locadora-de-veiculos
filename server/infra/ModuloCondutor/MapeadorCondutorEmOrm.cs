@@ -38,6 +38,16 @@ public class MapeadorCondutorEmOrm : IEntityTypeConfiguration<Condutor>
             .IsRequired()
             .HasColumnType("datetimeoffset");
 
+        modelBuilder.HasOne(c => c.Cliente)
+            .WithMany()
+            .HasForeignKey(c => c.ClienteId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Property(a => a.ECliente)
+            .IsRequired()
+            .HasColumnType("bit");
+
         modelBuilder
             .HasOne(a => a.Empresa)
             .WithMany()

@@ -37,7 +37,9 @@ public class CondutorController(IMediator mediator) : ControllerBase
             request.Cpf,
             request.Telefone,
             request.Categoria,
-            request.ValidadeCnh
+            request.ValidadeCnh,
+            request.Cliente,
+            request.ECliente
         );
 
         var resultado = await mediator.Send(editarRequest);

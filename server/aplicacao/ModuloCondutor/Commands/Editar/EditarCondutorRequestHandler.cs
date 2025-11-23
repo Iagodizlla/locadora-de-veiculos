@@ -25,6 +25,8 @@ public class EditarCondutorRequestHandler(
         condutorSelecionado.Telefone = request.Telefone;
         condutorSelecionado.Categoria = request.Categoria;
         condutorSelecionado.ValidadeCnh = request.ValidadeCnh;
+        condutorSelecionado.Cliente = request.Cliente;
+        condutorSelecionado.ECliente = request.ECliente;
 
         var resultadoValidacao = 
             await validador.ValidateAsync(condutorSelecionado, cancellationToken);
