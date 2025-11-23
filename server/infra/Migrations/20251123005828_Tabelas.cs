@@ -187,6 +187,8 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Cnh = table.Column<string>(type: "nvarchar(20)", nullable: false),
+                    Cpf = table.Column<string>(type: "nvarchar(14)", nullable: false),
+                    Telefone = table.Column<string>(type: "nvarchar(20)", nullable: false),
                     Categoria = table.Column<int>(type: "int", nullable: false),
                     ValidadeCnh = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     EmpresaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
@@ -258,6 +260,7 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     ClienteTipo = table.Column<int>(type: "int", nullable: false),
                     Documento = table.Column<string>(type: "nvarchar(20)", nullable: false),
                     Cnh = table.Column<string>(type: "nvarchar(20)", nullable: true),
+                    CondutorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     EmpresaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -272,6 +275,11 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                         name: "FK_TBCliente_Endereco_EnderecoId",
                         column: x => x.EnderecoId,
                         principalTable: "Endereco",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TBCliente_TBCondutor_CondutorId",
+                        column: x => x.CondutorId,
+                        principalTable: "TBCondutor",
                         principalColumn: "Id");
                 });
 
@@ -390,6 +398,11 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                 column: "GrupoAutomovelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TBCliente_CondutorId",
+                table: "TBCliente",
+                column: "CondutorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TBCliente_EmpresaId",
                 table: "TBCliente",
                 column: "EmpresaId");
@@ -455,9 +468,6 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                 name: "TBCliente");
 
             migrationBuilder.DropTable(
-                name: "TBCondutor");
-
-            migrationBuilder.DropTable(
                 name: "TBFuncionario");
 
             migrationBuilder.DropTable(
@@ -468,6 +478,9 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 
             migrationBuilder.DropTable(
                 name: "Endereco");
+
+            migrationBuilder.DropTable(
+                name: "TBCondutor");
 
             migrationBuilder.DropTable(
                 name: "TBGrupoAutomovel");

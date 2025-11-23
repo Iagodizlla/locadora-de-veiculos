@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 {
     [DbContext(typeof(LocadoraVeiculoDbContext))]
-    [Migration("20251122220505_Tabelas")]
+    [Migration("20251123005828_Tabelas")]
     partial class Tabelas
     {
         /// <inheritdoc />
@@ -182,6 +182,9 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<string>("Cnh")
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<Guid?>("CondutorId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Documento")
                         .IsRequired()
                         .HasColumnType("nvarchar(20)");
@@ -201,6 +204,8 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CondutorId");
 
                     b.HasIndex("EmpresaId");
 
@@ -256,12 +261,20 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(14)");
+
                     b.Property<Guid>("EmpresaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTimeOffset>("ValidadeCnh")
                         .HasColumnType("datetimeoffset");
@@ -488,6 +501,11 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloCliente.Cliente", b =>
                 {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloCondutor.Condutor", "Condutor")
+                        .WithMany()
+                        .HasForeignKey("CondutorId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Empresa")
                         .WithMany()
                         .HasForeignKey("EmpresaId")
@@ -499,6 +517,8 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                         .HasForeignKey("EnderecoId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Condutor");
 
                     b.Navigation("Empresa");
 
