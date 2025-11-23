@@ -33,7 +33,7 @@ public class InserirClienteRequestHandler(
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
 
-        var condutor = await repositorioCondutor.SelecionarPorIdAsync(request.CondutorId.GetValueOrDefault());
+        var condutor = await repositorioCondutor.SelecionarPorCpfAsync(request.CondutorCpf);
 
         if (CondutorNaoEncontrado(condutor))
             return Result.Fail(ClienteErrorResults.CondutorNaoEncontradoError());
