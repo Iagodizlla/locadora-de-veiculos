@@ -1,4 +1,5 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloCliente;
@@ -7,6 +8,7 @@ using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlano;
 using LocadoraDeVeiculos.Dominio.ModuloTaxa;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAluguel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAutomovel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCliente;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCondutor;
@@ -33,7 +35,7 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
             modelBuilder.Entity<Cliente>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<Condutor>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<Taxa>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
-            //modelBuilder.Entity<Aluguel>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
+            modelBuilder.Entity<Aluguel>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             //modelBuilder.Entity<Configuracao>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
         }
 
@@ -44,7 +46,7 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
         modelBuilder.ApplyConfiguration(new MapeadorClienteEmOrm());
         modelBuilder.ApplyConfiguration(new MapeadorCondutorEmOrm());
         modelBuilder.ApplyConfiguration(new MapeadorTaxaEmOrm());
-        //modelBuilder.ApplyConfiguration(new MapeadorAluguelEmOrm());
+        modelBuilder.ApplyConfiguration(new MapeadorAluguelEmOrm());
         //modelBuilder.ApplyConfiguration(new MapeadorConfiguracaoEmOrm());
 
         base.OnModelCreating(modelBuilder);

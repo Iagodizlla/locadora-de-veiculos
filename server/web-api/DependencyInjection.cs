@@ -26,6 +26,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text.Json.Serialization;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAluguel;
 
 namespace LocadoraDeVeiculos.WebApi;
 
@@ -63,7 +65,7 @@ public static class DependencyInjection
         services.AddScoped<IRepositorioPlano, RepositorioPlanoEmOrm>();
         services.AddScoped<IRepositorioCondutor, RepositorioCondutorEmOrm>();
         services.AddScoped<IRepositorioTaxa, RepositorioTaxaEmOrm>();
-        //services.AddScoped<IRepositorioAluguel, RepositorioAluguelEmOrm>();
+        services.AddScoped<IRepositorioAluguel, RepositorioAluguelEmOrm>();
         //services.AddScoped<IRepositorioConfiguracao, RepositorioConfiguracaoEmOrm>();
     }
 
