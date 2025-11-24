@@ -13,18 +13,6 @@ public class RepositorioCondutorEmOrm(IContextoPersistencia context)
         return await registros
             .FirstOrDefaultAsync(a => a.Cpf == cpf);
     }
-    public override async Task<List<Condutor>> SelecionarTodosAsync()
-    {
-        return await registros
-            .ToListAsync();
-    }
-
-    public override async Task<Condutor?> SelecionarPorIdAsync(Guid id)
-    {
-        return await registros
-            .FirstOrDefaultAsync(a => a.Id == id);
-    }
-
     public async Task<List<Condutor>> SelecionarNaoClientesAsync()
     {
         return await registros
