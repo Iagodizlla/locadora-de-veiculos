@@ -3,6 +3,7 @@ using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Excluir;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Inserir;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarClientes;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarNaoClientes;
+using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarPorCpf;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarPorId;
 using LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.SelecionarTodos;
 using LocadoraDeVeiculos.WebApi.Extensions;
@@ -92,6 +93,17 @@ public class CondutorController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> SelecionarClientes()
     {
         var resultado = await mediator.Send(new SelecionarCondutoresClientesRequest());
+
+        return resultado.ToHttpResponse();
+    }
+
+    [HttpGet("{cpf:string}")]
+    [ProducesResponseType(typeof(SelecionarCondutorPorCpfResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> SelecionarPorCpf(string cpf)
+    {
+        var selecionarPorCpfRequest = new SelecionarCondutorPorCpfRequest(cpf);
+
+        var resultado = await mediator.Send(selecionarPorCpfRequest);
 
         return resultado.ToHttpResponse();
     }
