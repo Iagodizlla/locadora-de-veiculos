@@ -1,0 +1,66 @@
+﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Dominio.ModuloTaxa;
+using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
+using Microsoft.EntityFrameworkCore;
+
+namespace LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAluguel;
+
+public class RepositorioAluguelEmOrm(IContextoPersistencia context)
+    : RepositorioBase<Aluguel>(context), IRepositorioAluguel
+{
+    public Task<bool> FinalizarAsync(Aluguel entidadeParaFinalizar)
+    {
+        entidadeParaFinalizar.Status = true;
+
+        var rastreador = registros.Update(entidadeParaFinalizar);
+
+        return Task.FromResult(rastreador.State == EntityState.Modified);
+    }
+
+    public async Task<List<Aluguel>> SelecionarAtivosAsync()
+    {
+        return await registros
+            .Where(a => a.Status == false)
+            .Include(a => a.Taxas)
+            .Include(a => a.Cliente)
+            .Include(a => a.Condutor)
+            .Include(a => a.Automovel)
+            .Include(a => a.Plano)
+            .ToListAsync();
+    }
+
+    public async Task<List<Aluguel>> SelecionarFinalizadosAsync()
+    {
+        return await registros
+            .Where(a => a.Status == true)
+            .Include(a => a.Taxas)
+            .Include(a => a.Cliente)
+            .Include(a => a.Condutor)
+            .Include(a => a.Automovel)
+            .Include(a => a.Plano)
+            .ToListAsync();
+    }
+
+    public override async Task<List<Aluguel>> SelecionarTodosAsync()
+    {
+        return await registros
+            .Include(a => a.Taxas)
+            .Include(a => a.Cliente)
+            .Include(a => a.Condutor)
+            .Include(a => a.Automovel)
+            .Include(a => a.Plano)
+            .ToListAsync();
+    }
+
+    public override async Task<Aluguel?> SelecionarPorIdAsync(Guid id)
+    {
+        return await registros
+            .Include(a => a.Taxas)
+            .Include(a => a.Cliente)
+            .Include(a => a.Condutor)
+            .Include(a => a.Automovel)
+            .Include(a => a.Plano)
+            .FirstOrDefaultAsync(a => a.Id == id);
+    }
+}
