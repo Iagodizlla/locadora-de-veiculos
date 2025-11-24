@@ -1,5 +1,6 @@
 ﻿using LocadoraDeVeiculos.Aplicacao.ModuloPlano.Commands.Editar;
 using LocadoraDeVeiculos.Aplicacao.ModuloPlano.Commands.Excluir;
+using LocadoraDeVeiculos.Aplicacao.ModuloPlano.Commands.ExistePlanoComGrupo;
 using LocadoraDeVeiculos.Aplicacao.ModuloPlano.Commands.Inserir;
 using LocadoraDeVeiculos.Aplicacao.ModuloPlano.Commands.SelecionarPorId;
 using LocadoraDeVeiculos.Aplicacao.ModuloPlano.Commands.SelecionarTodos;
@@ -72,6 +73,17 @@ public class PlanoController(IMediator mediator) : ControllerBase
         var selecionarPorIdRequest = new SelecionarPlanoPorIdRequest(id);
 
         var resultado = await mediator.Send(selecionarPorIdRequest);
+
+        return resultado.ToHttpResponse();
+    }
+
+    [HttpGet("existe-plano-grupo/{grupoId:guid}")]
+    [ProducesResponseType(typeof(ExistePlanoComGrupoResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> ExistePlanoComGrupo(Guid grupoId)
+    {
+        var request = new ExistePlanoComGrupoRequest(grupoId);
+
+        var resultado = await mediator.Send(request);
 
         return resultado.ToHttpResponse();
     }
