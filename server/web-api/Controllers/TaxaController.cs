@@ -2,6 +2,7 @@
 using LocadoraDeVeiculos.Aplicacao.ModuloTaxa.Commands.Excluir;
 using LocadoraDeVeiculos.Aplicacao.ModuloTaxa.Commands.Inserir;
 using LocadoraDeVeiculos.Aplicacao.ModuloTaxa.Commands.SelecionarPorId;
+using LocadoraDeVeiculos.Aplicacao.ModuloTaxa.Commands.SelecionarPorIds;
 using LocadoraDeVeiculos.Aplicacao.ModuloTaxa.Commands.SelecionarTodos;
 using LocadoraDeVeiculos.WebApi.Extensions;
 using MediatR;
@@ -68,6 +69,17 @@ public class TaxaController(IMediator mediator) : ControllerBase
         var selecionarPorIdRequest = new SelecionarTaxaPorIdRequest(id);
 
         var resultado = await mediator.Send(selecionarPorIdRequest);
+
+        return resultado.ToHttpResponse();
+    }
+
+    [HttpPost("por-ids")]
+    [ProducesResponseType(typeof(SelecionarTaxasPorIdsResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> SelecionarPorIds([FromBody] List<Guid> ids)
+    {
+        var request = new SelecionarTaxasPorIdsRequest(ids);
+
+        var resultado = await mediator.Send(request);
 
         return resultado.ToHttpResponse();
     }
