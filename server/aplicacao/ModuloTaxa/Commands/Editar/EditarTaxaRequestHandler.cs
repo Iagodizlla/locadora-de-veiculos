@@ -21,6 +21,9 @@ public class EditarTaxaRequestHandler(
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
         taxaSelecionado.Nome = request.Nome;
+        taxaSelecionado.Preco = request.Preco;
+        taxaSelecionado.Servico = request.Servico;
+        taxaSelecionado.Alugueis = request.Alugueis;
 
         var resultadoValidacao = 
             await validador.ValidateAsync(taxaSelecionado, cancellationToken);

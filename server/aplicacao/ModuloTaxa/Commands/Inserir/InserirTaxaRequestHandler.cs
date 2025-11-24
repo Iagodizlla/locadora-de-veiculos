@@ -2,6 +2,7 @@
 using FluentValidation;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
 using LocadoraDeVeiculos.Dominio.ModuloTaxa;
 using MediatR;
@@ -9,6 +10,7 @@ using MediatR;
 namespace LocadoraDeVeiculos.Aplicacao.ModuloTaxa.Commands.Inserir;
 
 public class InserirTaxaRequestHandler(
+    IRepositorioAluguel repositorioAluguel,
     IContextoPersistencia contexto,
     IRepositorioTaxa repositorioTaxa,
     ITenantProvider tenantProvider,
@@ -18,7 +20,13 @@ public class InserirTaxaRequestHandler(
     public async Task<Result<InserirTaxaResponse>> Handle(
         InserirTaxaRequest request, CancellationToken cancellationToken)
     {
-        var taxa = new Taxa(request.Nome, request.Preco, request.Servico)
+        var alugueis = new List<Aluguel>();
+        foreach (var a in request.AlugueisId)
+        {
+            var b = await repositorioAluguel.SelecionarPorIdAsync(a);
+            alugueis.Add(b);
+        }
+        var taxa = new Taxa(request.Nome, request.Preco, request.Servico, alugueis)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };

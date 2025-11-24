@@ -34,7 +34,8 @@ public class TaxaController(IMediator mediator) : ControllerBase
             id,
             request.Nome,
             request.Preco,
-            request.Servico
+            request.Servico,
+            request.Alugueis
         );
 
         var resultado = await mediator.Send(editarRequest);

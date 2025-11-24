@@ -15,6 +15,20 @@ public class RepositorioTaxaEmOrm(IContextoPersistencia context)
 
         return await registros
             .Where(t => entidadesId.Contains(t.Id))
+            .Include(a => a.Alugueis)
             .ToListAsync();
+    }
+    public override async Task<List<Taxa>> SelecionarTodosAsync()
+    {
+        return await registros
+            .Include(a => a.Alugueis)
+            .ToListAsync();
+    }
+
+    public override async Task<Taxa?> SelecionarPorIdAsync(Guid id)
+    {
+        return await registros
+            .Include(a => a.Alugueis)
+            .FirstOrDefaultAsync(a => a.Id == id);
     }
 }
