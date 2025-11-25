@@ -69,4 +69,10 @@ public abstract class AluguelErrorResults
             .CausedBy("Não é permitido alocar um condutor que já está em um aluguel em andamento")
             .WithMetadata("ErrorType", "BadRequest");
     }
+    public static Error AutomovelEmAluguelAtivoError()
+    {
+        return new Error("O automóvel já está em um aluguel ativo")
+            .CausedBy("Não é permitido alocar um automóvel que já está em um aluguel em andamento")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
 }

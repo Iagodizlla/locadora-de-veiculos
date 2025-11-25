@@ -58,6 +58,8 @@ public class InserirAluguelRequestHandler(
             return Result.Fail(AluguelErrorResults.ClienteEmAluguelAtivoError());
         if (await repositorioAluguel.CondutorEstaOcupadoAsync(request.ClienteId))
             return Result.Fail(AluguelErrorResults.CondutorEmAluguelAtivoError());
+        if (await repositorioAluguel.AutomovelEstaOcupadoAsync(request.ClienteId))
+            return Result.Fail(AluguelErrorResults.AutomovelEmAluguelAtivoError());
         #endregion
 
         var grupoAutomovel = new Aluguel(cliente, condutor, automovel, plano, taxas, request.DataSaisa, request.DataRetornoPrevista,
