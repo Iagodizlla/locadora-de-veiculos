@@ -97,7 +97,7 @@ public class CondutorController(IMediator mediator) : ControllerBase
         return resultado.ToHttpResponse();
     }
 
-    [HttpGet("{cpf:string}")]
+    [HttpGet("{cpf}")]
     [ProducesResponseType(typeof(SelecionarCondutorPorCpfResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> SelecionarPorCpf(string cpf)
     {
