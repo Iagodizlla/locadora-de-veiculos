@@ -2,6 +2,6 @@
 
 public enum ETipoCliente
 {
-    PessoaFisica,
-    PessoaJuridica
+    PessoaFisica = 0,
+    PessoaJuridica = 1
 }
