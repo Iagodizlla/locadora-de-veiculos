@@ -4,6 +4,7 @@ using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
+using LocadoraDeVeiculos.Dominio.ModuloConfig;
 using LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloPlano;
@@ -12,6 +13,7 @@ using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAluguel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAutomovel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCliente;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloCondutor;
+using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloConfig;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloFuncionario;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Infraestrutura.Orm.ModuloPlano;
@@ -36,7 +38,7 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
             modelBuilder.Entity<Condutor>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<Taxa>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<Aluguel>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
-            //modelBuilder.Entity<Configuracao>().HasQueryFilter(m => m.UsuarioId == tenantProvider.UsuarioId);
+            modelBuilder.Entity<Config>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
         }
 
         modelBuilder.ApplyConfiguration(new MapeadorFuncionarioEmOrm());
@@ -47,7 +49,7 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
         modelBuilder.ApplyConfiguration(new MapeadorCondutorEmOrm());
         modelBuilder.ApplyConfiguration(new MapeadorTaxaEmOrm());
         modelBuilder.ApplyConfiguration(new MapeadorAluguelEmOrm());
-        //modelBuilder.ApplyConfiguration(new MapeadorConfiguracaoEmOrm());
+        modelBuilder.ApplyConfiguration(new MapeadorConfigEmOrm());
 
         base.OnModelCreating(modelBuilder);
     }
