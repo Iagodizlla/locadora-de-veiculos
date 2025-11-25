@@ -15,4 +15,5 @@ public interface IRepositorioAluguel
     Task<bool> ClienteEmAluguelAtivoAsync(Guid clienteId);
     Task<bool> CondutorEmAluguelAtivoAsync(Guid condutorId);
     Task<bool> TaxaEmAluguelAtivoAsync(Guid taxaId);
+    Task<bool> ClienteEstaOcupadoAsync(Guid clienteId);
 }

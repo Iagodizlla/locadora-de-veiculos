@@ -96,4 +96,13 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context)
             a.Taxas.Any(t => t.Id == taxaId)
         );
     }
+
+    public async Task<bool> ClienteEstaOcupadoAsync(Guid clienteId)
+    {
+        return await registros
+        .AnyAsync(a =>
+            a.Cliente.Id == clienteId &&
+            a.Status == false
+        );
+    }
 }
