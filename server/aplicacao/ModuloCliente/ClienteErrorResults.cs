@@ -31,4 +31,10 @@ public abstract class ClienteErrorResults
             .CausedBy($"Um cliente com a CNH '{cnh}' já foi cadastrado")
             .WithMetadata("ErrorType", "BadRequest");
     }
+    public static Error ClienteComAluguelNaoFinalizadoError()
+    {
+        return new Error("Não é possível editar este veículo no momento.")
+            .CausedBy("O veículo está vinculado a um aluguel que ainda não foi concluído.")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
 }
