@@ -1,5 +1,6 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAluguel;
+using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloTaxa;
 using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
 using Microsoft.EntityFrameworkCore;
@@ -62,5 +63,11 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context)
             .Include(a => a.Automovel)
             .Include(a => a.Plano)
             .FirstOrDefaultAsync(a => a.Id == id);
+    }
+
+    public async Task<bool> ExisteAluguelComPlanoAsync(Guid planoId)
+    {
+        return await registros
+            .AnyAsync(a => a.PlanoId == planoId);
     }
 }
