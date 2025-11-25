@@ -56,9 +56,9 @@ public class InserirAluguelRequestHandler(
         #region Validacao de disponiveis
         if (await repositorioAluguel.ClienteEstaOcupadoAsync(request.ClienteId))
             return Result.Fail(AluguelErrorResults.ClienteEmAluguelAtivoError());
-        if (await repositorioAluguel.CondutorEstaOcupadoAsync(request.ClienteId))
+        if (await repositorioAluguel.CondutorEstaOcupadoAsync(request.CondutorId))
             return Result.Fail(AluguelErrorResults.CondutorEmAluguelAtivoError());
-        if (await repositorioAluguel.AutomovelEstaOcupadoAsync(request.ClienteId))
+        if (await repositorioAluguel.AutomovelEstaOcupadoAsync(request.AutomovelId))
             return Result.Fail(AluguelErrorResults.AutomovelEmAluguelAtivoError());
         #endregion
 
