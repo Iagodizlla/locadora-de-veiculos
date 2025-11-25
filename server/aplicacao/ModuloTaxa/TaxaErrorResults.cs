@@ -10,4 +10,10 @@ public abstract class TaxaErrorResults
             .CausedBy($"Um grupo de automóvel com o nome '{nome}' já foi cadastrado")
             .WithMetadata("ErrorType", "BadRequest");
     }
+    public static Error TaxaComAluguelNaoFinalizadoError()
+    {
+        return new Error("Não é possível excluir esta taxa no momento.")
+            .CausedBy("A taxa está vinculado a um aluguel que ainda não foi concluído.")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
 }
