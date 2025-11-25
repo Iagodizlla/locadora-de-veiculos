@@ -35,6 +35,14 @@ public class EditarAluguelRequestHandler(
         if (request.Automovel.GrupoAutomovel.Id != request.Plano.GrupoAutomovel.Id)
             return Result.Fail(AluguelErrorResults.GruposAutomovelIncompativeisError());
         #endregion
+        #region Validacao de disponiveis
+        if (await repositorioAluguel.ClienteEstaOcupadoAsync(request.Cliente.Id))
+            return Result.Fail(AluguelErrorResults.ClienteEmAluguelAtivoError());
+        if (await repositorioAluguel.CondutorEstaOcupadoAsync(request.Condutor.Id))
+            return Result.Fail(AluguelErrorResults.CondutorEmAluguelAtivoError());
+        if (await repositorioAluguel.AutomovelEstaOcupadoAsync(request.Automovel.Id))
+            return Result.Fail(AluguelErrorResults.AutomovelEmAluguelAtivoError());
+        #endregion
 
         aluguelSelecionado.Cliente = request.Cliente;
         aluguelSelecionado.Condutor = request.Condutor;
