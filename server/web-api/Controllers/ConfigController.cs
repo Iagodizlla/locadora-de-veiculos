@@ -1,0 +1,28 @@
+﻿using LocadoraDeVeiculos.Aplicacao.ModuloConfig.Commands.Editar;
+using LocadoraDeVeiculos.Aplicacao.ModuloConfig.Commands.Selecionar;
+using LocadoraDeVeiculos.WebApi.Extensions;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
+namespace LocadoraDeVeiculos.WebApi.Controllers;
+
+[Route("api/configuracoes/combustivel")]
+[ApiController]
+public class ConfigController(IMediator mediator) : ControllerBase
+{
+    [HttpPut]
+    [ProducesResponseType(typeof(EditarConfigResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Editar(EditarConfigRequest request)
+    {
+        var resultado = await mediator.Send(request);
+        return resultado.ToHttpResponse();
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(SelecionarConfigResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Selecionar()
+    {
+        var resultado = await mediator.Send(new SelecionarConfigRequest());
+        return resultado.ToHttpResponse();
+    }
+}
