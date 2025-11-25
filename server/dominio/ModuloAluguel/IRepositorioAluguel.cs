@@ -13,4 +13,5 @@ public interface IRepositorioAluguel
     Task<bool> ExisteAluguelComPlanoAsync(Guid planoId);
     Task<bool> VeiculoEmAluguelAtivoAsync(Guid veiculoId);
     Task<bool> ClienteEmAluguelAtivoAsync(Guid clienteId);
+    Task<bool> CondutorEmAluguelAtivoAsync(Guid condutorId);
 }
