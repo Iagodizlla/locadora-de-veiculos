@@ -4,13 +4,13 @@ namespace LocadoraDeVeiculos.Dominio.ModuloConfig;
 
 public class Config : EntidadeBase
 {
-    public double Gasolina {  get; set; }
-    public double Gas {  get; set; }
-    public double Diessel {  get; set; }
-    public double Alcool { get; set; }
+    public decimal Gasolina { get; set; }
+    public decimal Gas { get; set; }
+    public decimal Diessel { get; set; }
+    public decimal Alcool { get; set; }
 
     public Config() { }
-    public Config(double gasolina, double gas, double diessel, double alcool) : this()
+    public Config(decimal gasolina, decimal gas, decimal diessel, decimal alcool) : this()
     {
         Gasolina = gasolina;
         Gas = gas;

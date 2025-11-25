@@ -2,6 +2,7 @@
 
 public interface IRepositorioConfig
 {
-    Task<bool> EditarAsync(Config entidadeAtualizada);
-    Task<Config?> SelecionarPorIdAsync(Guid id);
+    Task<Config> SelecionarAsync();
+    Task<bool> EditarAsync(Config configuracao);
+    Task InserirAsync(Config configuracaoInicial);
 }
