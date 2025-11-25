@@ -11,4 +11,5 @@ public interface IRepositorioAluguel
     Task<List<Aluguel>> SelecionarAtivosAsync();
     Task<List<Aluguel>> SelecionarFinalizadosAsync();
     Task<bool> ExisteAluguelComPlanoAsync(Guid planoId);
+    Task<bool> VeiculoEmAluguelAtivoAsync(Guid veiculoId);
 }

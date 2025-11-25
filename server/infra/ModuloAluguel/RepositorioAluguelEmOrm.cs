@@ -70,4 +70,10 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context)
         return await registros
             .AnyAsync(a => a.PlanoId == planoId);
     }
+
+    public async Task<bool> VeiculoEmAluguelAtivoAsync(Guid automovelId)
+    {
+        return await registros
+            .AnyAsync(a => a.Automovel.Id == automovelId && a.Status == false);
+    }
 }
