@@ -53,8 +53,8 @@ public abstract class AluguelErrorResults
     }
     public static Error AluguelNaoPodeSerExcluidoError()
     {
-        return new Error("Não é possível excluir este aluguel")
-            .CausedBy("O aluguel já está finalizado e não pode ser removido")
+        return new Error("Não é possível excluir ou editar este aluguel")
+            .CausedBy("O aluguel já está finalizado e não pode ser removido ou editado")
             .WithMetadata("ErrorType", "BadRequest");
     }
     public static Error ClienteEmAluguelAtivoError()

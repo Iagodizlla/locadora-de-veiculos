@@ -27,6 +27,9 @@ public class EditarAluguelRequestHandler(
         if (aluguelSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
+        if (aluguelSelecionado.Status == false)
+            return Result.Fail(AluguelErrorResults.AluguelNaoPodeSerExcluidoError());
+
         #region Validacao de sequencia
         if (request.Cliente.ClienteTipo == ETipoCliente.PessoaJuridica && request.Condutor.ECliente == true)
             return Result.Fail(AluguelErrorResults.CondutorInvalidoParaClientePJError());
