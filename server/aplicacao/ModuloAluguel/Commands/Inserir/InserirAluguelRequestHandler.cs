@@ -35,14 +35,6 @@ public class InserirAluguelRequestHandler(
         var automovel = await repositorioAutomovel.SelecionarPorIdAsync(request.AutomovelId);
         var taxas = await repositorioTaxa.SelecionarTodosPorIdAsync(request.TaxasId);
         #endregion
-        #region Validacao de sequencia
-        if (cliente.ClienteTipo == ETipoCliente.PessoaJuridica && condutor.ECliente == true)
-            return Result.Fail(AluguelErrorResults.CondutorInvalidoParaClientePJError());
-        if (cliente.ClienteTipo == ETipoCliente.PessoaFisica && condutor.ECliente == false)
-            return Result.Fail(AluguelErrorResults.CondutorInvalidoParaClientePFError());
-        if (automovel.GrupoAutomovel.Id != plano.GrupoAutomovel.Id)
-            return Result.Fail(AluguelErrorResults.GruposAutomovelIncompativeisError());
-        #endregion
         #region Validacao de encontrar
         if (ClienteNaoEncontrado(cliente))
             return Result.Fail(AluguelErrorResults.ClienteNaoEncontradoError());
@@ -52,6 +44,20 @@ public class InserirAluguelRequestHandler(
             return Result.Fail(AluguelErrorResults.PlanoNaoEncontradoError());
         if (AutomovelNaoEncontrado(automovel))
             return Result.Fail(AluguelErrorResults.AutomovelNaoEncontradoError());
+        #endregion
+        #region Validacao de sequencia
+        if (cliente.ClienteTipo == ETipoCliente.PessoaJuridica && condutor.ECliente == true)
+            return Result.Fail(AluguelErrorResults.CondutorInvalidoParaClientePJError());
+        if (cliente.ClienteTipo == ETipoCliente.PessoaFisica && condutor.ECliente == false)
+            return Result.Fail(AluguelErrorResults.CondutorInvalidoParaClientePFError());
+        if (automovel.GrupoAutomovel.Id != plano.GrupoAutomovel.Id)
+            return Result.Fail(AluguelErrorResults.GruposAutomovelIncompativeisError());
+        #endregion
+        #region Validacao de disponiveis
+        if (await repositorioAluguel.ClienteEstaOcupadoAsync(request.ClienteId))
+            return Result.Fail(AluguelErrorResults.ClienteEmAluguelAtivoError());
+        if (await repositorioAluguel.CondutorEstaOcupadoAsync(request.ClienteId))
+            return Result.Fail(AluguelErrorResults.CondutorEmAluguelAtivoError());
         #endregion
 
         var grupoAutomovel = new Aluguel(cliente, condutor, automovel, plano, taxas, request.DataSaisa, request.DataRetornoPrevista,

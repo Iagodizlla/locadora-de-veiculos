@@ -57,4 +57,16 @@ public abstract class AluguelErrorResults
             .CausedBy("O aluguel já está finalizado e não pode ser removido")
             .WithMetadata("ErrorType", "BadRequest");
     }
+    public static Error ClienteEmAluguelAtivoError()
+    {
+        return new Error("O cliente já está em um aluguel ativo")
+            .CausedBy("Não é permitido alocar um cliente que já está em um aluguel em andamento")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
+    public static Error CondutorEmAluguelAtivoError()
+    {
+        return new Error("O condutor já está em um aluguel ativo")
+            .CausedBy("Não é permitido alocar um condutor que já está em um aluguel em andamento")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
 }
