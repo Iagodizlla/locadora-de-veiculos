@@ -33,8 +33,8 @@ public abstract class ClienteErrorResults
     }
     public static Error ClienteComAluguelNaoFinalizadoError()
     {
-        return new Error("Não é possível editar este veículo no momento.")
-            .CausedBy("O veículo está vinculado a um aluguel que ainda não foi concluído.")
+        return new Error("Não é possível editar ou excluir este cliente no momento.")
+            .CausedBy("O cliente está vinculado a um aluguel que ainda não foi concluído.")
             .WithMetadata("ErrorType", "BadRequest");
     }
 }
