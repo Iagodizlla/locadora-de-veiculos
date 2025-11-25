@@ -24,4 +24,10 @@ public abstract class CondutorErrorResults
             .CausedBy($"Um condutor com o CPF '{cpf}' já foi cadastrado")
             .WithMetadata("ErrorType", "BadRequest");
     }
+    public static Error CondutorComAluguelNaoFinalizadoError()
+    {
+        return new Error("Não é possível excluir este condutor no momento.")
+            .CausedBy("O condutor está vinculado a um aluguel que ainda não foi concluído.")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
 }

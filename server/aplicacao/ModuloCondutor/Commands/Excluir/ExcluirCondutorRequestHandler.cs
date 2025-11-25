@@ -1,12 +1,15 @@
 ﻿using FluentResults;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
+using LocadoraDeVeiculos.Aplicacao.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloCondutor.Commands.Excluir;
 
 public class ExcluirCondutorRequestHandler(
+    IRepositorioAluguel repositorioAluguel,
     IRepositorioCondutor repositorioCondutor,
     IContextoPersistencia contexto
 ) : IRequestHandler<ExcluirCondutorRequest, Result<ExcluirCondutorResponse>>
@@ -17,6 +20,9 @@ public class ExcluirCondutorRequestHandler(
 
         if (condutorSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
+
+        if (await repositorioAluguel.CondutorEmAluguelAtivoAsync(request.Id))
+            return Result.Fail(CondutorErrorResults.CondutorComAluguelNaoFinalizadoError());
 
         try
         {
