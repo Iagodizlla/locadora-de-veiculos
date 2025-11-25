@@ -364,6 +364,33 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.ToTable("TBCondutor", (string)null);
                 });
 
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloConfig.Config", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Alcool")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("Diessel")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Gas")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<decimal>("Gasolina")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.ToTable("TBConfig", (string)null);
+                });
+
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloFuncionario.Funcionario", b =>
                 {
                     b.Property<Guid>("Id")
@@ -691,6 +718,17 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloCondutor.Condutor", b =>
+                {
+                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Empresa");
+                });
+
+            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloConfig.Config", b =>
                 {
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Empresa")
                         .WithMany()

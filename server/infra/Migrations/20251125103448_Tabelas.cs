@@ -205,6 +205,27 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TBConfig",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Gasolina = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Gas = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Diessel = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Alcool = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    EmpresaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TBConfig", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TBConfig_AspNetUsers_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TBFuncionario",
                 columns: table => new
                 {
@@ -534,6 +555,11 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                 column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TBConfig_EmpresaId",
+                table: "TBConfig",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TBFuncionario_EmpresaId_Excluido",
                 table: "TBFuncionario",
                 columns: new[] { "EmpresaId", "Excluido" });
@@ -584,6 +610,9 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 
             migrationBuilder.DropTable(
                 name: "TBAluguelTaxa");
+
+            migrationBuilder.DropTable(
+                name: "TBConfig");
 
             migrationBuilder.DropTable(
                 name: "TBFuncionario");
