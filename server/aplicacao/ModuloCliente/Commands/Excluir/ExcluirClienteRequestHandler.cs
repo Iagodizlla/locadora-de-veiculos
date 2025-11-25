@@ -20,7 +20,7 @@ public class ExcluirClienteRequestHandler(
         if (clienteSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
-        if (await repositorioAluguel.VeiculoEmAluguelAtivoAsync(request.Id))
+        if (await repositorioAluguel.ClienteEmAluguelAtivoAsync(request.Id))
             return Result.Fail(ClienteErrorResults.ClienteComAluguelNaoFinalizadoError());
 
         try
