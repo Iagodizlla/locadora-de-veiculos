@@ -18,6 +18,9 @@ public class ExcluirAluguelRequestHandler(
         if (aluguelSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
+        if (aluguelSelecionado.Status == false)
+            return Result.Fail(AluguelErrorResults.AluguelNaoPodeSerExcluidoError());
+
         try
         {
             await repositorioAluguel.ExcluirAsync(aluguelSelecionado);
