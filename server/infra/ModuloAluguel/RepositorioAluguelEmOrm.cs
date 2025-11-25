@@ -87,4 +87,13 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context)
         return await registros
             .AnyAsync(a => a.Condutor.Id == condutorId && a.Status == false);
     }
+
+    public async Task<bool> TaxaEmAluguelAtivoAsync(Guid taxaId)
+    {
+        return await registros
+        .AnyAsync(a =>
+            a.Status == false &&
+            a.Taxas.Any(t => t.Id == taxaId)
+        );
+    }
 }
