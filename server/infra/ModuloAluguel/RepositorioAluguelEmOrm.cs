@@ -105,4 +105,12 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context)
             a.Status == false
         );
     }
+    public async Task<bool> CondutorEstaOcupadoAsync(Guid condutorId)
+    {
+        return await registros
+        .AnyAsync(a =>
+            a.Condutor.Id == condutorId &&
+            a.Status == false
+        );
+    }
 }
