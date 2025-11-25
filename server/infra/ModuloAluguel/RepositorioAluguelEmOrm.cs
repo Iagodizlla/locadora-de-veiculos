@@ -113,4 +113,12 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context)
             a.Status == false
         );
     }
+    public async Task<bool> AutomovelEstaOcupadoAsync(Guid automovelId)
+    {
+        return await registros
+        .AnyAsync(a =>
+            a.Automovel.Id == automovelId &&
+            a.Status == false
+        );
+    }
 }
