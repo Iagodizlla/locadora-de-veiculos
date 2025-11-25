@@ -2,6 +2,7 @@
 using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Excluir;
 using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Finalizar;
 using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Inserir;
+using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.SelecionarAtivos;
 using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.SelecionarPorId;
 using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.SelecionarTodos;
 using LocadoraDeVeiculos.WebApi.Extensions;
@@ -93,6 +94,15 @@ public class AluguelController(IMediator mediator) : ControllerBase
         var request = new FinalizarAluguelRequest(id);
 
         var resultado = await mediator.Send(request);
+
+        return resultado.ToHttpResponse();
+    }
+
+    [HttpGet("ativos")]
+    [ProducesResponseType(typeof(SelecionarAlugueisAtivosResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> SelecionarAtivos()
+    {
+        var resultado = await mediator.Send(new SelecionarAlugueisAtivosRequest());
 
         return resultado.ToHttpResponse();
     }
