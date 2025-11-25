@@ -37,7 +37,7 @@ public class Aluguel : EntidadeBase
     public bool SeguroTerceiro { get; set; }
     public double? ValorSeguroPorDia { get; set; }
     #endregion
-    public bool Status { get; set; }
+    public bool Status { get; set; } = false;
     #endregion
     public Aluguel() { }
     public Aluguel(Cliente cliente, Condutor condutor, Automovel automovel, Plano plano, List<Taxa> taxas, DateTimeOffset dataSaida, DateTimeOffset dataRetornoPrevista,
