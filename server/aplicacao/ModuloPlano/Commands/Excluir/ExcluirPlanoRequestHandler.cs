@@ -1,12 +1,15 @@
 ﻿using FluentResults;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
+using LocadoraDeVeiculos.Aplicacao.ModuloGrupoAutomovel;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloPlano;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloPlano.Commands.Excluir;
 
 public class ExcluirPlanoRequestHandler(
+    IRepositorioAluguel repositorioAluguel,
     IRepositorioPlano repositorioPlano,
     IContextoPersistencia contexto
 ) : IRequestHandler<ExcluirPlanoRequest, Result<ExcluirPlanoResponse>>
@@ -14,6 +17,9 @@ public class ExcluirPlanoRequestHandler(
     public async Task<Result<ExcluirPlanoResponse>> Handle(ExcluirPlanoRequest request, CancellationToken cancellationToken)
     {
         var planoSelecionado = await repositorioPlano.SelecionarPorIdAsync(request.Id);
+
+        if (await repositorioAluguel.ExisteAluguelComPlanoAsync(request.Id))
+            return Result.Fail(PlanoErrorResults.PlanoPossuiAlugueisError());
 
         if (planoSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));

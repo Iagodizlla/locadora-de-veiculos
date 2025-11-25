@@ -22,7 +22,6 @@ public class ExcluirGrupoAutomovelRequestHandler(
         if (grupoAutomovelSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
-        // 🔥 REGRA DE NEGÓCIO: verificar se há automóveis vinculados
         if (await repositorioAutomovel.ExisteAutomovelComGrupoAsync(request.Id))
             return Result.Fail(GrupoAutomovelErrorResults.GrupoPossuiAutomoveisError());
 
