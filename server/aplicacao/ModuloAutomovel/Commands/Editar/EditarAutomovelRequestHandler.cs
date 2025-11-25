@@ -2,12 +2,14 @@
 using FluentValidation;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloAutomovel.Commands.Editar;
 
 public class EditarAutomovelRequestHandler(
+    IRepositorioAluguel repositorioAluguel,
     IRepositorioAutomovel repositorioAutomovel,
     IContextoPersistencia contexto,
     IValidator<Automovel> validador
@@ -41,6 +43,9 @@ public class EditarAutomovelRequestHandler(
 
             return Result.Fail(ErrorResults.BadRequestError(erros));
         }
+
+        if (await repositorioAluguel.VeiculoEmAluguelAtivoAsync(request.Id))
+            return Result.Fail(AutomovelErrorResults.VeiculoComAluguelNaoFinalizadoError());
 
         var automoveis = await repositorioAutomovel.SelecionarTodosAsync();
 

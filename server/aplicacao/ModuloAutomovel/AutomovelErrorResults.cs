@@ -17,4 +17,10 @@ public abstract class AutomovelErrorResults
             .CausedBy("Não foi possível obter o Grupa de automóvel informado na requisição")
             .WithMetadata("ErrorType", "BadRequest");
     }
+    public static Error VeiculoComAluguelNaoFinalizadoError()
+    {
+        return new Error("Não é possível editar este veículo no momento.")
+            .CausedBy("O veículo está vinculado a um aluguel que ainda não foi concluído.")
+            .WithMetadata("ErrorType", "BadRequest");
+    }
 }
