@@ -28,13 +28,22 @@ public class InserirAluguelRequestHandler(
     public async Task<Result<InserirAluguelResponse>> Handle(
         InserirAluguelRequest request, CancellationToken cancellationToken)
     {
-        #region Entidades e validacoes
+        #region Entidades
         var cliente = await repositorioCliente.SelecionarPorIdAsync(request.ClienteId);
         var condutor = await repositorioCondutor.SelecionarPorIdAsync(request.CondutorId);
         var plano = await repositorioPlano.SelecionarPorIdAsync(request.PlanoId);
         var automovel = await repositorioAutomovel.SelecionarPorIdAsync(request.AutomovelId);
         var taxas = await repositorioTaxa.SelecionarTodosPorIdAsync(request.TaxasId);
-
+        #endregion
+        #region Validacao de sequencia
+        if (cliente.ClienteTipo == ETipoCliente.PessoaJuridica && condutor.ECliente == true)
+            return Result.Fail(AluguelErrorResults.CondutorInvalidoParaClientePJError());
+        if (cliente.ClienteTipo == ETipoCliente.PessoaFisica && condutor.ECliente == false)
+            return Result.Fail(AluguelErrorResults.CondutorInvalidoParaClientePFError());
+        if (automovel.GrupoAutomovel.Id != plano.GrupoAutomovel.Id)
+            return Result.Fail(AluguelErrorResults.GruposAutomovelIncompativeisError());
+        #endregion
+        #region Validacao de encontrar
         if (ClienteNaoEncontrado(cliente))
             return Result.Fail(AluguelErrorResults.ClienteNaoEncontradoError());
         if (CondutorNaoEncontrado(condutor))
@@ -46,7 +55,7 @@ public class InserirAluguelRequestHandler(
         #endregion
 
         var grupoAutomovel = new Aluguel(cliente, condutor, automovel, plano, taxas, request.DataSaisa, request.DataRetornoPrevista,
-            request.DataDevolucao, request.KmInicial, request.KmFianl, request.NivelCombustivelNaSaida, request.NivelCombustivelNaDevolucao,
+            request.DataDevolucao, request.KmInicial, request.KmFinal, request.NivelCombustivelNaSaida, request.NivelCombustivelNaDevolucao,
             request.SeguroCliente, request.SeguroTerceiro, request.ValorSeguroPorDia, request.Status)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()

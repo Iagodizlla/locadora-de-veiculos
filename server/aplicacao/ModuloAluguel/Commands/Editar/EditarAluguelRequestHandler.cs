@@ -10,6 +10,7 @@ using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using LocadoraDeVeiculos.Dominio.ModuloPlano;
 using MediatR;
+using System.Numerics;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloGrupoAluguel.Commands.Editar;
 
@@ -25,6 +26,15 @@ public class EditarAluguelRequestHandler(
 
         if (aluguelSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
+
+        #region Validacao de sequencia
+        if (request.Cliente.ClienteTipo == ETipoCliente.PessoaJuridica && request.Condutor.ECliente == true)
+            return Result.Fail(AluguelErrorResults.CondutorInvalidoParaClientePJError());
+        if (request.Cliente.ClienteTipo == ETipoCliente.PessoaFisica && request.Condutor.ECliente == false)
+            return Result.Fail(AluguelErrorResults.CondutorInvalidoParaClientePFError());
+        if (request.Automovel.GrupoAutomovel.Id != request.Plano.GrupoAutomovel.Id)
+            return Result.Fail(AluguelErrorResults.GruposAutomovelIncompativeisError());
+        #endregion
 
         aluguelSelecionado.Cliente = request.Cliente;
         aluguelSelecionado.Condutor = request.Condutor;
