@@ -43,7 +43,7 @@ public class AluguelController(IMediator mediator) : ControllerBase
             request.DataRetornoPrevista,
             request.DataDevolucao,
             request.KmInicial,
-            request.KmFianl,
+            request.KmFinal,
             request.NivelCombustivelNaSaida,
             request.NivelCombustivelNaDevolucao,
             request.SeguroCliente,
