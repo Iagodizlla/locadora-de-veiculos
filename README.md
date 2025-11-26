@@ -103,3 +103,25 @@ dotnet run
 A API poderá ser acessada no endereço `https://localhost:59251/api`.
 
 A documentação **OpenAPI** também estará disponível em: `https://localhost:59251/swagger`.
+
+## Executando o Front-End
+
+Vá para a pasta do projeto Angular:
+
+```bash
+cd client
+```
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Execute o projeto:
+
+```bash
+npm start
+```
+
+A aplicação Angular estárá disponível no endereço `http://localhost:4200`.
