@@ -1,12 +1,52 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { map, take } from 'rxjs';
 
-import { routes } from './app.routes';
+import { ApplicationConfig,
+  inject,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
+} from '@angular/core';
+import { CanActivateFn, provideRouter, Router, Routes } from '@angular/router';
+
+import { provideAuth } from './components/auth/auth.provider';
+import { AuthService } from './components/auth/auth.service';
+import { provideNotifications } from './components/shared/notificacao/notificacao.provider';
+
+const usuarioDesconhecidoGuard: CanActivateFn = () => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  return authService.accessToken$.pipe(
+    take(1),
+    map((token) => (!token ? true : router.createUrlTree(['/inicio'])))
+  );
+};
+
+const usuarioAutenticadoGuard: CanActivateFn = () => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  return authService.accessToken$.pipe(
+    take(1),
+    map((token) => (token ? true : router.createUrlTree(['/auth/login'])))
+  );
+};
+
+const routes: Routes = [
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  {
+    path: 'auth',
+    loadChildren: () => import('./components/auth/auth.routes').then((r) => r.authRoutes),
+    canMatch: [usuarioDesconhecidoGuard],
+  },
+];
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
-  ]
+    provideZonelessChangeDetection(),
+    provideRouter(routes),
+
+    provideNotifications(),
+    provideAuth(),
+  ],
 };

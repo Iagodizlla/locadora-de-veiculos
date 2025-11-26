@@ -1,0 +1,29 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 300px;
+
+  border-radius: 0;
+
+  padding: 0 10px;
+
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  background-color: var(--mat-sys-surface-container-low);
+}
+
+.sidenav-svg {
+  fill: var(--mat-sys-surface-container-low);
+}
