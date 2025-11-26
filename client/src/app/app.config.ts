@@ -43,6 +43,11 @@ const routes: Routes = [
     loadComponent: () => import('./components/inicio/inicio').then((c) => c.Inicio),
     canMatch: [usuarioAutenticadoGuard],
   },
+  {
+    path: 'grupo-automoveis',
+    loadChildren: () => import('./components/grupo-automoveis/grupo-automovel.routes').then((c) => c.grupoAutomovelRoutes),
+    canMatch: [usuarioAutenticadoGuard],
+  },
 ];
 
 export const appConfig: ApplicationConfig = {
