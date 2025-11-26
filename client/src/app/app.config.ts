@@ -38,6 +38,11 @@ const routes: Routes = [
     loadChildren: () => import('./components/auth/auth.routes').then((r) => r.authRoutes),
     canMatch: [usuarioDesconhecidoGuard],
   },
+  {
+    path: 'inicio',
+    loadComponent: () => import('./components/inicio/inicio').then((c) => c.Inicio),
+    canMatch: [usuarioAutenticadoGuard],
+  },
 ];
 
 export const appConfig: ApplicationConfig = {
