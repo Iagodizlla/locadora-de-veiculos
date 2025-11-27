@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 
-//import { CadastrarGrupoAutomovel } from './cadastrar/cadastrar-grupo-automovel';
+import { CadastrarGrupoAutomovel } from './cadastrar/cadastrar-grupo-automovel';
 //import { EditarGrupoAutomovel } from './editar/editar-grupo-automovel';
 //import { ExcluirGrupoAutomovel } from './excluir/excluir-grupo-automovel';
 import { ListarGruposAutomoveis } from './listar/listar-grupos-automoveis';
@@ -30,10 +30,10 @@ export const grupoAutomovelRoutes: Routes = [
         component: ListarGruposAutomoveis,
         resolve: { gruposAutomoveis: listarGruposAutomoveisResolver },
       },
-      //{
-      //  path: 'cadastrar',
-      //  component: CadastrarGrupoAutomovel,
-      //},
+      {
+        path: 'cadastrar',
+        component: CadastrarGrupoAutomovel,
+      },
       //{
       //  path: 'editar/:id',
       //  component: EditarGrupoAutomovel,
