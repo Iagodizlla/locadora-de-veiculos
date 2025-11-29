@@ -8,9 +8,9 @@ using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Editar;
 
-public record EditarAluguelPartialRequest(Cliente Cliente, Condutor Condutor, Automovel Automovel, Plano Plano, List<Taxa> Taxas, DateTimeOffset DataSaisa, DateTimeOffset DataRetornoPrevista,
+public record EditarAluguelPartialRequest(Guid ClienteId, Guid CondutorId, Guid AutomovelId, Guid PlanoId, List<Guid> TaxasId, DateTimeOffset DataSaisa, DateTimeOffset DataRetornoPrevista,
     DateTimeOffset? DataDevolucao, int KmInicial, int?KmFinal, int NivelCombustivelNaSaida, int? NivelCombustivelNaDevolucao, bool SeguroCliente, bool SeguroTerceiro, double? ValorSeguroPorDia, bool Status);
 
-public record EditarAluguelRequest(Guid Id, Cliente Cliente, Condutor Condutor, Automovel Automovel, Plano Plano, List<Taxa> Taxas, DateTimeOffset DataSaisa, DateTimeOffset DataRetornoPrevista,
+public record EditarAluguelRequest(Guid Id, Guid ClienteId, Guid CondutorId, Guid AutomovelId, Guid PlanoId, List<Guid> TaxasId, DateTimeOffset DataSaisa, DateTimeOffset DataRetornoPrevista,
     DateTimeOffset? DataDevolucao, int KmInicial, int? KmFianl, int NivelCombustivelNaSaida, int? NivelCombustivelNaDevolucao, bool SeguroCliente, bool SeguroTerceiro, double? ValorSeguroPorDia, bool Status)
     : IRequest<Result<EditarAluguelResponse>>;

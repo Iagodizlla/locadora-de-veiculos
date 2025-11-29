@@ -34,11 +34,11 @@ public class AluguelController(IMediator mediator) : ControllerBase
     {
         var editarRequest = new EditarAluguelRequest(
             id,
-            request.Cliente,
-            request.Condutor,
-            request.Automovel,
-            request.Plano,
-            request.Taxas,
+            request.ClienteId,
+            request.CondutorId,
+            request.AutomovelId,
+            request.PlanoId,
+            request.TaxasId,
             request.DataSaisa,
             request.DataRetornoPrevista,
             request.DataDevolucao,

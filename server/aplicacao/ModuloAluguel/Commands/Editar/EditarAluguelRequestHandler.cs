@@ -9,12 +9,18 @@ using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
 using LocadoraDeVeiculos.Dominio.ModuloCliente;
 using LocadoraDeVeiculos.Dominio.ModuloCondutor;
 using LocadoraDeVeiculos.Dominio.ModuloPlano;
+using LocadoraDeVeiculos.Dominio.ModuloTaxa;
 using MediatR;
 using System.Numerics;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloGrupoAluguel.Commands.Editar;
 
 public class EditarAluguelRequestHandler(
+    IRepositorioCliente repositorioCliente,
+    IRepositorioCondutor repositorioCondutor,
+    IRepositorioPlano repositorioPlano,
+    IRepositorioAutomovel repositorioAutomovel,
+    IRepositorioTaxa repositorioTaxa,
     IRepositorioAluguel repositorioAluguel,
     IContextoPersistencia contexto,
     IValidator<Aluguel> validador
@@ -30,29 +36,53 @@ public class EditarAluguelRequestHandler(
         if (aluguelSelecionado.Status == false)
             return Result.Fail(AluguelErrorResults.AluguelNaoPodeSerExcluidoError());
 
+        #region Cliar entidades
+        var cliente = await repositorioCliente.SelecionarPorIdAsync(request.ClienteId);
+        var condutor = await repositorioCondutor.SelecionarPorIdAsync(request.CondutorId);
+        var plano = await repositorioPlano.SelecionarPorIdAsync(request.PlanoId);
+        var automovel = await repositorioAutomovel.SelecionarPorIdAsync(request.AutomovelId);
+        var taxas = new List<Taxa>();
+        foreach (var taxaId in request.TaxasId)
+        {
+            taxas.Add(await repositorioTaxa.SelecionarPorIdAsync(taxaId));
+        }
+        #endregion
         #region Validacao de sequencia
-        if (request.Cliente.ClienteTipo == ETipoCliente.PessoaJuridica && request.Condutor.ECliente == true)
+        if (cliente.ClienteTipo == ETipoCliente.PessoaJuridica && condutor.ECliente == true)
             return Result.Fail(AluguelErrorResults.CondutorInvalidoParaClientePJError());
-        if (request.Cliente.ClienteTipo == ETipoCliente.PessoaFisica && request.Condutor.ECliente == false)
+        if (cliente.ClienteTipo == ETipoCliente.PessoaFisica && condutor.ECliente == false)
             return Result.Fail(AluguelErrorResults.CondutorInvalidoParaClientePFError());
-        if (request.Automovel.GrupoAutomovel.Id != request.Plano.GrupoAutomovel.Id)
+        if (automovel.GrupoAutomovel.Id != plano.GrupoAutomovel.Id)
             return Result.Fail(AluguelErrorResults.GruposAutomovelIncompativeisError());
         #endregion
         #region Validacao de disponiveis
-        if (await repositorioAluguel.ClienteEstaOcupadoAsync(request.Cliente.Id))
+        if (await repositorioAluguel.ClienteEstaOcupadoAsync(request.ClienteId))
             return Result.Fail(AluguelErrorResults.ClienteEmAluguelAtivoError());
-        if (await repositorioAluguel.CondutorEstaOcupadoAsync(request.Condutor.Id))
+        if (await repositorioAluguel.CondutorEstaOcupadoAsync(request.CondutorId))
             return Result.Fail(AluguelErrorResults.CondutorEmAluguelAtivoError());
-        if (await repositorioAluguel.AutomovelEstaOcupadoAsync(request.Automovel.Id))
+        if (await repositorioAluguel.AutomovelEstaOcupadoAsync(request.AutomovelId))
             return Result.Fail(AluguelErrorResults.AutomovelEmAluguelAtivoError());
         #endregion
+        #region Validacao se existe
+        if (CondutorNaoEncontrado(aluguelSelecionado.Condutor))
+            return Result.Fail(AluguelErrorResults.CondutorNaoEncontradoError());
 
-        aluguelSelecionado.Cliente = request.Cliente;
-        aluguelSelecionado.Condutor = request.Condutor;
-        aluguelSelecionado.Plano = request.Plano;
+        if (ClienteNaoEncontrado(aluguelSelecionado.Cliente))
+            return Result.Fail(AluguelErrorResults.ClienteNaoEncontradoError());
+
+        if (PlanoNaoEncontrado(aluguelSelecionado.Plano))
+            return Result.Fail(AluguelErrorResults.PlanoNaoEncontradoError());
+
+        if (AutomovelNaoEncontrado(aluguelSelecionado.Automovel))
+            return Result.Fail(AluguelErrorResults.AutomovelNaoEncontradoError());
+        #endregion
+
+        aluguelSelecionado.Cliente = cliente;
+        aluguelSelecionado.Condutor = condutor;
+        aluguelSelecionado.Plano =plano;
         aluguelSelecionado.Status = request.Status;
-        aluguelSelecionado.Automovel = request.Automovel;
-        aluguelSelecionado.Taxas = request.Taxas;
+        aluguelSelecionado.Automovel = automovel;
+        aluguelSelecionado.Taxas = taxas;
         aluguelSelecionado.DataSaida = request.DataSaisa;
         aluguelSelecionado.DataRetornoPrevista = request.DataRetornoPrevista;
         aluguelSelecionado.DataDevolucao = request.DataDevolucao;
@@ -77,18 +107,6 @@ public class EditarAluguelRequestHandler(
         }
 
         var grupoAutomoveis = await repositorioAluguel.SelecionarTodosAsync();
-
-        if (CondutorNaoEncontrado(aluguelSelecionado.Condutor))
-            return Result.Fail(AluguelErrorResults.CondutorNaoEncontradoError());
-
-        if (ClienteNaoEncontrado(aluguelSelecionado.Cliente))
-            return Result.Fail(AluguelErrorResults.ClienteNaoEncontradoError());
-
-        if (PlanoNaoEncontrado(aluguelSelecionado.Plano))
-            return Result.Fail(AluguelErrorResults.PlanoNaoEncontradoError());
-
-        if (AutomovelNaoEncontrado(aluguelSelecionado.Automovel))
-            return Result.Fail(AluguelErrorResults.AutomovelNaoEncontradoError());
 
         try
         {
