@@ -2,12 +2,14 @@
 using FluentValidation;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
+using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloTaxa;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloTaxa.Commands.Editar;
 
 public class EditarTaxaRequestHandler(
+    IRepositorioAluguel repositorioAluguel,
     IRepositorioTaxa repositorioTaxa,
     IContextoPersistencia contexto,
     IValidator<Taxa> validador
@@ -20,10 +22,16 @@ public class EditarTaxaRequestHandler(
         if (taxaSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
+        var alugueis = new List<Aluguel>();
+        foreach (var aluguelId in request.AlugueisId)
+        {
+            alugueis.Add(await repositorioAluguel.SelecionarPorIdAsync(aluguelId));
+        }
+
         taxaSelecionado.Nome = request.Nome;
         taxaSelecionado.Preco = request.Preco;
         taxaSelecionado.Servico = request.Servico;
-        taxaSelecionado.Alugueis = request.Alugueis;
+        taxaSelecionado.Alugueis = alugueis;
 
         var resultadoValidacao = 
             await validador.ValidateAsync(taxaSelecionado, cancellationToken);
