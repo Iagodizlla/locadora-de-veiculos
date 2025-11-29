@@ -58,6 +58,11 @@ const routes: Routes = [
     loadChildren: () => import('./components/condutores/condutor.routes').then((c) => c.condutorRoutes),
     canMatch: [usuarioAutenticadoGuard],
   },
+  {
+    path: 'clientes',
+    loadChildren: () => import('./components/clientes/cliente.routes').then((c) => c.clienteRoutes),
+    canMatch: [usuarioAutenticadoGuard],
+  },
 ];
 
 export const appConfig: ApplicationConfig = {

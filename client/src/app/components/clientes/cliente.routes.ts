@@ -4,15 +4,13 @@ import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 //import { CadastrarCliente } from './cadastrar/cadastrar-cliente';
 //import { EditarCliente } from './editar/editar-cliente';
 //import { ExcluirCliente } from './excluir/excluir-cliente';
-//import { ListarClientes } from './listar/listar-clientes';
+import { ListarClientes } from './listar/listar-clientes';
 import { ClienteService } from './cliente.service';
 
-// Resolver para listar todos
 export const listarClientesResolver = () => {
   return inject(ClienteService).selecionarTodos();
 };
 
-// Resolver para detalhes por ID
 export const detalhesClienteResolver = (route: ActivatedRouteSnapshot) => {
   const clienteService = inject(ClienteService);
 
@@ -22,16 +20,15 @@ export const detalhesClienteResolver = (route: ActivatedRouteSnapshot) => {
   return clienteService.selecionarPorId(id);
 };
 
-// Rotas do módulo Cliente
 export const clienteRoutes: Routes = [
   {
     path: '',
     children: [
-      //{
-      //  path: '',
-      //  component: ListarClientes,
-      //  resolve: { clientes: listarClientesResolver }
-      //},
+      {
+        path: '',
+        component: ListarClientes,
+        resolve: { clientes: listarClientesResolver }
+      },
       //{
       //  path: 'cadastrar',
       //  component: CadastrarCliente
