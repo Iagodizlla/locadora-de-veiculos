@@ -1,0 +1,91 @@
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Cadastro de Condutor</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="condutorForm" (ngSubmit)="cadastrar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium">
+            Preencha o formulário de cadastro
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mt-6 space-y-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Nome do Condutor</mat-label>
+            <input formControlName="nome" matInput type="text" />
+
+            @if (nome?.errors?.['required']) {
+            <mat-error>O nome do condutor é obrigatório.</mat-error>
+            } @if (nome?.errors?.['minlength']) {
+            <mat-error>O nome do condutor deve conter no mínimo 3 caracteres.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+        <mat-label>CNH do Condutor</mat-label>
+          <input formControlName="cnh" matInput type="text" />
+            @if (cnh?.errors?.['required'])
+            {
+            <mat-error>A CNH do condutor é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>CPF do Condutor</mat-label>
+            <input formControlName="cpf" matInput type="text" />
+              @if (cpf?.errors?.['required'])
+              {
+                <mat-error>O CPF do condutor é obrigatório.</mat-error>
+              }
+              @if (cpf?.errors?.['minlength']) {
+            <mat-error>O CPF do condutor deve conter no mínimo 11 caracteres.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Telefone do Condutor</mat-label>
+            <input formControlName="telefone" matInput type="text" />
+              @if (telefone?.errors?.['required'])
+              {
+                <mat-error>O Telefone do condutor é obrigatório.</mat-error>
+              }
+              @if (cpf?.errors?.['minlength']) {
+            <mat-error>O Telefone do condutor deve conter no mínimo 8 caracteres.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-select formControlName="categoria">
+              @for (tipo of tiposCategorias; track $index)
+              {
+                <mat-option [value]="tipo">{{ tipo }}</mat-option>
+              }
+            </mat-select>
+            @if (categoria?.hasError('required'))
+            {
+              <mat-error>A categoria é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Validade da CNH</mat-label>
+            <input formControlName="validadeCnh" matInput type="datetime" />
+
+            @if (validadeCnh?.hasError('required')) {
+            <mat-error>A validade da CNH é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-checkbox formControlName="eCliente">
+            É Cliente?
+          </mat-checkbox>
+        </mat-card-content>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4">
+          <a mat-stroked-button routerLink="/condutores" class="px-4"> Voltar </a>
+
+          <button type="submit" [disabled]="condutorForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">check</mat-icon>
+            Concluir
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>
