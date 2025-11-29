@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { GrupoAutomovelService } from '../grupo-automoveis/grupo-automovel.service';
 
 import { CadastrarAutomovel } from './cadastrar/cadastrar-automovel';
-//import { EditarAutomovel } from './editar/editar-automovel';
+import { EditarAutomovel } from './editar/editar-automovel';
 //import { ExcluirAutomovel } from './excluir/excluir-automovel';
 import { ListarAutomoveis } from './listar/listar-automoveis';
 import { AutomovelService } from './automovel.service';
@@ -41,11 +41,11 @@ export const automovelRoutes: Routes = [
         component: CadastrarAutomovel,
         resolve: { grupoAutomoveis: listarGruposAutomoveisResolver},
       },
-      //{
-      //  path: 'editar/:id',
-      //  component: EditarAutomovel,
-      //  resolve: { automovel: detalhesAutomovelResolver, grupoAutomoveis: listarGruposAutomoveisResolver },
-      //},
+      {
+        path: 'editar/:id',
+        component: EditarAutomovel,
+        resolve: { automovel: detalhesAutomovelResolver, grupoAutomoveis: listarGruposAutomoveisResolver },
+      },
       //{
       //  path: 'excluir/:id',
       //  component: ExcluirAutomovel,

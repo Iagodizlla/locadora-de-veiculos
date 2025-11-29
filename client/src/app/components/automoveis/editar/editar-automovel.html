@@ -1,0 +1,123 @@
+@if (automovel$ | async) {
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Edição de Automovel</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="automovelForm" (ngSubmit)="editar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium">
+            Preencha o formulário de edição
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Grupo de Automovel</mat-label>
+            <mat-select formControlName="grupoAutomovelId">
+              @for (grupo of grupoAutomoveis$ | async; track $index) {
+              <mat-option [value]="grupo.id">{{ grupo.nome }}</mat-option>
+              }
+            </mat-select>
+
+            @if (grupoAutomovelId?.hasError('required')) {
+            <mat-error>O Grupo de Automovel é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Placa do Automovel</mat-label>
+            <input formControlName="placa" matInput type="text" />
+
+            @if (placa?.errors?.['required']) {
+            <mat-error>A placa do automovel é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Modelo do Automovel</mat-label>
+            <input formControlName="modelo" matInput type="text" />
+
+            @if (modelo?.errors?.['required']) {
+            <mat-error>O modelo do automovel é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Marca do Automovel</mat-label>
+            <input formControlName="marca" matInput type="text" />
+
+            @if (marca?.errors?.['required']) {
+            <mat-error>A Marca do automovel é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Ano do Automóvel</mat-label>
+            <input formControlName="ano" matInput type="number" />
+
+            @if (ano?.errors?.['required']) {
+              <mat-error>O ano do automóvel é obrigatório.</mat-error>
+            }
+
+            @if (ano?.errors?.['min']) {
+              <mat-error>O ano não pode ser menor que 1900.</mat-error>
+            }
+
+            @if (ano?.errors?.['max']) {
+              <mat-error>O ano não pode ser maior que 2100.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Capacidade do Tanque do Automóvel</mat-label>
+            <input formControlName="capacidadeTanque" matInput type="number" />
+
+            @if (capacidadeTanque?.errors?.['required']) {
+              <mat-error>A capacide do tanque do automóvel é obrigatório.</mat-error>
+            }
+
+            @if (capacidadeTanque?.errors?.['min']) {
+              <mat-error>A capacide do tanque não pode ser menor que 10.</mat-error>
+            }
+
+            @if (capacidadeTanque?.errors?.['max']) {
+              <mat-error>A capacide do tanque não pode ser maior que 10000.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Foto do Automovel</mat-label>
+            <input formControlName="foto" matInput type="text" />
+
+            @if (foto?.errors?.['required']) {
+            <mat-error>A foto do automovel é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Cor do Automovel</mat-label>
+            <input formControlName="cor" matInput type="text" />
+
+            @if (cor?.errors?.['required']) {
+            <mat-error>A Cor do automovel é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-select formControlName="combustivel">
+              @for (tipo of tiposCombustivel; track $index) {
+                <mat-option [value]="tipo">{{ tipo }}</mat-option>
+              }
+            </mat-select>
+
+            @if (combustivel?.hasError('required')) {
+              <mat-error>O tipo de combustível é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4">
+          <a mat-stroked-button routerLink="/automoveis" class="px-4"> Voltar </a>
+
+          <button type="submit" [disabled]="automovelForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">check</mat-icon>
+            Concluir
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>
+}
