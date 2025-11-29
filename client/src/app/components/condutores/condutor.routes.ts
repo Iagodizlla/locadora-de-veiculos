@@ -4,10 +4,10 @@ import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 //import { CadastrarCondutor } from './cadastrar/cadastrar-condutor';
 //import { EditarCondutor } from './editar/editar-condutor';
 //import { ExcluirCondutor } from './excluir/excluir-consutor';
-//import { ListarCondutores } from './listar/listar-condutores';
+import { ListarCondutores } from './listar/listar-condutores';
 import { CondutorService } from './condutor.service';
 
-export const listarAutomoveisResolver = () => {
+export const listarCondutoresResolver = () => {
   return inject(CondutorService).selecionarTodos();
 };
 
@@ -21,15 +21,15 @@ export const detalhesCondutorResolver = (route: ActivatedRouteSnapshot) => {
   return condutorService.selecionarPorId(condutorId);
 };
 
-export const automovelRoutes: Routes = [
+export const condutorRoutes: Routes = [
   {
     path: '',
     children: [
-      //{
-      //  path: '',
-      //  component: ListarCondutores,
-      //  resolve: { condutores: listarCondutoresResolver },
-      //},
+      {
+        path: '',
+        component: ListarCondutores,
+        resolve: { condutores: listarCondutoresResolver },
+      },
       //{
       //  path: 'cadastrar',
       //  component: CadastrarCondutor,
