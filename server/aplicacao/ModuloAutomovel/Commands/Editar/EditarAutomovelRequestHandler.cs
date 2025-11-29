@@ -4,11 +4,13 @@ using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAluguel;
 using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
+using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
 using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloAutomovel.Commands.Editar;
 
 public class EditarAutomovelRequestHandler(
+    IRepositorioGrupoAutomovel repositorioGrupoAutomovel,
     IRepositorioAluguel repositorioAluguel,
     IRepositorioAutomovel repositorioAutomovel,
     IContextoPersistencia contexto,
@@ -22,6 +24,9 @@ public class EditarAutomovelRequestHandler(
         if (automovelSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
+        if (GrupoNaoEncontrado(automovelSelecionado))
+            return Result.Fail(AutomovelErrorResults.GrupoNaoEncontradoError());
+
         automovelSelecionado.Placa = request.Placa;
         automovelSelecionado.Modelo = request.Modelo;
         automovelSelecionado.Marca = request.Marca;
@@ -29,7 +34,7 @@ public class EditarAutomovelRequestHandler(
         automovelSelecionado.Ano = request.Ano;
         automovelSelecionado.CapacidadeTanque = request.CapacidadeTanque;
         automovelSelecionado.Foto = request.Foto;
-        automovelSelecionado.GrupoAutomovel = request.GrupoAutomovel;
+        automovelSelecionado.GrupoAutomovel = await repositorioGrupoAutomovel.SelecionarPorIdAsync(request.GrupoAutomovelId);
         automovelSelecionado.Combustivel = request.Combustivel;
 
         var resultadoValidacao = 
@@ -51,9 +56,6 @@ public class EditarAutomovelRequestHandler(
 
         if (PlacaDuplicado(automovelSelecionado, automoveis))
             return Result.Fail(AutomovelErrorResults.PlacaDuplicadoError(automovelSelecionado.Placa));
-
-        if(GrupoNaoEncontrado(automovelSelecionado))
-            return Result.Fail(AutomovelErrorResults.GrupoNaoEncontradoError());
 
         try
         {

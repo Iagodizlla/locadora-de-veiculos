@@ -39,7 +39,7 @@ public class AutomovelController(IMediator mediator) : ControllerBase
             request.Ano,
             request.CapacidadeTanque,
             request.Foto,
-            request.GrupoAutomovel,
+            request.GrupoAutomovelId,
             request.Combustivel
         );
 
