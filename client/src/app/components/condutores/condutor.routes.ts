@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 
 import { CadastrarCondutor } from './cadastrar/cadastrar-condutor';
-//import { EditarCondutor } from './editar/editar-condutor';
+import { EditarCondutor } from './editar/editar-condutor';
 import { ExcluirCondutor } from './excluir/excluir-condutor';
 import { ListarCondutores } from './listar/listar-condutores';
 import { CondutorService } from './condutor.service';
@@ -34,11 +34,11 @@ export const condutorRoutes: Routes = [
         path: 'cadastrar',
         component: CadastrarCondutor,
       },
-      //{
-      //  path: 'editar/:id',
-      //  component: EditarCondutor,
-      //  resolve: { condutor: detalhesCondutorResolver},
-      //},
+      {
+        path: 'editar/:id',
+        component: EditarCondutor,
+        resolve: { condutor: detalhesCondutorResolver},
+      },
       {
         path: 'excluir/:id',
         component: ExcluirCondutor,

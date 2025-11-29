@@ -76,7 +76,8 @@ export class CadastrarCondutor {
   public cadastrar() {
     if (this.condutorForm.invalid) return;
 
-    const condutorModel: CadastrarCondutorModel = {...this.condutorForm.value,
+    const condutorModel: CadastrarCondutorModel = {
+      ...this.condutorForm.value,
     validadeCnh: parse(this.validadeCnh?.value, 'dd/MM/yyyy, HH:mm:ss', new Date().toISOString()),};
 
     const cadastroObserver: Observer<CadastrarCondutorResponseModel> = {
