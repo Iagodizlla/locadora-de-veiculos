@@ -28,7 +28,10 @@
 
         <mat-card-content class="min-h-[40px] mt-3">
           <p><span class="font-medium">Telefone:</span> {{ condutor.telefone }}</p>
-          <p><span class="font-medium">Validade CNH:</span> {{ condutor.validadeCnh }}</p>
+          <p>
+            <span class="font-medium">Validade CNH:</span>
+            {{ condutor.validadeCnh | date:'dd/MM/yyyy' }}
+          </p>
           <p><span class="font-medium">Categoria:</span> {{ condutor.categoria }}</p>
           <p>
             <span class="font-medium">É Cliente:</span>
