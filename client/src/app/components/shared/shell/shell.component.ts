@@ -45,6 +45,7 @@ export class ShellComponent {
     { titulo: 'Grupo de Automovel', icone: 'folder', link: '/grupo-automoveis' },
     { titulo: 'Automovel', icone: 'time_to_leave', link: '/automoveis' },
     { titulo: 'Condutor', icone: 'badge', link: '/condutores' },
+    { titulo: 'Cliente', icone: 'person', link: '/clientes' },
   ];
 
   @Input({ required: true }) usuarioAutenticado!: UsuarioAutenticadoModel;
