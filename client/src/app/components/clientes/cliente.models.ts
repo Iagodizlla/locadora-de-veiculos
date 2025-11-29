@@ -1,6 +1,6 @@
 export enum TipoClienteEnum {
-  PessoaFisica = 0,
-  PessoaJuridica = 1,
+  PessoaFisica = 'Pessoa Fisica',
+  PessoaJuridica = 'Pessoa Juridica'
 }
 
 export interface EnderecoModel {

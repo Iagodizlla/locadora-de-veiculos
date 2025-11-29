@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 
-//import { CadastrarCliente } from './cadastrar/cadastrar-cliente';
+import { CadastrarCliente } from './cadastrar/cadastrar-cliente';
 //import { EditarCliente } from './editar/editar-cliente';
 //import { ExcluirCliente } from './excluir/excluir-cliente';
 import { ListarClientes } from './listar/listar-clientes';
@@ -29,10 +29,10 @@ export const clienteRoutes: Routes = [
         component: ListarClientes,
         resolve: { clientes: listarClientesResolver }
       },
-      //{
-      //  path: 'cadastrar',
-      //  component: CadastrarCliente
-      //},
+      {
+        path: 'cadastrar',
+        component: CadastrarCliente
+      },
       //{
       //  path: 'editar/:id',
       //  component: EditarCliente,
