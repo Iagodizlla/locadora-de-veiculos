@@ -57,12 +57,8 @@ public class ValidadorAutomovel : AbstractValidator<Automovel>
             .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório")
             .GreaterThan(0).WithMessage("O campo {PropertyName} deve ser maior que zero");
 
-        RuleFor(m => m.GrupoAutomovel)
-            .NotNull().WithMessage("O campo {PropertyName} é obrigatório")
-            .DependentRules(() =>
-            {
-                RuleFor(m => m.GrupoAutomovel).SetValidator(new ValidadorGrupoAutomovel());
-            });
+        RuleFor(m => m.GrupoAutomovelId)
+            .NotNull().WithMessage("O campo Grupo é obrigatório")
 
         RuleFor(m => m.Combustivel)
             .IsInEnum().WithMessage("O campo {PropertyName} é obrigatório");
