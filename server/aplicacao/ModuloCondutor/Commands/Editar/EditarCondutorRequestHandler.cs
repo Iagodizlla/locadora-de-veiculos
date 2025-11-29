@@ -68,31 +68,25 @@ public class EditarCondutorRequestHandler(
     
     private bool CnhDuplicado(Condutor condutor, IList<Condutor> condutores)
     {
-        return condutores
-            .Where(r => r.Id != condutor.Id)
-            .Any(registro => string.Equals(
-                registro.Cnh,
-                condutor.Cnh,
-                StringComparison.CurrentCultureIgnoreCase)
-            );
+        return condutores.Any(r =>
+            r.Id != condutor.Id &&
+            string.Equals(r.Cnh, condutor.Cnh, StringComparison.CurrentCultureIgnoreCase)
+        );
     }
 
     public bool CpfDuplicado(Condutor condutor, IList<Condutor> condutores)
     {
-        return condutores
-            .Any(registro => string.Equals(
-                registro.Cnh,
-                condutor.Cnh,
-                StringComparison.CurrentCultureIgnoreCase)
-            );
+        return condutores.Any(r =>
+            r.Id != condutor.Id &&
+            string.Equals(r.Cpf, condutor.Cpf, StringComparison.CurrentCultureIgnoreCase)
+        );
     }
+
     public bool TelefoneDuplicado(Condutor condutor, IList<Condutor> condutores)
     {
-        return condutores
-            .Any(registro => string.Equals(
-                registro.Telefone,
-                condutor.Telefone,
-                StringComparison.CurrentCultureIgnoreCase)
-            );
+        return condutores.Any(r =>
+            r.Id != condutor.Id &&
+            string.Equals(r.Telefone, condutor.Telefone, StringComparison.CurrentCultureIgnoreCase)
+        );
     }
 }
