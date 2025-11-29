@@ -91,7 +91,7 @@ Configurar via **dotnet user-secrets** dentro do projeto WebAPI:
 Vá para a pasta do projeto da WebAPI:
 
 ```bash
-cd server/LocadoraDeVeiculos.WebApi
+cd server/web-api
 ```
 
 Execute o projeto:
