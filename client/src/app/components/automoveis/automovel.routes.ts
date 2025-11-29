@@ -5,7 +5,7 @@ import { GrupoAutomovelService } from '../grupo-automoveis/grupo-automovel.servi
 
 import { CadastrarAutomovel } from './cadastrar/cadastrar-automovel';
 import { EditarAutomovel } from './editar/editar-automovel';
-//import { ExcluirAutomovel } from './excluir/excluir-automovel';
+import { ExcluirAutomovel } from './excluir/excluir-automovel';
 import { ListarAutomoveis } from './listar/listar-automoveis';
 import { AutomovelService } from './automovel.service';
 
@@ -46,11 +46,11 @@ export const automovelRoutes: Routes = [
         component: EditarAutomovel,
         resolve: { automovel: detalhesAutomovelResolver, grupoAutomoveis: listarGruposAutomoveisResolver },
       },
-      //{
-      //  path: 'excluir/:id',
-      //  component: ExcluirAutomovel,
-      //  resolve: { automovel: detalhesAutomovelResolver },
-      //},
+      {
+        path: 'excluir/:id',
+        component: ExcluirAutomovel,
+        resolve: { automovel: detalhesAutomovelResolver },
+      },
     ],
     providers: [AutomovelService, GrupoAutomovelService],
   },
