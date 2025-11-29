@@ -21,7 +21,7 @@ export interface ListarCondutoresModel {
   cpf: string;
   telefone: string;
   categoria: CategoriaCnhEnum;
-  validadeCnh: string;
+  validadeCnh: Date;
   eCliente: boolean;
 }
 
@@ -32,7 +32,7 @@ export interface DetalhesCondutorModel {
   cpf: string;
   telefone: string;
   categoria: CategoriaCnhEnum;
-  validadeCnh: string;
+  validadeCnh: Date;
   eCliente: boolean;
 }
 
@@ -42,7 +42,7 @@ export interface CadastrarCondutorModel {
   cpf: string;
   telefone: string;
   categoria: CategoriaCnhEnum;
-  validadeCnh: string;
+  validadeCnh: Date;
   eCliente: boolean;
 }
 
@@ -56,7 +56,7 @@ export interface EditarCondutorModel {
   cpf: string;
   telefone: string;
   categoria: CategoriaCnhEnum;
-  validadeCnh: string; 
+  validadeCnh: Date;
   eCliente: boolean;
 }
 
@@ -66,6 +66,6 @@ export interface EditarCondutorResponseModel {
   cpf: string;
   telefone: string;
   categoria: CategoriaCnhEnum;
-  validadeCnh: string;
+  validadeCnh: Date;
   eCliente: boolean;
 }
