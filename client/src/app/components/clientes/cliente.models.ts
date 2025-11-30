@@ -1,73 +1,67 @@
-export enum TipoClienteEnum {
-  PessoaFisica = 'Pessoa Fisica',
-  PessoaJuridica = 'Pessoa Juridica'
+export enum ClienteTipoEnum {
+ PessoaFisica = 'PessoaFisica',
+ PessoaJuridica = 'PessoaJuridica'
 }
-
-export interface EnderecoModel {
-  id?: string;
-  logradouro: string;
-  numero: number;
-  bairro: string;
-  cidade: string;
-  estado: string;
-}
-
-export interface ClienteModel {
-  id?: string;
-  nome: string;
-  telefone: string;
-  clienteTipo: TipoClienteEnum;
-  documento: string;       // CPF ou CNPJ
-  cnh?: string | null;     // Apenas PF
-  endereco: EnderecoModel; // Objeto completo
-}
-
-export interface CadastrarClienteModel {
-  nome: string;
-  telefone: string;
-  clienteTipo: TipoClienteEnum;
-  documento: string;
-  cnh?: string | null;
-  endereco: EnderecoModel;
-}
-
-export interface CadastrarClienteResponseModel {
-  id: string;
-  nome: string;
-}
-
-export interface EditarClienteModel {
-  nome: string;
-  telefone: string;
-  clienteTipo: TipoClienteEnum;
-  documento: string;
-  cnh?: string | null;
-  endereco: EnderecoModel;
-}
-
-export interface EditarClienteResponseModel {
-  id: string;
-  nome: string;
-}
-
-export interface DetalhesClienteModel {
-  id: string;
-  nome: string;
-  telefone: string;
-  clienteTipo: TipoClienteEnum;
-  documento: string;
-  cnh?: string | null;
-  endereco: EnderecoModel;
-}
-
 export interface ListarClientesApiResponseModel {
+  quantidadeRegistros: number;
   registros: ListarClientesModel[];
 }
 
 export interface ListarClientesModel {
   id: string;
   nome: string;
-  telefone: string;
-  clienteTipo: TipoClienteEnum;
+  cnh: string;
   documento: string;
+  telefone: string;
+  clienteTipo: ClienteTipoEnum;
+  endereco: EnderecoClienteModel;
+}
+
+export interface DetalhesClienteModel {
+  id: string;
+  nome: string;
+  cnh: string;
+  documento: string;
+  telefone: string;
+  clienteTipo: ClienteTipoEnum;
+  endereco: EnderecoClienteModel;
+}
+
+export interface CadastrarClienteModel {
+  nome: string;
+  cnh: string;
+  documento: string;
+  telefone: string;
+  clienteTipo: ClienteTipoEnum;
+  endereco: EnderecoClienteModel;
+}
+
+export interface CadastrarClienteResponseModel {
+  id: string;
+}
+
+export interface EditarClienteModel {
+  nome: string;
+  cnh: string;
+  documento: string;
+  telefone: string;
+  clienteTipo: ClienteTipoEnum;
+  endereco: EnderecoClienteModel;
+}
+
+export interface EditarClienteResponseModel {
+  nome: string;
+  cnh: string;
+  documento: string;
+  telefone: string;
+  clienteTipo: ClienteTipoEnum;
+  endereco: EnderecoClienteModel;
+}
+export interface EnderecoClienteModel{
+  id?: string;
+  logradouro: string;
+  numero: number;
+  bairro: string;
+  cidade: string;
+  estado: string;
 }

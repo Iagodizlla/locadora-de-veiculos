@@ -14,7 +14,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { NotificacaoService } from '../../shared/notificacao/notificacao.service';
 import { ClienteService } from '../cliente.service';
-import { CadastrarClienteModel, CadastrarClienteResponseModel, TipoClienteEnum } from '../cliente.models';
+import { CadastrarClienteModel, ClienteTipoEnum } from '../cliente.models';
 
 @Component({
   selector: 'app-cadastrar-cliente',
@@ -42,7 +42,7 @@ export class CadastrarCliente {
     nome: ['', [Validators.required, Validators.minLength(3)]],
     documento: ['', [Validators.required, Validators.minLength(11)]],
     telefone: ['', [Validators.required, Validators.minLength(8)]],
-    tipoCliente: [TipoClienteEnum.PessoaFisica, [Validators.required]],
+    tipoCliente: [ClienteTipoEnum.PessoaFisica, [Validators.required]],
     cnh: [''], // Opcional, só para Pessoa Física
     endereco: this.formBuilder.group({
       logradouro: ['', Validators.required],
@@ -53,7 +53,7 @@ export class CadastrarCliente {
     }),
   });
 
-  protected readonly tiposClientes = Object.values(TipoClienteEnum);
+  protected readonly tiposClientes = Object.values(ClienteTipoEnum);
 
   get nome() { return this.clienteForm.get('nome'); }
   get documento() { return this.clienteForm.get('documento'); }
@@ -68,10 +68,7 @@ export class CadastrarCliente {
     const formValue = this.clienteForm.value;
 
     const clienteModel: CadastrarClienteModel = {
-      nome: formValue.nome,
-      documento: formValue.documento,
-      telefone: formValue.telefone,
-      clienteTipo: formValue.tipoCliente,
+      ...this.clienteForm.value,
       cnh: formValue.tipoCliente === 'PessoaFisica' ? formValue.cnh : null,
       endereco: {
         logradouro: formValue.endereco.logradouro,

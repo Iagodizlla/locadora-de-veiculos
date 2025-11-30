@@ -60,7 +60,7 @@
           </mat-form-field>
 
           <!-- CNH opcional (só PF) -->
-          @if (tipoCliente?.value == 'Pessoa Fisica') {
+          @if (tipoCliente?.value == 'PessoaFisica') {
             <mat-form-field appearance="fill" class="w-full">
               <mat-label>CNH</mat-label>
               <input formControlName="cnh" matInput type="text" />
