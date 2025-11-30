@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 
 import { CadastrarCliente } from './cadastrar/cadastrar-cliente';
 //import { EditarCliente } from './editar/editar-cliente';
-//import { ExcluirCliente } from './excluir/excluir-cliente';
+import { ExcluirCliente } from './excluir/excluir-cliente';
 import { ListarClientes } from './listar/listar-clientes';
 import { ClienteService } from './cliente.service';
 
@@ -38,11 +38,11 @@ export const clienteRoutes: Routes = [
       //  component: EditarCliente,
       //  resolve: { cliente: detalhesClienteResolver }
       //},
-      //{
-      //  path: 'excluir/:id',
-      //  component: ExcluirCliente,
-      //  resolve: { cliente: detalhesClienteResolver }
-      //}
+      {
+        path: 'excluir/:id',
+        component: ExcluirCliente,
+        resolve: { cliente: detalhesClienteResolver }
+      }
     ],
     providers: [ClienteService]
   }
