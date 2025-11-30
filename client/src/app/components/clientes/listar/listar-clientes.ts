@@ -21,4 +21,15 @@ export class ListarClientes {
     filter((data) => data['clientes']),
     map((data) => data['clientes'] as ListarClientesModel[])
   );
+
+  getTipoClienteTexto(tipo: string): string {
+    switch (tipo) {
+      case 'PessoaFisica':
+        return 'Pessoa Física';
+      case 'PessoaJuridica':
+        return 'Pessoa Jurídica';
+      default:
+        return 'Tipo Desconhecido';
+    }
+  }
 }

@@ -13,7 +13,7 @@ export interface ListarClientesModel {
   cnh: string;
   documento: string;
   telefone: string;
-  clienteTipo: ClienteTipoEnum;
+  tipoCliente: ClienteTipoEnum;
   endereco: EnderecoClienteModel;
 }
 
@@ -23,7 +23,7 @@ export interface DetalhesClienteModel {
   cnh: string;
   documento: string;
   telefone: string;
-  clienteTipo: ClienteTipoEnum;
+  tipoCliente: ClienteTipoEnum;
   endereco: EnderecoClienteModel;
 }
 
@@ -32,7 +32,7 @@ export interface CadastrarClienteModel {
   cnh: string;
   documento: string;
   telefone: string;
-  clienteTipo: ClienteTipoEnum;
+  tipoCliente: ClienteTipoEnum;
   endereco: EnderecoClienteModel;
 }
 
@@ -45,7 +45,7 @@ export interface EditarClienteModel {
   cnh: string;
   documento: string;
   telefone: string;
-  clienteTipo: ClienteTipoEnum;
+  tipoCliente: ClienteTipoEnum;
   endereco: EnderecoClienteModel;
 }
 
@@ -54,7 +54,7 @@ export interface EditarClienteResponseModel {
   cnh: string;
   documento: string;
   telefone: string;
-  clienteTipo: ClienteTipoEnum;
+  tipoCliente: ClienteTipoEnum;
   endereco: EnderecoClienteModel;
 }
 export interface EnderecoClienteModel{
