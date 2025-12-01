@@ -56,4 +56,15 @@ export class AutomovelService {
       map((res) => res.registros)
     );
   }
+
+  public selecionarPorGrupo(grupoId: string): Observable<ListarAutomoveisModel[]> {
+    const url = `${this.apiUrl}/grupo/${grupoId}`;
+
+    return this.http
+      .get<RespostaApiModel>(url)
+      .pipe(
+        map(mapearRespostaApi<ListarAutomoveisApiResponseModel>),
+        map(r => r.registros)
+      );
+  }
 }

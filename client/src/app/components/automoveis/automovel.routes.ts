@@ -34,7 +34,7 @@ export const automovelRoutes: Routes = [
       {
         path: '',
         component: ListarAutomoveis,
-        resolve: { automoveis: listarAutomoveisResolver },
+        resolve: { automoveis: listarAutomoveisResolver, grupoAutomoveis: listarGruposAutomoveisResolver },
       },
       {
         path: 'cadastrar',

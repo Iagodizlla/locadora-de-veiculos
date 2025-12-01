@@ -1,6 +1,6 @@
 <section class="mx-auto max-w-screen-xl px-4">
   <div class="py-6">
-    <h2 class="text-2xl font-semibold">Listagem de Automoveis</h2>
+    <h2 class="text-2xl font-semibold">Listagem de Automóveis</h2>
 
     <!-- Ações -->
     <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-2">
@@ -14,34 +14,45 @@
       </a>
     </div>
 
+    <!-- Filtro por Grupo -->
+    <mat-form-field appearance="fill" class="col-span-2 mt-4">
+      <mat-label>Filtrar por Grupo</mat-label>
+      <mat-select (selectionChange)="filtrarPorGrupo($event.value)">
+        @for (grupo of (grupos$ | async); track grupo.id) {
+          <mat-option [value]="grupo.id">{{ grupo.nome }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
     <hr class="my-6 border-muted/30" />
 
-    <!-- Cards de automoveis -->
+    @if (!(automoveis$ | async)?.length) {
+      <p class="text-lg">Nenhum automóvel encontrado.</p>
+    }
+
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-      @for (automovel of automoveis$ | async; track $index) {
-      <mat-card class="p-3 rounded-2xl shadow-sm">
-        <mat-card-header class="pb-2">
-          <mat-card-title class="text-lg font-medium">
-            {{ automovel.modelo }}
-          </mat-card-title>
-        </mat-card-header>
+      @for (automovel of (automoveis$ | async); track $index) {
+        <mat-card class="p-3 rounded-2xl shadow-sm">
+          <mat-card-header class="pb-2">
+            <mat-card-title class="text-lg font-medium">{{ automovel.modelo }}</mat-card-title>
+          </mat-card-header>
 
-        <mat-card-content class="min-h-[40px] mt-3">
-          <p><span class="font-medium">Cor:</span> {{ automovel.cor }}</p>
-          <p><span class="font-medium">Marca:</span> {{ automovel.marca }}</p>
-          <p><span class="font-medium">Ano:</span> {{ automovel.ano }}</p>
-        </mat-card-content>
+          <mat-card-content class="min-h-[40px] mt-3">
+            <p><span class="font-medium">Cor:</span> {{ automovel.cor }}</p>
+            <p><span class="font-medium">Marca:</span> {{ automovel.marca }}</p>
+            <p><span class="font-medium">Ano:</span> {{ automovel.ano }}</p>
+          </mat-card-content>
 
-        <mat-card-actions align="end" class="flex items-center justify-end gap-2 pt-2">
-          <a [routerLink]="['editar', automovel.id]" mat-icon-button aria-label="Editar">
-            <mat-icon>edit</mat-icon>
-          </a>
+          <mat-card-actions align="end" class="flex items-center justify-end gap-2 pt-2">
+            <a [routerLink]="['editar', automovel.id]" mat-icon-button aria-label="Editar">
+              <mat-icon>edit</mat-icon>
+            </a>
 
-          <a [routerLink]="['excluir', automovel.id]" mat-icon-button aria-label="Excluir">
-            <mat-icon>delete</mat-icon>
-          </a>
-        </mat-card-actions>
-      </mat-card>
+            <a [routerLink]="['excluir', automovel.id]" mat-icon-button aria-label="Excluir">
+              <mat-icon>delete</mat-icon>
+            </a>
+          </mat-card-actions>
+        </mat-card>
       }
     </div>
   </div>
