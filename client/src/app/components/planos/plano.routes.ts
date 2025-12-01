@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { GrupoAutomovelService } from '../grupo-automoveis/grupo-automovel.service';
 
 import { CadastrarPlano } from './cadastrar/cadastrar-plano';
-//import { EditarPlano } from './editar/editar-plano';
+import { EditarPlano } from './editar/editar-plano';
 import { ExcluirPlano } from './excluir/excluir-plano';
 import { ListarPlanos } from './listar/listar-planos';
 import { PlanoService } from './plano.service';
@@ -41,11 +41,11 @@ export const planoRoutes: Routes = [
         component: CadastrarPlano,
         resolve: { grupoAutomoveis: listarGruposAutomoveisResolver},
       },
-      //{
-      //  path: 'editar/:id',
-      //  component: EditarPlano,
-      //  resolve: { plano: detalhesPlanoResolver, grupoAutomoveis: listarGruposAutomoveisResolver },
-      //},
+      {
+        path: 'editar/:id',
+        component: EditarPlano,
+        resolve: { plano: detalhesPlanoResolver, grupoAutomoveis: listarGruposAutomoveisResolver },
+      },
       {
         path: 'excluir/:id',
         component: ExcluirPlano,
