@@ -31,7 +31,7 @@ public class EditarClienteRequestHandler(
         clienteSelecionado.Nome = request.Nome;
         clienteSelecionado.Endereco = endereco;
         clienteSelecionado.Telefone = request.Telefone;
-        clienteSelecionado.ClienteTipo = request.TipoCliente;
+        clienteSelecionado.ClienteTipo = request.ClienteTipo;
         clienteSelecionado.Documento = request.Documento;
         clienteSelecionado.Cnh = request.Cnh;
 
@@ -54,6 +54,9 @@ public class EditarClienteRequestHandler(
 
         if (DocumentoDuplicado(clienteSelecionado, clientes))
             return Result.Fail(ClienteErrorResults.DocumentoDuplicadoError(clienteSelecionado.Documento));
+
+        if (request.ClienteTipo == ETipoCliente.PessoaJuridica)
+            clienteSelecionado.Cnh = null;
 
         if(clienteSelecionado.ClienteTipo == ETipoCliente.PessoaFisica)
         {

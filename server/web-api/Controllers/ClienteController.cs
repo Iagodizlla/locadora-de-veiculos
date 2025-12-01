@@ -36,7 +36,7 @@ public class ClienteController(IMediator mediator) : ControllerBase
             request.Nome,
             request.Endereco,
             request.Telefone,
-            request.TipoCliente,
+            request.ClienteTipo,
             request.Documento,
             request.Cnh
         );
