@@ -17,10 +17,14 @@ public class MapeadorClienteEmOrm : IEntityTypeConfiguration<Cliente>
             .HasColumnType("nvarchar(100)")
             .IsRequired();
 
-        modelBuilder.HasOne(a => a.Endereco)
-            .WithMany()
-            .IsRequired()
-            .OnDelete(DeleteBehavior.NoAction);
+        modelBuilder.OwnsOne(c => c.Endereco, endereco =>
+        {
+            endereco.Property(e => e.Logradouro).HasColumnName("Logradouro");
+            endereco.Property(e => e.Numero).HasColumnName("Numero");
+            endereco.Property(e => e.Bairro).HasColumnName("Bairro");
+            endereco.Property(e => e.Cidade).HasColumnName("Cidade");
+            endereco.Property(e => e.Estado).HasColumnName("Estado");
+        });
 
         modelBuilder.Property(b => b.Telefone)
             .HasColumnType("nvarchar(20)")

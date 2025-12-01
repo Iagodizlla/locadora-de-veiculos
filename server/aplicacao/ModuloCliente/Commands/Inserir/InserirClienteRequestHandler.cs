@@ -26,10 +26,7 @@ public class InserirClienteRequestHandler(
             request.Endereco.Bairro,
             request.Endereco.Cidade,
             request.Endereco.Estado
-        )
-        {
-            EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
-        };
+        );
 
         var cliente = new Cliente(request.Nome, endereco, request.Telefone, request.TipoCliente, request.Documento, request.Cnh)
         {
