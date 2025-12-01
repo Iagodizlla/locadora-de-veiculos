@@ -1,0 +1,95 @@
+@if (cliente$ | async) {
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Edição de Cliente</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="clienteForm" (ngSubmit)="editar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium">
+            Preencha o formulário de edição
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mt-6 space-y-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Nome do Cliente</mat-label>
+            <input formControlName="nome" matInput type="text" />
+
+            @if (nome?.errors?.['required']) {
+            <mat-error>O nome do cliente é obrigatório.</mat-error>
+            } @if (nome?.errors?.['minlength']) {
+            <mat-error>O cliente do cliente deve conter no mínimo 3 caracteres.</mat-error>
+            }
+          </mat-form-field>
+          <!-- DOCUMENTO -->
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Documento (CPF/CNPJ)</mat-label>
+            <input matInput formControlName="documento" />
+          </mat-form-field>
+
+          <!-- TELEFONE -->
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="telefone" />
+          </mat-form-field>
+
+          <!-- TIPO CLIENTE -->
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Tipo do Cliente</mat-label>
+            <mat-select formControlName="tipoCliente">
+              <mat-option value="PessoaFisica">Pessoa Física</mat-option>
+              <mat-option value="PessoaJuridica">Pessoa Jurídica</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- CNH (somente PF) -->
+          @if (clienteForm.get('tipoCliente')?.value === 'PessoaFisica') {
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>CNH</mat-label>
+            <input matInput formControlName="cnh" />
+          </mat-form-field>
+          }
+
+          <div class="space-y-4">
+            <mat-form-field class="w-full">
+              <mat-label>Logradouro</mat-label>
+              <input matInput formControlName="logradouro" />
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+              <mat-label>Número</mat-label>
+              <input matInput type="number" formControlName="numero" />
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+              <mat-label>Bairro</mat-label>
+              <input matInput formControlName="bairro" />
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+              <mat-label>Cidade</mat-label>
+              <input matInput formControlName="cidade" />
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+              <mat-label>Estado</mat-label>
+              <input matInput formControlName="estado" />
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4">
+          <a mat-stroked-button routerLink="/clientes" class="px-4"> Voltar </a>
+
+          <button type="submit" [disabled]="clienteForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">check</mat-icon>
+            Concluir
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>
+}
