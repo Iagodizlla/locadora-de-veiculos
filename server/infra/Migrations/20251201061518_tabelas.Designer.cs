@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 {
     [DbContext(typeof(LocadoraVeiculoDbContext))]
-    [Migration("20251125103448_Tabelas")]
-    partial class Tabelas
+    [Migration("20251201061518_tabelas")]
+    partial class tabelas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -272,9 +272,6 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<Guid>("EmpresaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EnderecoId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
@@ -287,44 +284,7 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 
                     b.HasIndex("EmpresaId");
 
-                    b.HasIndex("EnderecoId");
-
                     b.ToTable("TBCliente", (string)null);
-                });
-
-            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloCliente.Endereco", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Bairro")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Cidade")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("EmpresaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Logradouro")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Numero")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmpresaId");
-
-                    b.ToTable("Endereco");
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloCondutor.Condutor", b =>
@@ -698,26 +658,47 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloCliente.Endereco", "Endereco")
-                        .WithMany()
-                        .HasForeignKey("EnderecoId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                    b.OwnsOne("LocadoraDeVeiculos.Dominio.ModuloCliente.Endereco", "Endereco", b1 =>
+                        {
+                            b1.Property<Guid>("ClienteId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("Bairro")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Bairro");
+
+                            b1.Property<string>("Cidade")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Cidade");
+
+                            b1.Property<string>("Estado")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Estado");
+
+                            b1.Property<string>("Logradouro")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Logradouro");
+
+                            b1.Property<int>("Numero")
+                                .HasColumnType("int")
+                                .HasColumnName("Numero");
+
+                            b1.HasKey("ClienteId");
+
+                            b1.ToTable("TBCliente");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ClienteId");
+                        });
 
                     b.Navigation("Empresa");
 
-                    b.Navigation("Endereco");
-                });
-
-            modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloCliente.Endereco", b =>
-                {
-                    b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAutenticacao.Usuario", "Empresa")
-                        .WithMany()
-                        .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.Navigation("Endereco")
                         .IsRequired();
-
-                    b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("LocadoraDeVeiculos.Dominio.ModuloCondutor.Condutor", b =>
