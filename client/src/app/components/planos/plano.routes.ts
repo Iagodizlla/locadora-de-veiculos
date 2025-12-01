@@ -6,7 +6,7 @@ import { GrupoAutomovelService } from '../grupo-automoveis/grupo-automovel.servi
 //import { CadastrarPlano } from './cadastrar/cadastrar-plano';
 //import { EditarPlano } from './editar/editar-plano';
 //import { ExcluirPlano } from './excluir/excluir-plano';
-//import { ListarPlanos } from './listar/listar-planos';
+import { ListarPlanos } from './listar/listar-planos';
 import { PlanoService } from './plano.service';
 
 export const listarPlanosResolver = () => {
@@ -27,15 +27,15 @@ export const listarGruposAutomoveisResolver = () => {
   return inject(GrupoAutomovelService).selecionarTodos();
 };
 
-export const automovelRoutes: Routes = [
+export const planoRoutes: Routes = [
   {
     path: '',
     children: [
-      //{
-      //  path: '',
-      //  component: ListarPlanos,
-      //  resolve: { automoveis: listarPlanosResolver },
-      //},
+      {
+        path: '',
+        component: ListarPlanos,
+        resolve: { automoveis: listarPlanosResolver },
+      },
       //{
       //  path: 'cadastrar',
       //  component: CadastrarPlano,
