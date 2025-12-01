@@ -29,6 +29,12 @@ public class ValidadorCliente : AbstractValidator<Cliente>
                 RuleFor(m => m.Telefone).MinimumLength(8)
                     .WithMessage("O campo {PropertyName} deve conter no mínimo {MinLength} caracteres");
             });
+
+        RuleFor(m => m.Documento)
+            .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório");
+
+        RuleFor(m => m.ClienteTipo)
+            .IsInEnum().WithMessage("O campo {PropertyName} é inválido");
     }
 }
 public class ValidadorEndereco : AbstractValidator<Endereco>
