@@ -55,6 +55,16 @@
       </span>
       }
 
+      <a
+        mat-raised-button
+        routerLink="/configuracoes"
+        color="accent"
+        class="ml-auto flex items-center gap-2 rounded-xl"
+      >
+        <mat-icon>settings</mat-icon>
+        Configurações de Preco
+      </a>
+
       <button mat-raised-button [matMenuTriggerFor]="opcoesUsuario" class="ml-auto">
         <mat-icon>person</mat-icon>
         {{ usuarioAutenticado.userName }}
