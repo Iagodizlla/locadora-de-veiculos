@@ -5,7 +5,7 @@ import { GrupoAutomovelService } from '../grupo-automoveis/grupo-automovel.servi
 
 import { CadastrarPlano } from './cadastrar/cadastrar-plano';
 //import { EditarPlano } from './editar/editar-plano';
-//import { ExcluirPlano } from './excluir/excluir-plano';
+import { ExcluirPlano } from './excluir/excluir-plano';
 import { ListarPlanos } from './listar/listar-planos';
 import { PlanoService } from './plano.service';
 
@@ -46,11 +46,11 @@ export const planoRoutes: Routes = [
       //  component: EditarPlano,
       //  resolve: { plano: detalhesPlanoResolver, grupoAutomoveis: listarGruposAutomoveisResolver },
       //},
-      //{
-      //  path: 'excluir/:id',
-      //  component: ExcluirPlano,
-      //  resolve: { plano: detalhesPlanoResolver },
-      //},
+      {
+        path: 'excluir/:id',
+        component: ExcluirPlano,
+        resolve: { plano: detalhesPlanoResolver },
+      },
     ],
     providers: [PlanoService, GrupoAutomovelService],
   },
