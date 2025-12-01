@@ -57,7 +57,8 @@
             {
               <mat-error>O ano não pode ser maior que 2100.</mat-error>
             }
-          </mat-form-field> <mat-form-field appearance="fill" class="w-full">
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
             <mat-label>Capacidade do Tanque do Automóvel</mat-label>
             <input formControlName="capacidadeTanque" matInput type="number" />
             @if (capacidadeTanque?.errors?.['required'])
@@ -72,7 +73,8 @@
             {
               <mat-error>A capacide do tanque não pode ser maior que 10000.</mat-error>
             }
-          </mat-form-field> <mat-form-field appearance="fill" class="w-full">
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
             <mat-label>Foto do Automovel</mat-label>
             <input formControlName="foto" matInput type="text" />
             @if (foto?.errors?.['required'])
