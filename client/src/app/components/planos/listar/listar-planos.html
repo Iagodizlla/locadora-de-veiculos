@@ -21,11 +21,11 @@
       @for (plano of planos$ | async; track $index) {
       <mat-card class="p-3 rounded-2xl shadow-sm">
         <mat-card-header class="pb-2">
-          <mat-card-title class="text-lg font-medium">
+          <mat-card-title class="text-lg font-medium"> Grupo: 
             {{ plano.grupoAutomovel.nome }}
           </mat-card-title>
         </mat-card-header>
-        
+
         <mat-card-actions align="end" class="flex items-center justify-end gap-2 pt-2">
           <a [routerLink]="['editar', plano.id]" mat-icon-button aria-label="Editar">
             <mat-icon>edit</mat-icon>

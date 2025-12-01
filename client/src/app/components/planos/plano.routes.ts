@@ -34,7 +34,7 @@ export const planoRoutes: Routes = [
       {
         path: '',
         component: ListarPlanos,
-        resolve: { automoveis: listarPlanosResolver },
+        resolve: { planos: listarPlanosResolver },
       },
       //{
       //  path: 'cadastrar',
@@ -44,12 +44,12 @@ export const planoRoutes: Routes = [
       //{
       //  path: 'editar/:id',
       //  component: EditarPlano,
-      //  resolve: { automovel: detalhesPlanoResolver, grupoAutomoveis: listarGruposAutomoveisResolver },
+      //  resolve: { plano: detalhesPlanoResolver, grupoAutomoveis: listarGruposAutomoveisResolver },
       //},
       //{
       //  path: 'excluir/:id',
       //  component: ExcluirPlano,
-      //  resolve: { automovel: detalhesPlanoResolver },
+      //  resolve: { plano: detalhesPlanoResolver },
       //},
     ],
     providers: [PlanoService, GrupoAutomovelService],
