@@ -24,13 +24,13 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 
             modelBuilder.Entity("AluguelTaxa", b =>
                 {
-                    b.Property<Guid>("AlugueisId")
+                    b.Property<Guid>("AluguelId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("TaxasId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("AlugueisId", "TaxasId");
+                    b.HasKey("AluguelId", "TaxasId");
 
                     b.HasIndex("TaxasId");
 
@@ -574,7 +574,7 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                 {
                     b.HasOne("LocadoraDeVeiculos.Dominio.ModuloAluguel.Aluguel", null)
                         .WithMany()
-                        .HasForeignKey("AlugueisId")
+                        .HasForeignKey("AluguelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

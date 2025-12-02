@@ -411,15 +411,15 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                 name: "TBAluguelTaxa",
                 columns: table => new
                 {
-                    AlugueisId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AluguelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TaxasId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TBAluguelTaxa", x => new { x.AlugueisId, x.TaxasId });
+                    table.PrimaryKey("PK_TBAluguelTaxa", x => new { x.AluguelId, x.TaxasId });
                     table.ForeignKey(
-                        name: "FK_TBAluguelTaxa_TBAluguel_AlugueisId",
-                        column: x => x.AlugueisId,
+                        name: "FK_TBAluguelTaxa_TBAluguel_AluguelId",
+                        column: x => x.AluguelId,
                         principalTable: "TBAluguel",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
