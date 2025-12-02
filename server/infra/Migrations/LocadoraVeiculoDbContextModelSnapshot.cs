@@ -332,7 +332,7 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<decimal>("Alcool")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<decimal>("Diessel")
+                    b.Property<decimal>("Diesel")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<Guid>("EmpresaId")

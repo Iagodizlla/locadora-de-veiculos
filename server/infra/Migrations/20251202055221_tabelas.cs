@@ -215,7 +215,7 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Gasolina = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Gas = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Diessel = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    Diesel = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Alcool = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     EmpresaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
