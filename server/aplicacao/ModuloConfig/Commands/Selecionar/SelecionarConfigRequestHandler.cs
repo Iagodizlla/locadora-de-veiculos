@@ -22,7 +22,7 @@ public class SelecionarConfigRequestHandler(
             new SelecionarConfigResponse(
                 configuracao.Gasolina,
                 configuracao.Gas,
-                configuracao.Diessel,
+                configuracao.Diesel,
                 configuracao.Alcool
             )
         );

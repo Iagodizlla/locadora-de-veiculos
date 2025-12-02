@@ -12,7 +12,7 @@ public class ValidadorConfig : AbstractValidator<Config>
         RuleFor(x => x.Gas)
             .GreaterThanOrEqualTo(0).WithMessage("Preço do gás inválido");
 
-        RuleFor(x => x.Diessel)
+        RuleFor(x => x.Diesel)
             .GreaterThanOrEqualTo(0).WithMessage("Preço do diesel inválido");
 
         RuleFor(x => x.Alcool)

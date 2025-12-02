@@ -24,7 +24,7 @@ public class EditarConfigRequestHandler(
 
         configuracao.Gasolina = request.Gasolina;
         configuracao.Gas = request.Gas;
-        configuracao.Diessel = request.Diesel;
+        configuracao.Diesel = request.Diesel;
         configuracao.Alcool = request.Alcool;
 
         var resultadoValidacao = await validador.ValidateAsync(configuracao);

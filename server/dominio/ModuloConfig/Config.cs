@@ -6,15 +6,15 @@ public class Config : EntidadeBase
 {
     public decimal Gasolina { get; set; }
     public decimal Gas { get; set; }
-    public decimal Diessel { get; set; }
+    public decimal Diesel { get; set; }
     public decimal Alcool { get; set; }
 
     public Config() { }
-    public Config(decimal gasolina, decimal gas, decimal diessel, decimal alcool) : this()
+    public Config(decimal gasolina, decimal gas, decimal diesel, decimal alcool) : this()
     {
         Gasolina = gasolina;
         Gas = gas;
-        Diessel = diessel;
+        Diesel = diesel;
         Alcool = alcool;
     }
 }

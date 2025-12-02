@@ -44,7 +44,7 @@ public class RegistrarUsuarioRequestHandler(
             EmpresaId = usuario.EmpresaId,
             Gasolina = 0m,
             Gas = 0m,
-            Diessel = 0m,
+            Diesel = 0m,
             Alcool = 0m
         };
 

@@ -20,7 +20,7 @@ public class MapeadorConfigEmOrm : IEntityTypeConfiguration<Config>
             .HasColumnType("decimal(10,2)")
             .IsRequired();
 
-        modelBuilder.Property(x => x.Diessel)
+        modelBuilder.Property(x => x.Diesel)
             .HasColumnType("decimal(10,2)")
             .IsRequired();
 
