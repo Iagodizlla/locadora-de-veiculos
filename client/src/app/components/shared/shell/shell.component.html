@@ -55,16 +55,6 @@
       </span>
       }
 
-      <a
-        mat-raised-button
-        routerLink="/configuracoes"
-        color="accent"
-        class="ml-auto flex items-center gap-2 rounded-xl"
-      >
-        <mat-icon>settings</mat-icon>
-        Configurações de Preço
-      </a>
-
       <button mat-raised-button [matMenuTriggerFor]="opcoesUsuario" class="ml-auto">
         <mat-icon>person</mat-icon>
         {{ usuarioAutenticado.userName }}
@@ -74,6 +64,10 @@
         <button mat-menu-item style="min-width: 160px" (click)="logoutRequisitado.emit()">
           <mat-icon>arrow_backwards</mat-icon>
           Logout
+        </button>
+        <button mat-menu-item style="min-width: 160px"  routerLink="/configuracoes">
+          <mat-icon>arrow_backwards</mat-icon>
+          Config
         </button>
       </mat-menu>
     </mat-toolbar>
