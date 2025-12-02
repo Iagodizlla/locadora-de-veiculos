@@ -28,7 +28,7 @@
 
         <mat-card-content class="min-h-[40px] mt-3">
           <p><span class="font-medium">Preco:</span> {{ taxa.preco }}</p>
-          <p><span class="font-medium">Servico:</span> {{ taxa.servico }}</p>
+          <p><span class="font-medium">Servico:</span> {{ getServicoTexto(taxa.servico) }}</p>
         </mat-card-content>
 
         <mat-card-actions align="end" class="flex items-center justify-end gap-2 pt-2">

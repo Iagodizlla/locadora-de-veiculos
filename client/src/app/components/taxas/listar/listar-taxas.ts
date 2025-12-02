@@ -21,4 +21,15 @@ export class ListarTaxas {
     filter((data) => data['taxas']),
     map((data) => data['taxas'] as ListarTaxasModel[])
   );
+
+  getServicoTexto(tipo: string): string {
+    switch (tipo) {
+      case 'PrecoFixo':
+        return 'Preco Fixo';
+      case 'CobrancaDiaria':
+        return 'Cobranca Diaria';
+      default:
+        return 'Tipo Desconhecido';
+    }
+  }
 }
