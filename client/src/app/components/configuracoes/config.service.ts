@@ -1,25 +1,19 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-
 import { environment } from '../../../environments/environment';
-import {
-  ConfigModel,
-  EditarConfigModel,
-  EditarConfigResponseModel,
-  SelecionarConfigResponseModel
-} from './config.models';
+import { DetalhesConfigModel, EditarConfigModel, EditarConfigResponseModel } from './config.models';
 import { RespostaApiModel, mapearRespostaApi } from '../../util/mapear-resposta-api';
 
 @Injectable()
-export class ConfiguracoesService {
+export class ConfigService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = environment.apiUrl + '/configuracoes/combustivel';
 
-  selecionar(): Observable<SelecionarConfigResponseModel> {
+  selecionar(): Observable<DetalhesConfigModel> {
     return this.http
       .get<RespostaApiModel>(this.apiUrl)
-      .pipe(map(mapearRespostaApi<SelecionarConfigResponseModel>));
+      .pipe(map(mapearRespostaApi<DetalhesConfigModel>));
   }
 
   editar(model: EditarConfigModel): Observable<EditarConfigResponseModel> {

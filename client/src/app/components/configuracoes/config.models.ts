@@ -1,27 +1,23 @@
-export interface ConfigModel {
+export interface DetalhesConfigModel {
+  id: string;
   gasolina: number;
   gas: number;
-  diessel: number;
-  alcool: number;
-}
-
-export interface SelecionarConfigResponseModel {
-  gasolina: number;
-  gas: number;
-  diessel: number;
+  diesel: number;
   alcool: number;
 }
 
 export interface EditarConfigModel {
   gasolina: number;
   gas: number;
-  diessel: number;
+  diesel: number;
   alcool: number;
 }
 
 export interface EditarConfigResponseModel {
+  id: string;
   gasolina: number;
   gas: number;
-  diessel: number;
+  diesel: number;
   alcool: number;
 }
+
