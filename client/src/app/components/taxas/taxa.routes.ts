@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { TaxaService } from './taxa.service';
 import { ListarTaxas } from './listar/listar-taxas';
 import { CadastrarTaxa } from './cadastrar/cadastrar-taxa';
+import { ExcluirTaxa } from './excluir/excluir-taxa';
 
 
 export const listarTaxasResolver = () => {
@@ -37,11 +38,11 @@ export const taxaRoutes: Routes = [
       //  component: EditarTaxa,
       //  resolve: { taxa: detalhesTaxaResolver },
       //},
-      //{
-      //  path: 'excluir/:id',
-      //  component: ExcluirTaxa,
-      //  resolve: { taxa: detalhesTaxaResolver },
-      //},
+      {
+        path: 'excluir/:id',
+        component: ExcluirTaxa,
+        resolve: { taxa: detalhesTaxaResolver },
+      },
     ],
     providers: [TaxaService],
   },
