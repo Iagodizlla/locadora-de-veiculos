@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LocadoraDeVeiculos.WebApi.Controllers;
 
-[Route("api/configuracoes")]
+[Route("api/configuracoes/combustivel")]
 [ApiController]
 public class ConfigController(IMediator mediator) : ControllerBase
 {
@@ -20,7 +20,7 @@ public class ConfigController(IMediator mediator) : ControllerBase
             request.Diesel,
             request.Alcool
         );
-
+        
         var resultado = await mediator.Send(editarRequest);
 
         return resultado.ToHttpResponse();
