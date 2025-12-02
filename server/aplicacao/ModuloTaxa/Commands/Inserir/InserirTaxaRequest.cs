@@ -5,5 +5,5 @@ using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloTaxa.Commands.Inserir;
 
-public record InserirTaxaRequest(string Nome, double Preco, EServico Servico, List<Guid> AlugueisId)
+public record InserirTaxaRequest(string Nome, double Preco, EServico Servico)
     : IRequest<Result<InserirTaxaResponse>>;

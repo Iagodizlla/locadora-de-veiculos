@@ -3,7 +3,7 @@ using LocadoraDeVeiculos.Dominio.ModuloTaxa;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloTaxa.Commands.SelecionarTodos;
 
-public record SelecionarTaxasDto(Guid Id, string Nome, double Preco, EServico Servico, List<Aluguel> Alugueis);
+public record SelecionarTaxasDto(Guid Id, string Nome, double Preco, EServico Servico);
 
 public record SelecionarTaxasResponse
 {

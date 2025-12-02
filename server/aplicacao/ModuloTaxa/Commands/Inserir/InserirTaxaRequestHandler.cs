@@ -20,13 +20,7 @@ public class InserirTaxaRequestHandler(
     public async Task<Result<InserirTaxaResponse>> Handle(
         InserirTaxaRequest request, CancellationToken cancellationToken)
     {
-        var alugueis = new List<Aluguel>();
-        foreach (var a in request.AlugueisId)
-        {
-            var b = await repositorioAluguel.SelecionarPorIdAsync(a);
-            alugueis.Add(b);
-        }
-        var taxa = new Taxa(request.Nome, request.Preco, request.Servico, alugueis)
+        var taxa = new Taxa(request.Nome, request.Preco, request.Servico)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };

@@ -38,9 +38,9 @@ public class MapeadorAluguelEmOrm : IEntityTypeConfiguration<Aluguel>
            .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder
-             .HasMany(a => a.Taxas)
-             .WithMany(t => t.Alugueis)
-             .UsingEntity(j => j.ToTable("TBAluguelTaxa"));
+            .HasMany(a => a.Taxas)
+            .WithMany() 
+            .UsingEntity(j => j.ToTable("TBAluguelTaxa"));
 
         modelBuilder.Property(a => a.DataSaida)
             .IsRequired()

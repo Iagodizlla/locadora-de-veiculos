@@ -16,7 +16,7 @@ public class SelecionarTaxasRequestHandler(
         {
             QuantidadeRegistros = registros.Count,
             Registros = registros
-                .Select(r => new SelecionarTaxasDto(r.Id, r.Nome, r.Preco, r.Servico, r.Alugueis))
+                .Select(r => new SelecionarTaxasDto(r.Id, r.Nome, r.Preco, r.Servico))
         };
 
         return Result.Ok(response);

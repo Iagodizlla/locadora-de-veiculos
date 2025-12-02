@@ -20,8 +20,7 @@ public class SelecionarTaxaPorIdRequestHandler(
             taxaSelecionado.Id,
             taxaSelecionado.Nome,
             taxaSelecionado.Preco,
-            taxaSelecionado.Servico,
-            taxaSelecionado.Alugueis
+            taxaSelecionado.Servico
         );
 
         return Result.Ok(resposta);

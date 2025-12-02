@@ -22,16 +22,9 @@ public class EditarTaxaRequestHandler(
         if (taxaSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
-        var alugueis = new List<Aluguel>();
-        foreach (var aluguelId in request.AlugueisId)
-        {
-            alugueis.Add(await repositorioAluguel.SelecionarPorIdAsync(aluguelId));
-        }
-
         taxaSelecionado.Nome = request.Nome;
         taxaSelecionado.Preco = request.Preco;
         taxaSelecionado.Servico = request.Servico;
-        taxaSelecionado.Alugueis = alugueis;
 
         var resultadoValidacao = 
             await validador.ValidateAsync(taxaSelecionado, cancellationToken);

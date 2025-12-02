@@ -26,11 +26,6 @@ public class MapeadorTaxaEmOrm : IEntityTypeConfiguration<Taxa>
             .IsRequired();
 
         modelBuilder
-             .HasMany(a => a.Alugueis)
-             .WithMany(t => t.Taxas)
-             .UsingEntity(j => j.ToTable("TBTaxaAluguel"));
-
-        modelBuilder
             .HasOne(a => a.Empresa)
             .WithMany()
             .HasForeignKey(a => a.EmpresaId)
