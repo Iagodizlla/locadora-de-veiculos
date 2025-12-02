@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { TaxaService } from './taxa.service';
+import { ListarTaxas } from './listar/listar-taxas';
 
 
 export const listarTaxasResolver = () => {
@@ -21,11 +22,11 @@ export const taxaRoutes: Routes = [
   {
     path: '',
     children: [
-      //{
-      //  path: '',
-      //  component: ListarTaxas,
-      //  resolve: { taxas: listarTaxasResolver },
-      //},
+      {
+        path: '',
+        component: ListarTaxas,
+        resolve: { taxas: listarTaxasResolver },
+      },
       //{
       //  path: 'cadastrar',
       //  component: CadastrarTaxa,

@@ -69,11 +69,15 @@ const routes: Routes = [
     canMatch: [usuarioAutenticadoGuard],
   },
   {
-  path: 'configuracoes',
-  loadComponent: () => import('./components/configuracoes/editar/editar-config').then(c => c.EditarConfig),
-  canMatch: [usuarioAutenticadoGuard],
-}
-
+    path: 'configuracoes',
+    loadComponent: () => import('./components/configuracoes/editar/editar-config').then(c => c.EditarConfig),
+    canMatch: [usuarioAutenticadoGuard],
+  },
+  {
+    path: 'taxas',
+    loadChildren: () => import('./components/taxas/taxa.routes').then((c) => c.taxaRoutes),
+    canMatch: [usuarioAutenticadoGuard],
+  },
 ];
 
 export const appConfig: ApplicationConfig = {
