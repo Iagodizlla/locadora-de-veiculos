@@ -1,0 +1,64 @@
+@if (taxa$ | async) {
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Edição de Taxa</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="taxaForm" (ngSubmit)="editar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium">
+            Preencha o formulário de edição
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mt-6 space-y-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Nome da Taxa</mat-label>
+            <input formControlName="nome" matInput type="text" />
+
+            @if (nome?.errors?.['required']) {
+            <mat-error>O nome da taxa é obrigatório.</mat-error>
+            } @if (nome?.errors?.['minlength']) {
+            <mat-error>O nome da taxa deve conter no mínimo 3 caracteres.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Preco</mat-label>
+          <input formControlName="preco" matInput type="number" />
+          @if (preco?.errors?.['required'])
+          {
+            <mat-error>O precoda taxa é obrigatório.</mat-error>
+          }
+          @if (preco?.errors?.['min'])
+          {
+            <mat-error>O preco da taxa não pode ser menor que 0.</mat-error>
+          }
+        </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-select formControlName="servico">
+              @for (tipo of tiposServicos; track $index)
+              {
+                <mat-option [value]="tipo">{{ tipo }}</mat-option>
+              }
+            </mat-select>
+            @if (servico?.hasError('required'))
+            {
+              <mat-error>O Servico é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4">
+          <a mat-stroked-button routerLink="/taxas" class="px-4"> Voltar </a>
+
+          <button type="submit" [disabled]="taxaForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">check</mat-icon>
+            Concluir
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>
+}

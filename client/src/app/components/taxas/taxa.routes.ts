@@ -4,6 +4,7 @@ import { TaxaService } from './taxa.service';
 import { ListarTaxas } from './listar/listar-taxas';
 import { CadastrarTaxa } from './cadastrar/cadastrar-taxa';
 import { ExcluirTaxa } from './excluir/excluir-taxa';
+import { EditarTaxa } from './editar/editar-taxa';
 
 
 export const listarTaxasResolver = () => {
@@ -33,11 +34,11 @@ export const taxaRoutes: Routes = [
         path: 'cadastrar',
         component: CadastrarTaxa,
       },
-      //{
-      //  path: 'editar/:id',
-      //  component: EditarTaxa,
-      //  resolve: { taxa: detalhesTaxaResolver },
-      //},
+      {
+        path: 'editar/:id',
+        component: EditarTaxa,
+        resolve: { taxa: detalhesTaxaResolver },
+      },
       {
         path: 'excluir/:id',
         component: ExcluirTaxa,
