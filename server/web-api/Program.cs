@@ -1,5 +1,7 @@
-﻿using LocadoraDeVeiculos.WebApi.Config;
+﻿using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
+using LocadoraDeVeiculos.WebApi.Config;
 using LocadoraDeVeiculos.WebApi.Extensions;
+using LocadoraDeVeiculos.WebApi.Identity;
 using Serilog;
 
 namespace LocadoraDeVeiculos.WebApi;
@@ -9,6 +11,9 @@ public class Program
     public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddScoped<IContextoUsuario, ContextoUsuario>();
 
         // Logging [env NEWRELIC_LICENSE_KEY]
         builder.Services.ConfigureSerilog(builder.Logging, builder.Configuration);

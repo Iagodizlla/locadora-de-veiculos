@@ -14,7 +14,6 @@ public static class AuthDependencyInjection
     public static void ConfigureIdentityProviders(this IServiceCollection services)
     {
         services.AddScoped<ITokenProvider, JwtProvider>();
-        services.AddScoped<IContextoUsuario, ApiTenantProvider>();
         services.AddScoped<ITenantProvider, ApiTenantProvider>();
 
         services.AddIdentity<Usuario, Cargo>(options =>

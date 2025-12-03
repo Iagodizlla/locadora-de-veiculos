@@ -4,40 +4,24 @@ using System.Security.Claims;
 
 namespace LocadoraDeVeiculos.WebApi.Identity;
 
-public class ApiTenantProvider(IHttpContextAccessor contextAccessor) : ITenantProvider, IContextoUsuario
+public class ApiTenantProvider(IHttpContextAccessor contextAccessor) : ITenantProvider
 {
     public Guid? EmpresaId
     {
         get
         {
-            var claimId = contextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier);
+            var user = contextAccessor.HttpContext?.User;
 
             var empresaIdClaim = user?.FindFirst("EmpresaId")?.Value;
 
-            return Guid.Parse(claimId.Value);
+            if (Guid.TryParse(empresaIdClaim, out var empresaId))
+                return empresaId;
+
+            return null;
         }
     }
-    public Guid? UsuarioId
+    public bool EstaNoCargo(string cargo)
     {
-        get
-        {
-            ClaimsPrincipal? claimsPrincipal = contextAccessor.HttpContext?.User;
-
-            if (claimsPrincipal?.Identity?.IsAuthenticated != true)
-            {
-                return null;
-            }
-
-            Claim? claimId = claimsPrincipal.FindFirst("usuario_id");
-
-            if (claimId == null)
-            {
-                return null;
-            }
-
-            return Guid.Parse(claimId.Value);
-        }
+        return contextAccessor.HttpContext?.User?.IsInRole(cargo) ?? false;
     }
-
-    public bool IsInRole(string nome) => contextAccessor.HttpContext?.User?.IsInRole(nome) ?? false;
 }

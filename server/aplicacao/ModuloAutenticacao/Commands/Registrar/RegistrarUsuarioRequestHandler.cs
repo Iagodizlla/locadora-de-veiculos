@@ -13,6 +13,7 @@ public class RegistrarUsuarioRequestHandler(
     IRepositorioConfig repositorioConfig,
     IContextoPersistencia contexto,
     UserManager<Usuario> userManager,
+    RoleManager<Cargo> roleManager,
     ITokenProvider tokenProvider
 ) : IRequestHandler<RegistrarUsuarioRequest, Result<TokenResponse>>
 {
@@ -35,6 +36,35 @@ public class RegistrarUsuarioRequestHandler(
                 .ToList();
 
             return Result.Fail(ErrorResults.BadRequestError(erros));
+        }
+        var cargoStr = ECargo.Funcionario.ToString(); // Funcionario ou Empresa
+
+        var resultadoBuscaCargo = await roleManager.FindByNameAsync(cargoStr);
+
+        if (resultadoBuscaCargo is null)
+        {
+            var novoCargo = new Cargo()
+            {
+                Name = cargoStr,
+                NormalizedName = cargoStr.ToUpper()
+            };
+
+            var resultCriarCargo = await roleManager.CreateAsync(novoCargo);
+
+            if (!resultCriarCargo.Succeeded)
+            {
+                var erros = resultCriarCargo.Errors.Select(x => x.Description).ToList();
+                return Result.Fail(ErrorResults.BadRequestError(erros));
+            }
+
+            resultadoBuscaCargo = novoCargo;
+        }
+
+        var resultadoInclusaoCargo =  await userManager.AddToRoleAsync(usuario, resultadoBuscaCargo.Name);
+
+        if (!resultadoInclusaoCargo.Succeeded)
+        {
+            var erros = resultadoInclusaoCargo.Errors.Select(e => e.Description);
         }
 
         usuario.AssociarEmpresa(usuario.Id);
