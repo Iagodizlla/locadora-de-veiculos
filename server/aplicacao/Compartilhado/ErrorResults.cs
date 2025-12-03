@@ -24,4 +24,10 @@ public abstract class ErrorResults
             .CausedBy(ex)
             .WithMetadata("ErrorType", "InternalServer");
     }
+    public static Error RequisicaoInvalidaErro(string erro)
+    {
+        return new Error("Requisição inválida")
+            .CausedBy(erro)
+            .WithMetadata("TipoErro", "RequisicaoInvalida");
+    }
 }
