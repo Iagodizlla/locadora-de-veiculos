@@ -1,8 +1,10 @@
 ﻿using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Editar;
+using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.EditarNome;
 using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Excluir;
 using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.Inserir;
 using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarPorId;
 using LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarTodos;
+using LocadoraDeVeiculos.Dominio.ModuloAutenticacao;
 using LocadoraDeVeiculos.WebApi.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -68,6 +70,19 @@ public class FuncionarioController(IMediator mediator) : ControllerBase
         var selecionarPorIdRequest = new SelecionarFuncionarioPorIdRequest(id);
 
         var resultado = await mediator.Send(selecionarPorIdRequest);
+
+        return resultado.ToHttpResponse();
+    }
+
+    [HttpPut("auto-editar")]
+    [ProducesResponseType(typeof(AutoEditarFuncionarioResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> AutoEditar(
+    [FromServices] IContextoUsuario userContext,
+    [FromBody] AutoEditarFuncionarioPartialRequest partialRequest)
+    {
+        var editarRequest = new AutoEditarFuncionarioRequest(partialRequest.Nome);
+
+        var resultado = await mediator.Send(editarRequest);
 
         return resultado.ToHttpResponse();
     }
