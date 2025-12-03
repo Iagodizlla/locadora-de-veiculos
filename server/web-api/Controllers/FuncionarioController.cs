@@ -13,12 +13,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace LocadoraDeVeiculos.WebApi.Controllers;
 
 [ApiController]
-[Authorize]
 [Route("api/funcionarios")]
 public class FuncionarioController(IMediator mediator) : ControllerBase
 {
 
     [HttpPost]
+    [Authorize(Roles = "Empresa")]
     [ProducesResponseType(typeof(InserirFuncionarioResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> Inserir(InserirFuncionarioRequest request)
     {
@@ -28,6 +28,7 @@ public class FuncionarioController(IMediator mediator) : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Roles = "Empresa")]
     [ProducesResponseType(typeof(EditarFuncionarioResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> Editar(Guid id, EditarFuncionarioPartialRequest request)
     {
@@ -44,6 +45,7 @@ public class FuncionarioController(IMediator mediator) : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Roles = "Empresa")]
     [ProducesResponseType(typeof(ExcluirFuncionarioResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> Excluir(Guid id)
     {
@@ -55,6 +57,7 @@ public class FuncionarioController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Empresa")]
     [ProducesResponseType(typeof(SelecionarFuncionariosResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> SelecionarTodos()
     {
@@ -64,6 +67,7 @@ public class FuncionarioController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
+    [Authorize(Roles = "Empresa")]
     [ProducesResponseType(typeof(SelecionarFuncionarioPorIdResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> SelecionarPorId(Guid id)
     {
@@ -75,6 +79,7 @@ public class FuncionarioController(IMediator mediator) : ControllerBase
     }
 
     [HttpPut("auto-editar")]
+    [Authorize(Roles = "Funcionario")]
     [ProducesResponseType(typeof(AutoEditarFuncionarioResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> AutoEditar(
     [FromServices] IContextoUsuario userContext,
