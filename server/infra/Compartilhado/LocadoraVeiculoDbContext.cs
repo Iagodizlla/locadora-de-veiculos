@@ -30,7 +30,7 @@ public class LocadoraVeiculoDbContext(DbContextOptions options, ITenantProvider?
     {
         if (tenantProvider is not null)
         {
-            modelBuilder.Entity<Funcionario>().HasQueryFilter(m => m.UsuarioId == tenantProvider.EmpresaId);
+            modelBuilder.Entity<Funcionario>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<GrupoAutomovel>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<Plano>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);
             modelBuilder.Entity<Automovel>().HasQueryFilter(m => m.EmpresaId == tenantProvider.EmpresaId);

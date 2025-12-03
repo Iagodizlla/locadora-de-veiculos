@@ -52,7 +52,7 @@ public class RegistrarUsuarioRequestHandler(
 
         await contexto.GravarAsync();
 
-        await userManager.AddToRoleAsync(usuario, "Adm");
+        await userManager.AddToRoleAsync(usuario, "Empresa");
 
         var tokenAcesso = await tokenProvider.GerarTokenDeAcessoAsync(usuario) as TokenResponse;
 

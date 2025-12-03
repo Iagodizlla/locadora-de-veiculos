@@ -12,8 +12,7 @@ public class ApiTenantProvider(IHttpContextAccessor contextAccessor) : ITenantPr
         {
             var claimId = contextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier);
 
-            if (claimId == null)
-                return null;
+            var empresaIdClaim = user?.FindFirst("EmpresaId")?.Value;
 
             return Guid.Parse(claimId.Value);
         }
