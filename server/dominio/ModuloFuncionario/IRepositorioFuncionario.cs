@@ -7,4 +7,5 @@ public interface IRepositorioFuncionario
     Task<bool> ExcluirAsync(Funcionario entidadeParaRemover);
     Task<List<Funcionario>> SelecionarTodosAsync();
     Task<Funcionario?> SelecionarPorIdAsync(Guid id);
+    Task<Funcionario> SelecionarPorUsuarioIdAsync(Guid usuarioId);
 }
