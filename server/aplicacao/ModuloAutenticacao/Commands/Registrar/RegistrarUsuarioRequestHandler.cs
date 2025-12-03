@@ -54,7 +54,7 @@ public class RegistrarUsuarioRequestHandler(
 
         await userManager.AddToRoleAsync(usuario, "Adm");
 
-        var tokenAcesso = tokenProvider.GerarTokenDeAcesso(usuario) as TokenResponse;
+        var tokenAcesso = await tokenProvider.GerarTokenDeAcessoAsync(usuario) as TokenResponse;
 
         if (tokenAcesso == null)
             return Result.Fail(ErrorResults.InternalServerError(new Exception("Falha ao gerar token de acesso")));

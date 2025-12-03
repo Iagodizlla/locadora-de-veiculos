@@ -43,7 +43,7 @@ public class AutenticarUsuarioRequestHandler(
         if (!loginResult.Succeeded)
             return Result.Fail(AuthErrorResults.CredenciaisIncorretasError());
 
-        var tokenAcesso = tokenProvider.GerarTokenDeAcesso(usuario) as TokenResponse;
+        var tokenAcesso = await tokenProvider.GerarTokenDeAcessoAsync(usuario) as TokenResponse;
 
         if (tokenAcesso == null)
             return Result.Fail(ErrorResults.InternalServerError(new Exception("Falha ao gerar token de acesso")));
