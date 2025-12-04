@@ -43,7 +43,7 @@ public class InserirFuncionarioRequestHandler(
 
         await userManager.AddToRoleAsync(usuario, "Funcionario");
 
-        var funcionario = new Funcionario(request.UserName, request.Salario, request.Admissao)
+        var funcionario = new Funcionario(request.Nome, request.Salario, request.Admissao)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault(),
             UsuarioId = usuario.Id
@@ -64,7 +64,7 @@ public class InserirFuncionarioRequestHandler(
         var funcionariosRegistrados = await repositorioFuncionario.SelecionarTodosAsync();
 
         if (NomeDuplicado(funcionario, funcionariosRegistrados))
-            return Result.Fail(FuncionarioErrorResults.NomeDuplicadoError(funcionario.Usuario.UserName));
+            return Result.Fail(FuncionarioErrorResults.NomeDuplicadoError(funcionario.Nome));
 
         // inserção
         try
@@ -87,8 +87,8 @@ public class InserirFuncionarioRequestHandler(
     {
         return funcionarios
             .Any(registro => string.Equals(
-                registro.Usuario.UserName,
-                funcionario.Usuario.UserName,
+                registro.Nome,
+                funcionario.Nome,
                 StringComparison.CurrentCultureIgnoreCase)
             );
     }

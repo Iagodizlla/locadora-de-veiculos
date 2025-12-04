@@ -18,7 +18,7 @@ public class SelecionarFuncionarioPorIdRequestHandler(
 
         var resposta = new SelecionarFuncionarioPorIdResponse(
             funcionarioSelecionado.Id,
-            funcionarioSelecionado.Usuario.UserName,
+            funcionarioSelecionado.Nome,
             funcionarioSelecionado.Salario,
             funcionarioSelecionado.Admissao
         );
