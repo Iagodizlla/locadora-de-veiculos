@@ -48,6 +48,7 @@ export class ShellComponent {
     { titulo: 'Cliente', icone: 'person', link: '/clientes' },
     { titulo: 'Plano', icone: 'article', link: '/planos' },
     { titulo: 'Taxa', icone: 'paid', link: '/taxas' },
+    { titulo: 'Funcionario', icone: 'people', link: '/funcionarios' },
   ];
 
   @Input({ required: true }) usuarioAutenticado!: UsuarioAutenticadoModel;
