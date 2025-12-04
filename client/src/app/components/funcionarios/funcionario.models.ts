@@ -8,9 +8,6 @@ export interface ListarFuncionariosModel {
   nome: string;
   salario: number;
   admissao: string;
-  userName: string;
-  email: string;
-  password: string;
 }
 
 export interface DetalhesFuncionarioModel {

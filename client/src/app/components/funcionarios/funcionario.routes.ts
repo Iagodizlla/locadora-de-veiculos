@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { FuncionarioService } from './funcionario.service';
 
-// import { CadastrarFuncionario } from './cadastrar/cadastrar-funcionario';
+import { CadastrarFuncionario } from './cadastrar/cadastrar-funcionario';
 // import { EditarFuncionario } from './editar/editar-funcionario';
 // import { AutoEditarFuncionario } from './auto-editar/auto-editar-funcionario';
 // import { ExcluirFuncionario } from './excluir/excluir-funcionario';
@@ -31,19 +31,19 @@ export const funcionarioRoutes: Routes = [
        component: ListarFuncionarios,
        resolve: { funcionarios: listarFuncionariosResolver },
       },
-      // {
-      //  path: 'cadastrar',
-      //  component: CadastrarFuncionario,
-      // },
+      {
+       path: 'cadastrar',
+       component: CadastrarFuncionario,
+      },
       // {
       //  path: 'editar/:id',
       //  component: EditarFuncionario,
-      //  resolve: { fucionario: detalhesFuncionarioResolver },
+      //  resolve: { funcionario: detalhesFuncionarioResolver },
       // },
       // {
       //  path: 'excluir/:id',
       //  component: ExcluirFuncionario,
-      //  resolve: { fucionario: detalhesFuncionarioResolver },
+      //  resolve: { funcionario: detalhesFuncionarioResolver },
       // },
       // {
       //   path: 'auto-editar',
