@@ -234,6 +234,7 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nome = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Salario = table.Column<double>(type: "float", nullable: false),
                     Admissao = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UsuarioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
