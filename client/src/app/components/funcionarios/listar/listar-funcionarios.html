@@ -27,8 +27,11 @@
         </mat-card-header>
 
         <mat-card-content class="min-h-[40px] mt-3">
-          <p><span class="font-medium">Email:</span> {{ funcionario.email }}</p>
-          <p><span class="font-medium">Senha:</span> {{ funcionario.password }}</p>
+          <p>
+            <span class="font-medium">Data Admissao:</span>
+            {{ funcionario.admissao | date:'dd/MM/yyyy' }}
+          </p>
+          <p><span class="font-medium">Salario:</span> {{ funcionario.salario }}</p>
         </mat-card-content>
 
         <mat-card-actions align="end" class="flex items-center justify-end gap-2 pt-2">

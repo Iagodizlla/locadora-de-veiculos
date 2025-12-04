@@ -1,6 +1,6 @@
 import { filter, map } from 'rxjs';
 
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -10,7 +10,7 @@ import { ListarFuncionariosModel } from '../funcionario.models';
 
 @Component({
   selector: 'app-listar-funcionarios',
-  imports: [MatButtonModule, MatIconModule, MatCardModule, RouterLink, AsyncPipe],
+  imports: [MatButtonModule, MatIconModule, MatCardModule, RouterLink, AsyncPipe, DatePipe],
   templateUrl: './listar-funcionarios.html',
 })
 export class ListarFuncionarios {

@@ -29,7 +29,7 @@ export const funcionarioRoutes: Routes = [
       {
        path: '',
        component: ListarFuncionarios,
-       resolve: { fucionarios: listarFuncionariosResolver },
+       resolve: { funcionarios: listarFuncionariosResolver },
       },
       // {
       //  path: 'cadastrar',
