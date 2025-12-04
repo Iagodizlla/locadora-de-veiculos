@@ -365,10 +365,6 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<bool>("Excluido")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<double>("Salario")
                         .HasColumnType("float");
 

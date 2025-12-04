@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 {
     [DbContext(typeof(LocadoraVeiculoDbContext))]
-    [Migration("20251203162423_tabelas")]
+    [Migration("20251204181605_tabelas")]
     partial class tabelas
     {
         /// <inheritdoc />
@@ -367,10 +367,6 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 
                     b.Property<bool>("Excluido")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<double>("Salario")
                         .HasColumnType("float");
