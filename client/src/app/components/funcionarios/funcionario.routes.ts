@@ -5,7 +5,7 @@ import { FuncionarioService } from './funcionario.service';
 import { CadastrarFuncionario } from './cadastrar/cadastrar-funcionario';
 // import { EditarFuncionario } from './editar/editar-funcionario';
 // import { AutoEditarFuncionario } from './auto-editar/auto-editar-funcionario';
-// import { ExcluirFuncionario } from './excluir/excluir-funcionario';
+import { ExcluirFuncionario } from './excluir/excluir-funcionario';
 import { ListarFuncionarios } from './listar/listar-funcionarios';
 
 export const listarFuncionariosResolver = () => {
@@ -40,11 +40,11 @@ export const funcionarioRoutes: Routes = [
       //  component: EditarFuncionario,
       //  resolve: { funcionario: detalhesFuncionarioResolver },
       // },
-      // {
-      //  path: 'excluir/:id',
-      //  component: ExcluirFuncionario,
-      //  resolve: { funcionario: detalhesFuncionarioResolver },
-      // },
+      {
+       path: 'excluir/:id',
+       component: ExcluirFuncionario,
+       resolve: { funcionario: detalhesFuncionarioResolver },
+      },
       // {
       //   path: 'auto-editar',
       //   component: AutoEditarFuncionario,
