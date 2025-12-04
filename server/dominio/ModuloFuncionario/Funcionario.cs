@@ -5,7 +5,6 @@ namespace LocadoraDeVeiculos.Dominio.ModuloFuncionario;
 
 public class Funcionario : EntidadeBase
 {
-    public string Nome { get; set; }
     public double Salario { get; set; }
     public DateTimeOffset Admissao { get; set; }
     public Usuario Usuario { get; set; }
@@ -14,9 +13,9 @@ public class Funcionario : EntidadeBase
 
     public Funcionario() { }
 
-    public Funcionario(string nome, double salario, DateTimeOffset admissao) : this()
+    public Funcionario(string userName, double salario, DateTimeOffset admissao) : this()
     {
-        this.Nome = nome;
+        this.Usuario.UserName = userName;
         this.Salario = salario;
         this.Admissao = admissao;
     }

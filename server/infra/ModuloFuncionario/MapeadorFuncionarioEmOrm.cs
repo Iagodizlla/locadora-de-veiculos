@@ -13,10 +13,6 @@ public class MapeadorFuncionarioEmOrm : IEntityTypeConfiguration<Funcionario>
         modelBuilder.Property(x => x.Id)
             .ValueGeneratedNever();
 
-        modelBuilder.Property(b => b.Nome)
-            .HasColumnType("nvarchar(100)")
-            .IsRequired();
-
         modelBuilder.Property(b => b.Salario)
             .HasColumnType("float")
             .IsRequired();

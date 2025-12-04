@@ -3,7 +3,7 @@ using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.EditarNome;
 
-public record AutoEditarFuncionarioPartialRequest(string Nome);
+public record AutoEditarFuncionarioPartialRequest(string Username);
 
-public record AutoEditarFuncionarioRequest(string Nome)
+public record AutoEditarFuncionarioRequest(string Username)
     : IRequest<Result<AutoEditarFuncionarioResponse>>;

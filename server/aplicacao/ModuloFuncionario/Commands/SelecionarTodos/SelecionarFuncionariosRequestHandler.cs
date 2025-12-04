@@ -16,7 +16,7 @@ public class SelecionarFuncionariosRequestHandler(
         {
             QuantidadeRegistros = registros.Count,
             Registros = registros
-                .Select(r => new SelecionarFuncionariosDto(r.Id, r.Nome, r.Salario, r.Admissao))
+                .Select(r => new SelecionarFuncionariosDto(r.Id, r.Usuario.UserName, r.Salario, r.Admissao))
         };
 
         return Result.Ok(response);

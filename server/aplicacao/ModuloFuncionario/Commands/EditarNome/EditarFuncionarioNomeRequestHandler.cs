@@ -26,7 +26,7 @@ public class AutoEditarFuncionarioRequestHandler(
         if (funcionarioSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(usuarioId));
 
-        funcionarioSelecionado.Nome = request.Nome;
+        funcionarioSelecionado.Usuario.UserName = request.Username;
 
         var resultadoValidacao =
             await validador.ValidateAsync(funcionarioSelecionado, cancellationToken);

@@ -1,6 +1,6 @@
 ﻿namespace LocadoraDeVeiculos.Aplicacao.ModuloFuncionario.Commands.SelecionarTodos;
 
-public record SelecionarFuncionariosDto(Guid Id, string Nome, double Salario, DateTimeOffset Admissao);
+public record SelecionarFuncionariosDto(Guid Id, string UserName, double Salario, DateTimeOffset Admissao);
 
 public record SelecionarFuncionariosResponse
 {
