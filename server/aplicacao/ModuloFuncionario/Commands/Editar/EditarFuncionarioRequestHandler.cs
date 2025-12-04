@@ -21,7 +21,7 @@ public class EditarFuncionarioRequestHandler(
         if (funcionarioSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
-        funcionarioSelecionado.Usuario.UserName = request.Username;
+        funcionarioSelecionado.Nome = request.Nome;
         funcionarioSelecionado.Salario = request.Salario;
         funcionarioSelecionado.Admissao = request.Admissao;
 
@@ -40,7 +40,7 @@ public class EditarFuncionarioRequestHandler(
         var funcionarios = await repositorioFuncionario.SelecionarTodosAsync();
 
         if (NomeDuplicado(funcionarioSelecionado, funcionarios))
-            return Result.Fail(FuncionarioErrorResults.NomeDuplicadoError(funcionarioSelecionado.Usuario.UserName));
+            return Result.Fail(FuncionarioErrorResults.NomeDuplicadoError(funcionarioSelecionado.Nome));
         
         try
         {
@@ -63,8 +63,8 @@ public class EditarFuncionarioRequestHandler(
         return funcionarios
             .Where(r => r.Id != funcionario.Id)
             .Any(registro => string.Equals(
-                registro.Usuario.UserName,
-                funcionario.Usuario.UserName,
+                registro.Nome,
+                funcionario.Nome,
                 StringComparison.CurrentCultureIgnoreCase)
             );
     }
