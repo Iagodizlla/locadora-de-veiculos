@@ -34,7 +34,7 @@ public class FuncionarioController(IMediator mediator) : ControllerBase
     {
         var editarRequest = new EditarFuncionarioRequest(
             id,
-            request.Nome,
+            request.UserName,
             request.Salario,
             request.Admissao
         );
@@ -85,7 +85,7 @@ public class FuncionarioController(IMediator mediator) : ControllerBase
     [FromServices] IContextoUsuario userContext,
     [FromBody] AutoEditarFuncionarioPartialRequest partialRequest)
     {
-        var editarRequest = new AutoEditarFuncionarioRequest(partialRequest.Nome);
+        var editarRequest = new AutoEditarFuncionarioRequest(partialRequest.Username);
 
         var resultado = await mediator.Send(editarRequest);
 
