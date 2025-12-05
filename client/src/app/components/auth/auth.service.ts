@@ -57,7 +57,12 @@ export class AuthService {
 
     return this.http.post<RespostaApiModel>(urlCompleto, registroModel).pipe(
       map(mapearRespostaApi<AccessTokenModel>),
-      tap((token) => this.accessTokenSubject$.next(token))
+      tap((token) => {
+      const payload = JSON.parse(atob(token.chave.split('.')[1]));
+      token.role = payload.role; // PEGANDO O ROLE DO TOKEN
+
+      this.accessTokenSubject$.next(token);
+    })
     );
   }
 
@@ -66,7 +71,12 @@ export class AuthService {
 
     return this.http.post<RespostaApiModel>(urlCompleto, loginModel).pipe(
       map(mapearRespostaApi<AccessTokenModel>),
-      tap((token) => this.accessTokenSubject$.next(token))
+      tap((token) => {
+      const payload = JSON.parse(atob(token.chave.split('.')[1]));
+      token.role = payload.role; // PEGANDO O ROLE DO TOKEN
+
+      this.accessTokenSubject$.next(token);
+    })
     );
   }
 
@@ -95,4 +105,17 @@ export class AuthService {
     if (!jsonString) return undefined;
     return JSON.parse(jsonString);
   }
+
+  public readonly role$ = this.accessToken$.pipe(
+    map(token => token?.role ?? null),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
+
+  public usuarioEhEmpresa$ = this.role$.pipe(
+    map(role => role === 'Empresa')
+  );
+
+  public usuarioEhFuncionario$ = this.role$.pipe(
+    map(role => role === 'Funcionario')
+  );
 }

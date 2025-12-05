@@ -13,10 +13,12 @@ export interface AccessTokenModel {
   chave: string;
   dataExpiracao: string;
   usuario: UsuarioAutenticadoModel;
+  role: string;
 }
 
 export interface UsuarioAutenticadoModel {
   id: string;
   userName: string;
   email: string;
+  role: string;
 }
