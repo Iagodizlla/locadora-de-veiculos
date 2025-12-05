@@ -8,7 +8,7 @@ import { RespostaApiModel, mapearRespostaApi } from '../../util/mapear-resposta-
 @Injectable()
 export class ConfigService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = environment.apiUrl + '/configuracoes/combustivel';
+  private readonly apiUrl = environment.apiUrl + '/api/configuracoes/combustivel';
 
   selecionar(): Observable<DetalhesConfigModel> {
     return this.http

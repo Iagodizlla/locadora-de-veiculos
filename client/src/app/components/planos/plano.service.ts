@@ -18,7 +18,7 @@ import {
 @Injectable()
 export class PlanoService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = environment.apiUrl + '/planos';
+  private readonly apiUrl = environment.apiUrl + '/api/planos';
 
   public cadastrar(planoModel: CadastrarPlanoModel): Observable<CadastrarPlanoResponseModel> {
     return this.http

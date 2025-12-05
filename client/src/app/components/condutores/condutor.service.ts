@@ -19,7 +19,7 @@ import {
 @Injectable()
 export class CondutorService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = environment.apiUrl + '/condutores';
+  private readonly apiUrl = environment.apiUrl + '/api/condutores';
 
   public cadastrar(condutorModel: CadastrarCondutorModel): Observable<CadastrarCondutorResponseModel> {
     return this.http

@@ -18,7 +18,7 @@ import {
 @Injectable()
 export class GrupoAutomovelService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = environment.apiUrl + '/grupo-automoveis';
+  private readonly apiUrl = environment.apiUrl + '/api/grupo-automoveis';
 
   public cadastrar(grupoAutomovelModel: CadastrarGrupoAutomovelModel): Observable<CadastrarGrupoAutomovelResponseModel> {
     return this.http

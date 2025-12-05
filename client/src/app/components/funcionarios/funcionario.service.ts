@@ -20,7 +20,7 @@ import {
 @Injectable()
 export class FuncionarioService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = environment.apiUrl + '/funcionarios';
+  private readonly apiUrl = environment.apiUrl + '/api/funcionarios';
 
   public cadastrar(funcionarioModel: CadastrarFuncionarioModel): Observable<CadastrarFuncionarioResponseModel> {
     return this.http
