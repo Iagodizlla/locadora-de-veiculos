@@ -3,10 +3,12 @@
 
 name: Build and deploy ASP.Net Core app to Azure Web App - LocadoraVeiculo
 
-on:
+on: # Gatilho do workflow
   push:
     branches:
-      - master
+      - main
+    paths:
+      - 'server/**'
   workflow_dispatch:
 
 jobs:
@@ -24,10 +26,10 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build ./server/web-api --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish ./server/web-api -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -62,4 +64,5 @@ jobs:
           app-name: 'LocadoraVeiculo'
           slot-name: 'Production'
           package: .
+
           
