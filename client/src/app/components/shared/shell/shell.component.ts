@@ -13,6 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { UsuarioAutenticadoModel } from '../../auth/auth.models';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-shell',
@@ -32,6 +33,10 @@ import { UsuarioAutenticadoModel } from '../../auth/auth.models';
 })
 export class ShellComponent {
   private readonly breakpointObserver = inject(BreakpointObserver);
+  private readonly auth = inject(AuthService);
+
+  public usuarioEhEmpresa$ = this.auth.usuarioEhEmpresa$;
+  public usuarioEhFuncionario$ = this.auth.usuarioEhFuncionario$;
 
   public isHandset$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Handset])

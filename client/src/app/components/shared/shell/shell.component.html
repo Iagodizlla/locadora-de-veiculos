@@ -28,10 +28,12 @@
 
     <mat-nav-list>
       @for (item of itensNavbar; track $index) {
-      <a mat-list-item [routerLink]="item.link" routerLinkActive="nav-link-active" class="my-1">
-        <mat-icon class="material-icons-outlined" matListItemIcon>{{ item.icone }}</mat-icon>
-        {{ item.titulo }}
-      </a>
+        @if (item.titulo !== 'Funcionario' || (usuarioEhEmpresa$ | async)) {
+          <a mat-list-item [routerLink]="item.link" routerLinkActive="nav-link-active" class="my-1">
+            <mat-icon class="material-icons-outlined" matListItemIcon>{{ item.icone }}</mat-icon>
+            {{ item.titulo }}
+          </a>
+        }
       }
     </mat-nav-list>
   </mat-sidenav>
