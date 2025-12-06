@@ -3,101 +3,170 @@
     <h2 class="text-2xl font-semibold">Cadastro de Plano</h2>
     <hr class="my-4 border-muted/30" />
     <mat-card class="p-4 rounded-2xl shadow-sm">
-    <form [formGroup]="planoForm" (ngSubmit)="cadastrar()">
-      <mat-card-header>
-        <mat-card-title class="text-lg font-medium"> Preencha o formulário de cadastro </mat-card-title>
-      </mat-card-header>
-      <mat-card-content class="mt-6 space-y-4">
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Grupo de Automovel do Plano</mat-label>
-          <mat-select formControlName="grupoAutomovelId">
-            @for (grupo of grupoAutomoveis$ | async; track $index)
+      <form [formGroup]="planoForm" (ngSubmit)="cadastrar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium"> Preencha o formulário de cadastro </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="mt-6 space-y-4">
+          <mat-form-field appearance="fill" class="w-full mb-4">
+            <mat-label>Grupo de Automovel do Plano</mat-label>
+            <mat-select formControlName="grupoAutomovelId">
+              @for (grupo of grupoAutomoveis$ | async; track $index)
+              {
+                <mat-option [value]="grupo.id">{{ grupo.nome }}</mat-option>
+              }
+            </mat-select>
+            @if (grupoAutomovelId?.hasError('required'))
             {
-              <mat-option [value]="grupo.id">{{ grupo.nome }}</mat-option>
+              <mat-error>O Grupo de Automovel do Plano é obrigatório.</mat-error>
             }
-          </mat-select>
-          @if (grupoAutomovelId?.hasError('required'))
-          {
-            <mat-error>O Grupo de Automovel do Plano é obrigatório.</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Preco Diario</mat-label>
-          <input formControlName="precoDiario" matInput type="number" />
-          @if (precoDiario?.errors?.['required'])
-          {
-            <mat-error>O preco diario do plano diario é obrigatório.</mat-error>
-          }
-          @if (precoDiario?.errors?.['min'])
-          {
-            <mat-error>O preco diario do plano não pode ser menor que 0.</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Preco Diario Controlado</mat-label>
-          <input formControlName="precoDiarioControlado" matInput type="number" />
-          @if (precoDiarioControlado?.errors?.['required'])
-          {
-            <mat-error>O preco diario do plano controlado é obrigatório.</mat-error>
-          }
-          @if (precoDiarioControlado?.errors?.['min'])
-          {
-            <mat-error>O preco diario do plano controlado não pode ser menor que 0.</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Preco Por KM</mat-label>
-          <input formControlName="precoPorKm" matInput type="number" />
-          @if (precoPorKm?.errors?.['required'])
-          {
-            <mat-error>O preco por KM do plano diario é obrigatório.</mat-error>
-          }
-          @if (precoPorKm?.errors?.['min'])
-          {
-            <mat-error>O preco por KM do plano diario não pode ser menor que 0.</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>KM Livres</mat-label>
-          <input formControlName="kmLivres" matInput type="number" />
-          @if (kmLivres?.errors?.['required'])
-          {
-            <mat-error>KMs Livres do plano controlado é obrigatório.</mat-error>
-          }
-          @if (kmLivres?.errors?.['min'])
-          {
-            <mat-error>KMs Livres do plano controlado não pode ser menor que 0.</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Preco por KM Extrapolado</mat-label>
-          <input formControlName="precoPorKmExplorado" matInput type="number" />
-          @if (precoPorKmExplorado?.errors?.['required'])
-          {
-            <mat-error>Preco por KMs extrapolado do plano controlado é obrigatório.</mat-error>
-          }
-          @if (precoPorKmExplorado?.errors?.['min'])
-          {
-            <mat-error>Preco por KMs extrapolado do plano controlado não pode ser menor que 0.</mat-error>
-          }
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Preco Livre</mat-label>
-          <input formControlName="precoLivre" matInput type="number" />
-          @if (precoLivre?.errors?.['required'])
-          {
-            <mat-error>Preco do plano livre é obrigatório.</mat-error>
-          }
-          @if (precoLivre?.errors?.['min'])
-          {
-            <mat-error>Preco do plano livre não pode ser menor que 0.</mat-error>
-          }
-        </mat-form-field>
-      </mat-card-content>
+          </mat-form-field>
+          <hr class="my-4 border-muted/30" />
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <button
+              mat-flat-button
+              type="button"
+              class="col-span-1 flex items-center justify-center gap-2 h-10"
+              [color]="planoAtivo === 'diario' ? 'primary' : ''"
+              [class.mat-stroked-button]="planoAtivo !== 'diario'"
+              (click)="mudarPlano('diario')"
+            >
+              <i class="bi bi-calendar-check !text-base"></i>
+              Plano Diário
+            </button>
+            <button
+              mat-flat-button
+              type="button"
+              class="col-span-1 flex items-center justify-center gap-2 h-10"
+              [color]="planoAtivo === 'controlado' ? 'primary' : ''"
+              [class.mat-stroked-button]="planoAtivo !== 'controlado'"
+              (click)="mudarPlano('controlado')"
+            >
+              <i class="bi bi-speedometer2 !text-base"></i>
+              Plano Controlado
+            </button>
+            <button
+              mat-flat-button
+              type="button"
+              class="col-span-1 flex items-center justify-center gap-2 h-10"
+              [color]="planoAtivo === 'livre' ? 'primary' : ''"
+              [class.mat-stroked-button]="planoAtivo !== 'livre'"
+              (click)="mudarPlano('livre')"
+            >
+              <i class="bi bi-wallet2 !text-base"></i>
+              Plano Livre
+            </button>
+          </div>
+          <div class="tab-content mt-4">
+            @if (planoAtivo === 'diario') {
+              <div class="card shadow-lg border-primary">
+                <div class="card-header bg-primary text-white">
+                  **Configurações do Plano**
+                </div>
+                <div class="card-body">
+                  <mat-form-field appearance="fill" class="w-full mb-3">
+                    <mat-label>Preco Diário</mat-label>
+                    <input formControlName="precoDiario" matInput type="number" />
+                    @if (precoDiario?.errors?.['required'])
+                    {
+                      <mat-error>O preço diário do plano diário é obrigatório.</mat-error>
+                    }
+                    @if (precoDiario?.errors?.['min'])
+                    {
+                      <mat-error>O preço diário do plano não pode ser menor que 0.</mat-error>
+                    }
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Preco Por KM</mat-label>
+                    <input formControlName="precoPorKm" matInput type="number" />
+                    @if (precoPorKm?.errors?.['required'])
+                    {
+                      <mat-error>O preço por KM do plano diário é obrigatório.</mat-error>
+                    }
+                    @if (precoPorKm?.errors?.['min'])
+                    {
+                      <mat-error>O preço por KM do plano diário não pode ser menor que 0.</mat-error>
+                    }
+                  </mat-form-field>
+
+                </div>
+              </div>
+            }
+            @if (planoAtivo === 'controlado') {
+              <div class="card shadow-lg border-success">
+                <div class="card-header bg-success text-white">
+                  **Configurações do Plano Controlado (Franquia)**
+                </div>
+                <div class="card-body">
+                  <mat-form-field appearance="fill" class="w-full mb-3">
+                    <mat-label>Preco Diário</mat-label>
+                    <input formControlName="precoDiarioControlado" matInput type="number" />
+                    @if (precoDiarioControlado?.errors?.['required'])
+                    {
+                      <mat-error>O preço diário do plano controlado é obrigatório.</mat-error>
+                    }
+                    @if (precoDiarioControlado?.errors?.['min'])
+                    {
+                      <mat-error>O preço diário do plano controlado não pode ser menor que 0.</mat-error>
+                    }
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="w-full mb-3">
+                    <mat-label>KM Livres</mat-label>
+                    <input formControlName="kmLivres" matInput type="number" />
+                    @if (kmLivres?.errors?.['required'])
+                    {
+                      <mat-error>KMs Livres do plano controlado é obrigatório.</mat-error>
+                    }
+                    @if (kmLivres?.errors?.['min'])
+                    {
+                      <mat-error>KMs Livres do plano controlado não pode ser menor que 0.</mat-error>
+                    }
+                  </mat-form-field>
+
+                  <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Preco por KM Extrapolado</mat-label>
+                    <input formControlName="precoPorKmExplorado" matInput type="number" />
+                    @if (precoPorKmExplorado?.errors?.['required'])
+                    {
+                      <mat-error>Preço por KMs extrapolado do plano controlado é obrigatório.</mat-error>
+                    }
+                    @if (precoPorKmExplorado?.errors?.['min'])
+                    {
+                      <mat-error>Preço por KMs extrapolado do plano controlado não pode ser menor que 0.</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+            }
+            @if (planoAtivo === 'livre') {
+              <div class="card shadow-lg border-info">
+                <div class="card-header bg-info text-white">
+                  **Configurações do Plano Livre**
+                </div>
+                <div class="card-body">
+                  <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>Preco Livre</mat-label>
+                    <input formControlName="precoLivre" matInput type="number" />
+                    @if (precoLivre?.errors?.['required'])
+                    {
+                      <mat-error>Preço do plano livre é obrigatório.</mat-error>
+                    }
+                    @if (precoLivre?.errors?.['min'])
+                    {
+                      <mat-error>Preço do plano livre não pode ser menor que 0.</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+            }
+          </div>
+        </mat-card-content>
 
         <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4">
           <a mat-stroked-button routerLink="/planos" class="px-4"> Voltar </a>
-          <button type="submit" [disabled]="planoForm.invalid" mat-flat-button class="px-6">
+          <button type="submit" [disabled]="planoForm.invalid" mat-flat-button color="primary" class="px-6">
             <mat-icon class="!text-base mr-1">check</mat-icon> Concluir
           </button>
         </mat-card-actions>

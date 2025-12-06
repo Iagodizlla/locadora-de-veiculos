@@ -93,4 +93,11 @@ export class CadastrarPlano {
 
     this.planoService.cadastrar(planoModel).subscribe(cadastroObserver);
   }
+
+  planoAtivo: 'diario' | 'controlado' | 'livre' = 'diario';
+
+  // Função para mudar o plano ativo
+  mudarPlano(plano: 'diario' | 'controlado' | 'livre') {
+    this.planoAtivo = plano;
+  }
 }
