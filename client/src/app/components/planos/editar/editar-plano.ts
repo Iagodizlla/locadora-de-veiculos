@@ -111,4 +111,11 @@ export class EditarPlano {
           )
           .subscribe(edicaoObserver);
       }
+      
+  planoAtivo: 'diario' | 'controlado' | 'livre' = 'diario';
+
+  // Função para mudar o plano ativo
+  mudarPlano(plano: 'diario' | 'controlado' | 'livre') {
+    this.planoAtivo = plano;
+  }
 }
