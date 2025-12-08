@@ -38,11 +38,12 @@ public class Aluguel : EntidadeBase
     public double? ValorSeguroPorDia { get; set; }
     #endregion
     public bool Status { get; set; } = false;
+    public decimal ValorTotal { get; set; } = 1000;
     #endregion
     public Aluguel() { }
     public Aluguel(Cliente cliente, Condutor condutor, Automovel automovel, Plano plano, List<Taxa> taxas, DateTimeOffset dataSaida, DateTimeOffset dataRetornoPrevista,
         DateTimeOffset? dataDevolucao, int quilometragemInicial, int? quilometragemFinal, int nivelCombustivelNaSaida, int? nivelCombustivelNaDevolucao,
-        bool seguroCliente, bool seguroTerceiro, double? valorSeguroPorDia, bool status) : this()
+        bool seguroCliente, bool seguroTerceiro, double? valorSeguroPorDia, bool status, decimal valorTotal) : this()
     {
         Cliente = cliente;
         Condutor = condutor;
@@ -60,5 +61,6 @@ public class Aluguel : EntidadeBase
         SeguroTerceiro = seguroTerceiro;
         ValorSeguroPorDia = valorSeguroPorDia;
         Status = status;
+        ValorTotal = valorTotal;
     }
 }

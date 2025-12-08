@@ -93,6 +93,7 @@ public class EditarAluguelRequestHandler(
         aluguelSelecionado.ValorSeguroPorDia = request.ValorSeguroPorDia;
         aluguelSelecionado.NivelCombustivelNaSaida = request.NivelCombustivelNaSaida;
         aluguelSelecionado.NivelCombustivelNaDevolucao = request.NivelCombustivelNaDevolucao;
+        aluguelSelecionado.ValorTotal = request.valorTotal;
 
         var resultadoValidacao = 
             await validador.ValidateAsync(aluguelSelecionado, cancellationToken);

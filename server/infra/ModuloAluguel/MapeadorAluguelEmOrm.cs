@@ -86,6 +86,10 @@ public class MapeadorAluguelEmOrm : IEntityTypeConfiguration<Aluguel>
             .IsRequired()
             .HasColumnType("bit");
 
+        modelBuilder.Property(b => b.ValorTotal)
+            .HasColumnType("decimal(18,2)")
+            .IsRequired();
+
         modelBuilder
             .HasOne(a => a.Empresa)
             .WithMany()

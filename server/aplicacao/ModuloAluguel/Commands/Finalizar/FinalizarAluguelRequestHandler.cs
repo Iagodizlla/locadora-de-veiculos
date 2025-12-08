@@ -29,7 +29,7 @@ public class FinalizarAluguelRequestHandler(
 
         await contexto.GravarAsync();
 
-        var response = new FinalizarAluguelResponse(aluguel.Id, aluguel.Status);
+        var response = new FinalizarAluguelResponse(aluguel.Id, aluguel.Status, aluguel.ValorTotal);
 
         return Result.Ok(response);
     }

@@ -33,7 +33,8 @@ public class SelecionarAluguelPorIdRequestHandler(
             aluguelSelecionado.SeguroCliente,
             aluguelSelecionado.SeguroTerceiro,
             aluguelSelecionado.ValorSeguroPorDia,
-            aluguelSelecionado.Status
+            aluguelSelecionado.Status,
+            aluguelSelecionado.ValorTotal
         );
 
         return Result.Ok(resposta);

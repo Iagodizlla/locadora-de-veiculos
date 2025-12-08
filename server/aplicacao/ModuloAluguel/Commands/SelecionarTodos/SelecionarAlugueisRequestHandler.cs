@@ -18,7 +18,7 @@ public class SelecionarAlugueisRequestHandler(
             Registros = registros
                 .Select(r => new SelecionarAlugueisDto(r.Id, r.Cliente, r.Condutor, r.Automovel, r.Plano, r.Taxas, r.DataSaida, r.DataRetornoPrevista,
                 r.DataDevolucao, r.QuilometragemInicial, r.QuilometragemFinal, r.NivelCombustivelNaSaida, r.NivelCombustivelNaDevolucao, r.SeguroCliente,
-                r.SeguroTerceiro, r.ValorSeguroPorDia, r.Status))
+                r.SeguroTerceiro, r.ValorSeguroPorDia, r.Status, r.ValorTotal))
         };
 
         return Result.Ok(response);

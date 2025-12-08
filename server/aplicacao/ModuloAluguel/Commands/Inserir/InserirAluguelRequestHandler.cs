@@ -64,7 +64,7 @@ public class InserirAluguelRequestHandler(
 
         var grupoAutomovel = new Aluguel(cliente, condutor, automovel, plano, taxas, request.DataSaisa, request.DataRetornoPrevista,
             request.DataDevolucao, request.KmInicial, request.KmFinal, request.NivelCombustivelNaSaida, request.NivelCombustivelNaDevolucao,
-            request.SeguroCliente, request.SeguroTerceiro, request.ValorSeguroPorDia, request.Status)
+            request.SeguroCliente, request.SeguroTerceiro, request.ValorSeguroPorDia, request.Status, request.valorTotal)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
