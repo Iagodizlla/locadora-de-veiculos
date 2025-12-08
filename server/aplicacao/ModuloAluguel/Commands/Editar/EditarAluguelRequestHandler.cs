@@ -33,7 +33,7 @@ public class EditarAluguelRequestHandler(
         if (aluguelSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
-        if (aluguelSelecionado.Status == false)
+        if (aluguelSelecionado.Status == true)
             return Result.Fail(AluguelErrorResults.AluguelNaoPodeSerExcluidoError());
 
         #region Cliar entidades
@@ -94,6 +94,9 @@ public class EditarAluguelRequestHandler(
         aluguelSelecionado.NivelCombustivelNaSaida = request.NivelCombustivelNaSaida;
         aluguelSelecionado.NivelCombustivelNaDevolucao = request.NivelCombustivelNaDevolucao;
         aluguelSelecionado.ValorTotal = request.valorTotal;
+
+        decimal precoReservaRecalculado = await repositorioAluguel.CalcularValorTotalDoAluguelReservaAsync(aluguelSelecionado);
+        aluguelSelecionado.ValorTotal = precoReservaRecalculado;
 
         var resultadoValidacao = 
             await validador.ValidateAsync(aluguelSelecionado, cancellationToken);
