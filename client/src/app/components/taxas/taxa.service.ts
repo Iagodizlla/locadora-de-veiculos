@@ -18,7 +18,7 @@ import {
 @Injectable()
 export class TaxaService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = environment.apiUrl + '/taxas';
+  private readonly apiUrl = environment.apiUrl + '/api/taxas';
 
   public cadastrar(taxaModel: CadastrarTaxaModel): Observable<CadastrarTaxaResponseModel> {
     return this.http
