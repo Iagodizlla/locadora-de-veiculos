@@ -1,6 +1,7 @@
 ﻿using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAluguel;
-using LocadoraDeVeiculos.Dominio.ModuloGrupoAutomovel;
+using LocadoraDeVeiculos.Dominio.ModuloAutomovel;
+using LocadoraDeVeiculos.Dominio.ModuloConfig;
 using LocadoraDeVeiculos.Dominio.ModuloPlano;
 using LocadoraDeVeiculos.Dominio.ModuloTaxa;
 using LocadoraDeVeiculos.Infraestrutura.Orm.Compartilhado;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LocadoraDeVeiculos.Infraestrutura.Orm.ModuloAluguel;
 
-public class RepositorioAluguelEmOrm(IContextoPersistencia context)
+public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorioConfig repoConfig)
     : RepositorioBase<Aluguel>(context), IRepositorioAluguel
 {
     public Task<bool> FinalizarAsync(Aluguel entidadeParaFinalizar)
@@ -85,7 +86,7 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context)
         return await registros
             .AnyAsync(a => a.Cliente.Id == clienteId && a.Status == false);
     }
-    
+
     public async Task<bool> CondutorEmAluguelAtivoAsync(Guid condutorId)
     {
         return await registros
@@ -129,11 +130,11 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context)
     }
     #endregion
 
-    public Task<decimal> CalcularValorTotalDoAluguelAsync(Aluguel aluguel)
+    public async Task<decimal> CalcularValorTotalDoAluguelAsync(Aluguel aluguel)
     {
         if (!aluguel.DataDevolucao.HasValue || !aluguel.QuilometragemFinal.HasValue)
         {
-            return CalcularValorTotalDoAluguelReservaAsync(aluguel);
+            return await CalcularValorTotalDoAluguelReservaAsync(aluguel);
         }
 
         double diasReais = (aluguel.DataDevolucao.Value - aluguel.DataSaida).TotalDays;
@@ -146,22 +147,38 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context)
 
         decimal custoSeguroReal = CalcularCustoSeguro(diasReais, aluguel.ValorSeguroPorDia);
 
-        decimal multaPorAtraso = 0m;
-        if (aluguel.DataDevolucao.Value > aluguel.DataRetornoPrevista)
-        {
-            multaPorAtraso = aluguel.ValorTotal * 0.10m;
-        }
-
         decimal taxasAdicionais = 0m;
 
         if (aluguel.NivelCombustivelNaDevolucao < aluguel.NivelCombustivelNaSaida)
         {
-            // *Aqui você precisaria buscar o preço do serviço 'Reabastecimento' no DB*
-            // Exemplo: Taxa Reabastecimento é R$ 50,00 fixo.
-            // taxasAdicionais += 50m; 
+            decimal combustivelFaltando = (decimal)(aluguel.NivelCombustivelNaSaida - aluguel.NivelCombustivelNaDevolucao.Value);
+            var config = await repoConfig.SelecionarAsync(); 
+            var precoCombustivel = 0m;
+
+            if (config != null)
+            {
+                if (aluguel.Automovel.Combustivel == ECombustivel.Gasolina)
+                {
+                    precoCombustivel = config.Gasolina * combustivelFaltando;
+                }
+                else if (aluguel.Automovel.Combustivel == ECombustivel.Gas)
+                {
+                    precoCombustivel = config.Gas * combustivelFaltando;
+                }
+                else if (aluguel.Automovel.Combustivel == ECombustivel.Diesel)
+                {
+                    precoCombustivel = config.Diesel * combustivelFaltando;
+                }
+                else if (aluguel.Automovel.Combustivel == ECombustivel.Alcool)
+                {
+                    precoCombustivel = config.Alcool * combustivelFaltando;
+                }
+            }
+
+            taxasAdicionais += precoCombustivel;
         }
 
-        foreach (var taxa in aluguel.Taxas.Where(t => t.Nome != "Seguro")) 
+        foreach (var taxa in aluguel.Taxas.Where(t => t.Nome != "Seguro"))
         {
             if (taxa.Servico == EServico.PrecoFixo)
             {
@@ -173,12 +190,18 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context)
             }
         }
 
+        decimal multaPorAtraso = 0m;
+        if (aluguel.DataDevolucao.Value > aluguel.DataRetornoPrevista)
+        {
+            multaPorAtraso = aluguel.ValorTotal * 0.10m;
+        }
+
         decimal valorTotalFinal = custoRealLocacao + custoSeguroReal + multaPorAtraso + taxasAdicionais;
 
-        return Task.FromResult(valorTotalFinal);
+        return valorTotalFinal;
     }
 
-    public Task<decimal> CalcularValorTotalDoAluguelReservaAsync(Aluguel aluguel)
+    public async Task<decimal> CalcularValorTotalDoAluguelReservaAsync(Aluguel aluguel)
     {
         double diasPrevistos = (aluguel.DataRetornoPrevista - aluguel.DataSaida).TotalDays;
 
@@ -188,9 +211,9 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context)
 
         decimal custoSeguro = CalcularCustoSeguro(diasPrevistos, aluguel.ValorSeguroPorDia);
 
-        aluguel.ValorTotal = custoBase + custoSeguro; 
+        aluguel.ValorTotal = custoBase + custoSeguro;
 
-        return Task.FromResult(aluguel.ValorTotal);
+        return aluguel.ValorTotal;
     }
 
     #region metodos privados
