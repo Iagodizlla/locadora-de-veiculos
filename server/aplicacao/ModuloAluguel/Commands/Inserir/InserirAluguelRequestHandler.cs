@@ -62,15 +62,17 @@ public class InserirAluguelRequestHandler(
             return Result.Fail(AluguelErrorResults.AutomovelEmAluguelAtivoError());
         #endregion
 
-        var grupoAutomovel = new Aluguel(cliente, condutor, automovel, plano, taxas, request.DataSaisa, request.DataRetornoPrevista,
+        var novoAluguel = new Aluguel(cliente, condutor, automovel, plano, taxas, request.DataSaisa, request.DataRetornoPrevista,
             request.DataDevolucao, request.KmInicial, request.KmFinal, request.NivelCombustivelNaSaida, request.NivelCombustivelNaDevolucao,
             request.SeguroCliente, request.SeguroTerceiro, request.ValorSeguroPorDia, request.Status, request.valorTotal)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
 
-        // validações
-        var resultadoValidacao = await validador.ValidateAsync(grupoAutomovel);
+       decimal precoReserva = await repositorioAluguel.CalcularValorTotalDoAluguelReservaAsync(novoAluguel);
+        novoAluguel.ValorTotal = precoReserva;
+
+        var resultadoValidacao = await validador.ValidateAsync(novoAluguel);
 
         if (!resultadoValidacao.IsValid)
         {
@@ -85,7 +87,7 @@ public class InserirAluguelRequestHandler(
         // inserção
         try
         {
-            await repositorioAluguel.InserirAsync(grupoAutomovel);
+            await repositorioAluguel.InserirAsync(novoAluguel);
 
             await contexto.GravarAsync();
         }
@@ -96,7 +98,7 @@ public class InserirAluguelRequestHandler(
             return Result.Fail(ErrorResults.InternalServerError(ex));
         }
 
-        return Result.Ok(new InserirAluguelResponse(grupoAutomovel.Id));
+        return Result.Ok(new InserirAluguelResponse(novoAluguel.Id));
     }
 
     private bool CondutorNaoEncontrado(Condutor condutor)
