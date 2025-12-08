@@ -175,7 +175,7 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorio
                 }
             }
 
-            taxasAdicionais += precoCombustivel;
+            aluguel.ValorTotal += precoCombustivel;
         }
 
         foreach (var taxa in aluguel.Taxas.Where(t => t.Nome != "Seguro"))
