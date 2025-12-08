@@ -18,6 +18,10 @@ public class FinalizarAluguelRequestHandler(
         if (aluguel is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
+        aluguel.DataDevolucao = request.DataDevolucao;
+        aluguel.QuilometragemFinal = request.QuilometragemFinal;
+        aluguel.NivelCombustivelNaDevolucao = request.NivelCombustivelNaDevolucao;
+
         // marca como finalizado
         aluguel.Status = true;
 
