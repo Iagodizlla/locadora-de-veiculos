@@ -10,6 +10,7 @@ public interface IRepositorioAluguel
     Task<bool> FinalizarAsync(Aluguel entidadeParaFinalizar);
     Task<List<Aluguel>> SelecionarAtivosAsync();
     Task<List<Aluguel>> SelecionarFinalizadosAsync();
+    #region Validacoes
     Task<bool> ExisteAluguelComPlanoAsync(Guid planoId);
     Task<bool> VeiculoEmAluguelAtivoAsync(Guid veiculoId);
     Task<bool> ClienteEmAluguelAtivoAsync(Guid clienteId);
@@ -18,4 +19,7 @@ public interface IRepositorioAluguel
     Task<bool> ClienteEstaOcupadoAsync(Guid clienteId);
     Task<bool> AutomovelEstaOcupadoAsync(Guid automovelId);
     Task<bool> CondutorEstaOcupadoAsync(Guid condutorId);
+    #endregion
+    Task<decimal> CalcularValorTotalDoAluguelAsync(Aluguel aluguel);
+    Task<decimal> CalcularValorTotalDoAluguelReservaAsync(Aluguel aluguel);
 }
