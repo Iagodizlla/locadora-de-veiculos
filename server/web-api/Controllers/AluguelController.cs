@@ -91,11 +91,11 @@ public class AluguelController(IMediator mediator) : ControllerBase
 
     [HttpPut("finalizar/{id:guid}")]
     [ProducesResponseType(typeof(FinalizarAluguelResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Finalizar(Guid id)
+    public async Task<IActionResult> Finalizar(Guid id, FinalizarAluguelRequest request)
     {
-        var request = new FinalizarAluguelRequest(id);
+        var finalizarRequest = new FinalizarAluguelRequest(id, request.DataDevolucao, request.QuilometragemFinal, request.NivelCombustivelNaDevolucao);
 
-        var resultado = await mediator.Send(request);
+        var resultado = await mediator.Send(finalizarRequest);
 
         return resultado.ToHttpResponse();
     }
