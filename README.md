@@ -65,12 +65,8 @@ A aplicação segue arquitetura em camadas (Domínio, Aplicação, Infra e WebAP
 
 ## Requisitos para Execução
 
-- .NET 8.0 ou superior  
-- SQL Server  
-- EF Core 8  
-- FluentValidation  
-- MediatR  
-- FluentResults  
+- .NET SDK (recomendado .NET 8.0 ou superior) para compilação e execução do projeto back-end.
+- Node.js v20+
 
 ## Configuração de Variáveis de Ambiente
 
