@@ -66,16 +66,16 @@
           </mat-form-field>
           <mat-form-field appearance="fill" class="w-full">
             <mat-label>Quilometragem Inicial</mat-label>
-            <input formControlName="quilometragemInicial" matInput type="number" />
-            @if (quilometragemInicial?.errors?.['required'])
+            <input formControlName="kmInicial" matInput type="number" />
+            @if (kmInicial?.errors?.['required'])
             {
               <mat-error>A Quilometragem do automóvel é obrigatório.</mat-error>
             }
-            @if (quilometragemInicial?.errors?.['min'])
+            @if (kmInicial?.errors?.['min'])
             {
               <mat-error>A Quilometragem não pode ser menor que 0.</mat-error>
             }
-            @if (quilometragemInicial?.errors?.['max'])
+            @if (kmInicial?.errors?.['max'])
             {
               <mat-error>A quilometragem não pode ser maior que 100000000.</mat-error>
             }

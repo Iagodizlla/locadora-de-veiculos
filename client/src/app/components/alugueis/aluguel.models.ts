@@ -7,8 +7,8 @@ export interface ListarAlugueisModel {
   id: string;
   status: boolean;
   valorTotal: number;
-  quilometragemInicial: number;
-  quilometragemFinal: number | null;
+  kmInicial: number;
+  kmFinal: number | null;
   nivelCombustivelNaSaida: number;
   nivelCombustivelNaDevolucao: number | null;
   seguroCliente: boolean;
@@ -28,8 +28,8 @@ export interface DetalhesAluguelModel {
   id: string;
   status: boolean;
   valorTotal: number;
-  quilometragemInicial: number;
-  quilometragemFinal: number | null;
+  kmInicial: number;
+  kmFinal: number | null;
   nivelCombustivelNaSaida: number;
   nivelCombustivelNaDevolucao: number | null;
   seguroCliente: boolean;
@@ -46,7 +46,7 @@ export interface DetalhesAluguelModel {
 }
 
 export interface CadastrarAluguelModel {
-  quilometragemInicial: number;
+  kmInicial: number;
   nivelCombustivelNaSaida: number;
   seguroCliente: boolean;
   seguroTerceiro: boolean;
@@ -67,8 +67,8 @@ export interface CadastrarAluguelResponseModel {
 export interface EditarAluguelModel {
   status: boolean;
   valorTotal: number;
-  quilometragemInicial: number;
-  quilometragemFinal: number | null;
+  kmInicial: number;
+  kmFinal: number | null;
   nivelCombustivelNaSaida: number;
   nivelCombustivelNaDevolucao: number | null;
   seguroCliente: boolean;
@@ -87,8 +87,8 @@ export interface EditarAluguelModel {
 export interface EditarAluguelResponseModel {
   status: boolean;
   valorTotal: number;
-  quilometragemInicial: number;
-  quilometragemFinal: number | null;
+  kmInicial: number;
+  kmFinal: number | null;
   nivelCombustivelNaSaida: number;
   nivelCombustivelNaDevolucao: number | null;
   seguroCliente: boolean;
@@ -107,7 +107,7 @@ export interface EditarAluguelResponseModel {
 export interface FinalizarAluguelModel {
   id: string;
   dataDevolucao: Date;
-  quilometragemFinal: number;
+  kmFinal: number;
   nivelCombustivelNaDevolucao: number;
 }
 

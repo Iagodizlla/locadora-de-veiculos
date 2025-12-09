@@ -58,7 +58,7 @@ export class CadastrarAluguel {
     condutorId: [undefined, [Validators.required]],
     automovelId: [undefined, [Validators.required]],
     planoId: [undefined, [Validators.required]],
-    quilometragemInicial: [  '',  [Validators.required, Validators.min(1), Validators.max(100000000),],],
+    kmInicial: [  '',  [Validators.required, Validators.min(0), Validators.max(100000000),],],
     nivelCombustivelNaSaida: [  '',  [Validators.required, Validators.min(1), Validators.max(10000),],],
     seguroCliente: [false],
     seguroTerceiro: [false],
@@ -73,7 +73,7 @@ export class CadastrarAluguel {
   get automovelId() {return this.aluguelForm.get('automovelId');}
   get planoId() {return this.aluguelForm.get('planoId');}
   get taxas() {return this.aluguelForm.get('taxas');}
-  get quilometragemInicial() {return this.aluguelForm.get('quilometragemInicial');}
+  get kmInicial() {return this.aluguelForm.get('kmInicial');}
   get nivelCombustivelNaSaida() {return this.aluguelForm.get('nivelCombustivelNaSaida');}
   get seguroCliente() {return this.aluguelForm.get('seguroCliente');}
   get seguroTerceiro() {return this.aluguelForm.get('seguroTerceiro');}
