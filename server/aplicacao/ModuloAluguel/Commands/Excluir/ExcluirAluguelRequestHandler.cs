@@ -18,7 +18,7 @@ public class ExcluirAluguelRequestHandler(
         if (aluguelSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
-        if (aluguelSelecionado.Status == true)
+        if (aluguelSelecionado.Status == false)
             return Result.Fail(AluguelErrorResults.AluguelNaoPodeSerExcluidoError());
 
         try

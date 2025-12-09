@@ -23,7 +23,7 @@ public class FinalizarAluguelRequestHandler(
         aluguel.NivelCombustivelNaDevolucao = request.NivelCombustivelNaDevolucao;
 
         // marca como finalizado
-        aluguel.Status = true;
+        aluguel.Status = false;
 
         // chama o método FinalizarAsync do repositório
         var atualizado = await repositorioAluguel.FinalizarAsync(aluguel);

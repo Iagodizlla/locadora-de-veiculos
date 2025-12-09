@@ -33,7 +33,7 @@ public class EditarAluguelRequestHandler(
         if (aluguelSelecionado == null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
-        if (aluguelSelecionado.Status == true)
+        if (aluguelSelecionado.Status == false)
             return Result.Fail(AluguelErrorResults.AluguelNaoPodeSerExcluidoError());
 
         #region Cliar entidades
@@ -41,11 +41,7 @@ public class EditarAluguelRequestHandler(
         var condutor = await repositorioCondutor.SelecionarPorIdAsync(request.CondutorId);
         var plano = await repositorioPlano.SelecionarPorIdAsync(request.PlanoId);
         var automovel = await repositorioAutomovel.SelecionarPorIdAsync(request.AutomovelId);
-        var taxas = new List<Taxa>();
-        foreach (var taxaId in request.TaxasId)
-        {
-            taxas.Add(await repositorioTaxa.SelecionarPorIdAsync(taxaId));
-        }
+        var taxas = await repositorioTaxa.SelecionarTodosPorIdAsync(request.Taxas);
         #endregion
         #region Validacao de sequencia
         if (cliente.ClienteTipo == ETipoCliente.PessoaJuridica && condutor.ECliente == true)
@@ -56,11 +52,13 @@ public class EditarAluguelRequestHandler(
             return Result.Fail(AluguelErrorResults.GruposAutomovelIncompativeisError());
         #endregion
         #region Validacao de disponiveis
-        if (await repositorioAluguel.ClienteEstaOcupadoAsync(request.ClienteId))
+        if (await repositorioAluguel.ClienteEstaOcupadoAsync(request.ClienteId, request.Id))
             return Result.Fail(AluguelErrorResults.ClienteEmAluguelAtivoError());
-        if (await repositorioAluguel.CondutorEstaOcupadoAsync(request.CondutorId))
+
+        if (await repositorioAluguel.CondutorEstaOcupadoAsync(request.CondutorId, request.Id))
             return Result.Fail(AluguelErrorResults.CondutorEmAluguelAtivoError());
-        if (await repositorioAluguel.AutomovelEstaOcupadoAsync(request.AutomovelId))
+
+        if (await repositorioAluguel.AutomovelEstaOcupadoAsync(request.AutomovelId, request.Id))
             return Result.Fail(AluguelErrorResults.AutomovelEmAluguelAtivoError());
         #endregion
         #region Validacao se existe
@@ -79,20 +77,17 @@ public class EditarAluguelRequestHandler(
 
         aluguelSelecionado.Cliente = cliente;
         aluguelSelecionado.Condutor = condutor;
-        aluguelSelecionado.Plano =plano;
-        aluguelSelecionado.Status = false;
+        aluguelSelecionado.Plano = plano;
+        aluguelSelecionado.Status = true;
         aluguelSelecionado.Automovel = automovel;
         aluguelSelecionado.Taxas = taxas;
         aluguelSelecionado.DataSaida = request.DataSaida;
         aluguelSelecionado.DataRetornoPrevista = request.DataRetornoPrevista;
-        aluguelSelecionado.DataDevolucao = request.DataDevolucao;
         aluguelSelecionado.QuilometragemInicial = request.KmInicial;
-        aluguelSelecionado.QuilometragemFinal = request.KmFianl;
         aluguelSelecionado.SeguroCliente = request.SeguroCliente;
         aluguelSelecionado.SeguroTerceiro = request.SeguroTerceiro;
         aluguelSelecionado.ValorSeguroPorDia = request.ValorSeguroPorDia;
         aluguelSelecionado.NivelCombustivelNaSaida = request.NivelCombustivelNaSaida;
-        aluguelSelecionado.NivelCombustivelNaDevolucao = request.NivelCombustivelNaDevolucao;
         aluguelSelecionado.ValorTotal = 1000m;
 
         var resultadoValidacao = 
