@@ -80,7 +80,7 @@ public class EditarAluguelRequestHandler(
         aluguelSelecionado.Cliente = cliente;
         aluguelSelecionado.Condutor = condutor;
         aluguelSelecionado.Plano =plano;
-        aluguelSelecionado.Status = request.Status;
+        aluguelSelecionado.Status = false;
         aluguelSelecionado.Automovel = automovel;
         aluguelSelecionado.Taxas = taxas;
         aluguelSelecionado.DataSaida = request.DataSaisa;
@@ -93,10 +93,7 @@ public class EditarAluguelRequestHandler(
         aluguelSelecionado.ValorSeguroPorDia = request.ValorSeguroPorDia;
         aluguelSelecionado.NivelCombustivelNaSaida = request.NivelCombustivelNaSaida;
         aluguelSelecionado.NivelCombustivelNaDevolucao = request.NivelCombustivelNaDevolucao;
-        aluguelSelecionado.ValorTotal = request.valorTotal;
-
-        decimal precoReservaRecalculado = await repositorioAluguel.CalcularValorTotalDoAluguelReservaAsync(aluguelSelecionado);
-        aluguelSelecionado.ValorTotal = precoReservaRecalculado;
+        aluguelSelecionado.ValorTotal = 1000m;
 
         var resultadoValidacao = 
             await validador.ValidateAsync(aluguelSelecionado, cancellationToken);

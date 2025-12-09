@@ -48,9 +48,7 @@ public class AluguelController(IMediator mediator) : ControllerBase
             request.NivelCombustivelNaDevolucao,
             request.SeguroCliente,
             request.SeguroTerceiro,
-            request.ValorSeguroPorDia,
-            request.Status,
-            request.valorTotal
+            request.ValorSeguroPorDia
         );
 
         var resultado = await mediator.Send(editarRequest);
