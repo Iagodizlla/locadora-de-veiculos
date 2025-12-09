@@ -8,11 +8,8 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.ModuloTaxa;
 public class RepositorioTaxaEmOrm(IContextoPersistencia context)
     : RepositorioBase<Taxa>(context), IRepositorioTaxa
 {
-    public async Task<List<Taxa>> SelecionarTodosPorIdAsync(List<Guid> entidadesId)
+    public async Task<List<Taxa>> SelecionarTodosPorIdAsync(IEnumerable<Guid> entidadesId)
     {
-        if (entidadesId == null || entidadesId.Count == 0)
-            return new List<Taxa>();
-
         return await registros
             .Where(t => entidadesId.Contains(t.Id))
             .ToListAsync();

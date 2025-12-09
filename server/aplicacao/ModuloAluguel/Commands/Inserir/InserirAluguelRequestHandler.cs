@@ -33,7 +33,7 @@ public class InserirAluguelRequestHandler(
         var condutor = await repositorioCondutor.SelecionarPorIdAsync(request.CondutorId);
         var plano = await repositorioPlano.SelecionarPorIdAsync(request.PlanoId);
         var automovel = await repositorioAutomovel.SelecionarPorIdAsync(request.AutomovelId);
-        var taxas = await repositorioTaxa.SelecionarTodosPorIdAsync(request.TaxasId);
+        var taxas = await repositorioTaxa.SelecionarTodosPorIdAsync(request.Taxas);
         #endregion
         #region Validacao de encontrar
         if (ClienteNaoEncontrado(cliente))
