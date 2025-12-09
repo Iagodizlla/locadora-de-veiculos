@@ -1,0 +1,154 @@
+<section class="mx-auto max-w-4xl px-4 py-6">
+  <div>
+    <h2 class="text-2xl font-semibold">Cadastro de Aluguel</h2>
+    <hr class="my-4 border-muted/30" />
+
+    <mat-card class="p-4 rounded-2xl shadow-sm">
+      <form [formGroup]="aluguelForm" (ngSubmit)="cadastrar()">
+        <mat-card-header>
+          <mat-card-title class="text-lg font-medium">
+            Preencha o formulário de cadastro
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="mt-6 space-y-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Automovel</mat-label>
+            <mat-select formControlName="automovelId">
+              @for (automovel of automoveis$ | async; track $index)
+              {
+                <mat-option [value]="automovel.id">{{ automovel.modelo }}</mat-option>
+              }
+            </mat-select>
+            @if (automovelId?.hasError('required'))
+            {
+              <mat-error>O Automovel é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Cliente</mat-label>
+            <mat-select formControlName="clienteId">
+              @for (cliente of clientes$ | async; track $index)
+              {
+                <mat-option [value]="cliente.id">{{ cliente.nome }}</mat-option>
+              }
+            </mat-select>
+            @if (clienteId?.hasError('required'))
+            {
+              <mat-error>O Cliente é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Condutor</mat-label>
+            <mat-select formControlName="condutorId">
+              @for (condutor of condutores$ | async; track $index)
+              {
+                <mat-option [value]="condutor.id">{{ condutor.nome }}</mat-option>
+              }
+            </mat-select>
+            @if (condutorId?.hasError('required'))
+            {
+              <mat-error>O Condutor é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Plano</mat-label>
+            <mat-select formControlName="planoId">
+              @for (plano of planos$ | async; track $index)
+              {
+                <mat-option [value]="plano.id">{{ plano.grupoAutomovel.nome }}</mat-option>
+              }
+            </mat-select>
+            @if (planoId?.hasError('required'))
+            {
+              <mat-error>O Plano é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Quilometragem Inicial</mat-label>
+            <input formControlName="quilometragemInicial" matInput type="number" />
+            @if (quilometragemInicial?.errors?.['required'])
+            {
+              <mat-error>A Quilometragem do automóvel é obrigatório.</mat-error>
+            }
+            @if (quilometragemInicial?.errors?.['min'])
+            {
+              <mat-error>A Quilometragem não pode ser menor que 0.</mat-error>
+            }
+            @if (quilometragemInicial?.errors?.['max'])
+            {
+              <mat-error>A quilometragem não pode ser maior que 100000000.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Nivel de Combustivel inicial</mat-label>
+            <input formControlName="nivelCombustivelNaSaida" matInput type="number" />
+            @if (nivelCombustivelNaSaida?.errors?.['required'])
+            {
+              <mat-error>O Nivel de Combustivel do automóvel é obrigatório.</mat-error>
+            }
+            @if (nivelCombustivelNaSaida?.errors?.['min'])
+            {
+              <mat-error>O Nivel de Combustivel não pode ser menor que 0.</mat-error>
+            }
+            @if (nivelCombustivelNaSaida?.errors?.['max'])
+            {
+              <mat-error>O Nivel de Combustivel não pode ser maior que 10000.</mat-error>
+            }
+          </mat-form-field>
+          <mat-checkbox formControlName="seguroCliente">
+            Tem seguro para Cliente?
+          </mat-checkbox>
+          <mat-checkbox formControlName="seguroTerceiro">
+            Tem seguro para Terceiros?
+          </mat-checkbox>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Valor do Seguro por Dia</mat-label>
+            <input formControlName="valorSeguroPorDia" matInput type="number" />
+            @if (valorSeguroPorDia?.errors?.['min'])
+            {
+              <mat-error>O Valor do Seguro por Dia não pode ser menor que -1.</mat-error>
+            }
+            @if (valorSeguroPorDia?.errors?.['max'])
+            {
+              <mat-error>O Valor do Seguro por Dia não pode ser maior que 10000.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Data de Saida</mat-label>
+            <input formControlName="dataSaida" matInput type="datetime" />
+
+            @if (dataSaida?.hasError('required')) {
+              <mat-error>A data de Saida é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Data de Retorno Prevista</mat-label>
+            <input formControlName="dataRetornoPrevista" matInput type="datetime" />
+
+            @if (dataRetornoPrevista?.hasError('required')) {
+              <mat-error>A Data de Retorno Prevista é obrigatório.</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Taxa(s)</mat-label>
+            <mat-select formControlName="taxas" multiple>
+              @for (taxa of taxas$ | async; track $index) {
+              <mat-option [value]="taxa.id">{{ taxa.nome }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions align="end" class="flex items-center justify-end gap-3 pt-4">
+          <a mat-stroked-button routerLink="/alugueis" class="px-4"> Voltar </a>
+
+          <button type="submit" [disabled]="aluguelForm.invalid" mat-flat-button class="px-6">
+            <mat-icon class="!text-base mr-1">check</mat-icon>
+            Concluir
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card>
+  </div>
+</section>
