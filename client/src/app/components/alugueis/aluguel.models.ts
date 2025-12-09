@@ -65,43 +65,22 @@ export interface CadastrarAluguelResponseModel {
 }
 
 export interface EditarAluguelModel {
-  status: boolean;
-  valorTotal: number;
   kmInicial: number;
-  kmFinal: number | null;
   nivelCombustivelNaSaida: number;
-  nivelCombustivelNaDevolucao: number | null;
   seguroCliente: boolean;
   seguroTerceiro: boolean;
   valorSeguroPorDia: number | null;
   dataSaida: Date;
   dataRetornoPrevista: Date;
-  dataDevolucao: Date | null;
-  automovel: AutomovelAluguelModel;
-  condutor: CondutorAluguelModel;
-  cliente: ClienteAluguelModel;
-  plano: PlanoAluguelModel;
+  automovelId: AutomovelAluguelModel;
+  condutorId: CondutorAluguelModel;
+  clienteId: ClienteAluguelModel;
+  planoId: PlanoAluguelModel;
   taxas: TaxaAluguelModel[];
 }
 
 export interface EditarAluguelResponseModel {
-  status: boolean;
-  valorTotal: number;
-  kmInicial: number;
-  kmFinal: number | null;
-  nivelCombustivelNaSaida: number;
-  nivelCombustivelNaDevolucao: number | null;
-  seguroCliente: boolean;
-  seguroTerceiro: boolean;
-  valorSeguroPorDia: number | null;
-  dataSaida: Date;
-  dataRetornoPrevista: Date;
-  dataDevolucao: Date | null;
-  automovel: AutomovelAluguelModel;
-  condutor: CondutorAluguelModel;
-  cliente: ClienteAluguelModel;
-  plano: PlanoAluguelModel;
-  taxas: TaxaAluguelModel[];
+  id: string;
 }
 
 export interface FinalizarAluguelModel {

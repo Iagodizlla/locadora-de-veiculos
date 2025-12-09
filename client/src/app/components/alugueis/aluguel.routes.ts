@@ -9,6 +9,7 @@ import { TaxaService } from '../taxas/taxa.service';
 import { AutomovelService } from '../automoveis/automovel.service';
 import { CadastrarAluguel } from './cadastrar/cadastrar-aluguel';
 import { PlanoService } from '../planos/plano.service';
+import { EditarAluguel } from './editar/editar-aluguel';
 
 
 export const listarAlugueisResolver = () => {
@@ -65,11 +66,18 @@ export const aluguelRoutes: Routes = [
              planos: listarPlanosResolver,
         },
       },
-      // {
-      //   path: 'editar/:id',
-      //   component: EditarAluguel,
-      //   resolve: { alugueis: detalhesAluguelResolver },
-      // },
+      {
+        path: 'editar/:id',
+        component: EditarAluguel,
+        resolve: {
+             aluguel: detalhesAluguelResolver,
+             clientes: listarClientesResolver,
+             condutores: listarCondutoresResolver,
+             automoveis: listarAutomoveisResolver,
+             taxas: listarTaxasResolver,
+             planos: listarPlanosResolver,
+        },
+      },
       {
         path: 'excluir/:id',
         component: ExcluirAluguel,
