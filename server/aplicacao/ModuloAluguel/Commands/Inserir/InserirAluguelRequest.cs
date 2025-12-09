@@ -3,6 +3,6 @@ using MediatR;
 
 namespace LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Inserir;
 
-public record InserirAluguelRequest(Guid ClienteId, Guid CondutorId, Guid AutomovelId, Guid PlanoId, List<Guid> TaxasId, DateTimeOffset DataSaisa, DateTimeOffset DataRetornoPrevista,
-    DateTimeOffset? DataDevolucao, int KmInicial, int? KmFinal, int NivelCombustivelNaSaida, int? NivelCombustivelNaDevolucao, bool SeguroCliente, bool SeguroTerceiro, double? ValorSeguroPorDia, bool Status, decimal valorTotal)
+public record InserirAluguelRequest(Guid ClienteId, Guid CondutorId, Guid AutomovelId, Guid PlanoId, IEnumerable<Guid> Taxas, DateTimeOffset DataSaisa, DateTimeOffset DataRetornoPrevista,
+    int KmInicial, int NivelCombustivelNaSaida, bool SeguroCliente, bool SeguroTerceiro, double? ValorSeguroPorDia)
     : IRequest<Result<InserirAluguelResponse>>;

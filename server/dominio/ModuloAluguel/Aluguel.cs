@@ -9,7 +9,7 @@ namespace LocadoraDeVeiculos.Dominio.ModuloAluguel;
 
 public class Aluguel : EntidadeBase
 {
-    #region 
+    #region Variaveis
     #region Entidades
     public Condutor Condutor { get; set; }
     public Automovel Automovel { get; set; }

@@ -63,14 +63,11 @@ public class InserirAluguelRequestHandler(
         #endregion
 
         var novoAluguel = new Aluguel(cliente, condutor, automovel, plano, taxas, request.DataSaisa, request.DataRetornoPrevista,
-            request.DataDevolucao, request.KmInicial, request.KmFinal, request.NivelCombustivelNaSaida, request.NivelCombustivelNaDevolucao,
-            request.SeguroCliente, request.SeguroTerceiro, request.ValorSeguroPorDia, request.Status, request.valorTotal)
+            null, request.KmInicial, null, request.NivelCombustivelNaSaida, null, request.SeguroCliente, request.SeguroTerceiro, request.ValorSeguroPorDia,
+             false, 1000m)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
-
-       decimal precoReserva = await repositorioAluguel.CalcularValorTotalDoAluguelReservaAsync(novoAluguel);
-        novoAluguel.ValorTotal = precoReserva;
 
         var resultadoValidacao = await validador.ValidateAsync(novoAluguel);
 
