@@ -62,7 +62,7 @@ public class InserirAluguelRequestHandler(
             return Result.Fail(AluguelErrorResults.AutomovelEmAluguelAtivoError());
         #endregion
 
-        var novoAluguel = new Aluguel(cliente, condutor, automovel, plano, taxas, request.DataSaisa, request.DataRetornoPrevista,
+        var novoAluguel = new Aluguel(cliente, condutor, automovel, plano, taxas, request.DataSaida, request.DataRetornoPrevista,
             null, request.KmInicial, null, request.NivelCombustivelNaSaida, null, request.SeguroCliente, request.SeguroTerceiro, request.ValorSeguroPorDia,
              false, 1000m)
         {

@@ -83,7 +83,7 @@ public class EditarAluguelRequestHandler(
         aluguelSelecionado.Status = false;
         aluguelSelecionado.Automovel = automovel;
         aluguelSelecionado.Taxas = taxas;
-        aluguelSelecionado.DataSaida = request.DataSaisa;
+        aluguelSelecionado.DataSaida = request.DataSaida;
         aluguelSelecionado.DataRetornoPrevista = request.DataRetornoPrevista;
         aluguelSelecionado.DataDevolucao = request.DataDevolucao;
         aluguelSelecionado.QuilometragemInicial = request.KmInicial;

@@ -39,7 +39,7 @@ public class AluguelController(IMediator mediator) : ControllerBase
             request.AutomovelId,
             request.PlanoId,
             request.TaxasId,
-            request.DataSaisa,
+            request.DataSaida,
             request.DataRetornoPrevista,
             request.DataDevolucao,
             request.KmInicial,
