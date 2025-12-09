@@ -16,9 +16,9 @@ public interface IRepositorioAluguel
     Task<bool> ClienteEmAluguelAtivoAsync(Guid clienteId);
     Task<bool> CondutorEmAluguelAtivoAsync(Guid condutorId);
     Task<bool> TaxaEmAluguelAtivoAsync(Guid taxaId);
-    Task<bool> ClienteEstaOcupadoAsync(Guid clienteId);
-    Task<bool> AutomovelEstaOcupadoAsync(Guid automovelId);
-    Task<bool> CondutorEstaOcupadoAsync(Guid condutorId);
+    Task<bool> ClienteEstaOcupadoAsync(Guid clienteId, Guid idAluguelAtual);
+    Task<bool> AutomovelEstaOcupadoAsync(Guid automovelId, Guid idAluguelAtual);
+    Task<bool> CondutorEstaOcupadoAsync(Guid condutorId, Guid idAluguelAtual);
     #endregion
     Task<decimal> CalcularValorTotalDoAluguelAsync(Aluguel aluguel);
 }

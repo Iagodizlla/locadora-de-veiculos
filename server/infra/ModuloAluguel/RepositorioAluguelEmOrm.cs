@@ -102,30 +102,33 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorio
         );
     }
 
-    public async Task<bool> ClienteEstaOcupadoAsync(Guid clienteId)
+    public async Task<bool> ClienteEstaOcupadoAsync(Guid clienteId, Guid idAluguelAtual)
     {
         return await registros
         .AnyAsync(a =>
             a.Cliente.Id == clienteId &&
-            a.Status == false
+            a.Status == false &&
+            a.Id != idAluguelAtual
         );
     }
 
-    public async Task<bool> CondutorEstaOcupadoAsync(Guid condutorId)
+    public async Task<bool> CondutorEstaOcupadoAsync(Guid condutorId, Guid idAluguelAtual)
     {
         return await registros
         .AnyAsync(a =>
             a.Condutor.Id == condutorId &&
-            a.Status == false
+            a.Status == false &&
+            a.Id != idAluguelAtual
         );
     }
 
-    public async Task<bool> AutomovelEstaOcupadoAsync(Guid automovelId)
+    public async Task<bool> AutomovelEstaOcupadoAsync(Guid automovelId, Guid idAluguelAtual)
     {
         return await registros
         .AnyAsync(a =>
             a.Automovel.Id == automovelId &&
-            a.Status == false
+            a.Status == false &&
+            a.Id != idAluguelAtual
         );
     }
     #endregion

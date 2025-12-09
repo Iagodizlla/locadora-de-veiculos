@@ -54,17 +54,17 @@ public class InserirAluguelRequestHandler(
             return Result.Fail(AluguelErrorResults.GruposAutomovelIncompativeisError());
         #endregion
         #region Validacao de disponiveis
-        if (await repositorioAluguel.ClienteEstaOcupadoAsync(request.ClienteId))
+        if (await repositorioAluguel.ClienteEmAluguelAtivoAsync(request.ClienteId))
             return Result.Fail(AluguelErrorResults.ClienteEmAluguelAtivoError());
-        if (await repositorioAluguel.CondutorEstaOcupadoAsync(request.CondutorId))
+        if (await repositorioAluguel.CondutorEmAluguelAtivoAsync(request.CondutorId))
             return Result.Fail(AluguelErrorResults.CondutorEmAluguelAtivoError());
-        if (await repositorioAluguel.AutomovelEstaOcupadoAsync(request.AutomovelId))
+        if (await repositorioAluguel.VeiculoEmAluguelAtivoAsync(request.AutomovelId))
             return Result.Fail(AluguelErrorResults.AutomovelEmAluguelAtivoError());
         #endregion
 
         var novoAluguel = new Aluguel(cliente, condutor, automovel, plano, taxas, request.DataSaida, request.DataRetornoPrevista,
             null, request.KmInicial, null, request.NivelCombustivelNaSaida, null, request.SeguroCliente, request.SeguroTerceiro, request.ValorSeguroPorDia,
-             false, 1000m)
+             true, 1000m)
         {
             EmpresaId = tenantProvider.EmpresaId.GetValueOrDefault()
         };
