@@ -375,6 +375,7 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     SeguroTerceiro = table.Column<bool>(type: "bit", nullable: false),
                     ValorSeguroPorDia = table.Column<double>(type: "float", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
+                    ValorTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     EmpresaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>

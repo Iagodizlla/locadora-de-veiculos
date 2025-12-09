@@ -90,6 +90,9 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
                     b.Property<double?>("ValorSeguroPorDia")
                         .HasColumnType("float");
 
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AutomovelId");

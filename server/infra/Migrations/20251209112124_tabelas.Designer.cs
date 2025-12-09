@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 {
     [DbContext(typeof(LocadoraVeiculoDbContext))]
-    [Migration("20251204191626_tabelas")]
+    [Migration("20251209112124_tabelas")]
     partial class tabelas
     {
         /// <inheritdoc />
@@ -92,6 +92,9 @@ namespace LocadoraDeVeiculos.Infraestrutura.Orm.Migrations
 
                     b.Property<double?>("ValorSeguroPorDia")
                         .HasColumnType("float");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
