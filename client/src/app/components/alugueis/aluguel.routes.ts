@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { AluguelService } from './aluguel.service';
 import { ListarAlugueis } from './listar/listar-alugueis';
+import { ExcluirAluguel } from './excluir/excluir-aluguel';
 
 
 export const listarAlugueisResolver = () => {
@@ -36,11 +37,11 @@ export const aluguelRoutes: Routes = [
       //   component: EditarAluguel,
       //   resolve: { alugueis: detalhesAluguelResolver },
       // },
-      // {
-      //   path: 'excluir/:id',
-      //   component: ExcluirAluguel,
-      //   resolve: { alugueis: detalhesAluguelResolver },
-      // },
+      {
+        path: 'excluir/:id',
+        component: ExcluirAluguel,
+        resolve: { alugueis: detalhesAluguelResolver },
+      },
     ],
     providers: [AluguelService],
   },
