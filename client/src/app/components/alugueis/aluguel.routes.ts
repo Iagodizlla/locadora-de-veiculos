@@ -73,7 +73,7 @@ export const aluguelRoutes: Routes = [
       {
         path: 'excluir/:id',
         component: ExcluirAluguel,
-        resolve: { alugueis: detalhesAluguelResolver },
+        resolve: { aluguel: detalhesAluguelResolver },
       },
     ],
     providers: [AluguelService, AutomovelService, ClienteService, CondutorService, PlanoService, TaxaService],
