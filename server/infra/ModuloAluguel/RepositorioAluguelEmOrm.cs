@@ -132,11 +132,6 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorio
 
     public async Task<decimal> CalcularValorTotalDoAluguelAsync(Aluguel aluguel)
     {
-        if (!aluguel.DataDevolucao.HasValue || !aluguel.QuilometragemFinal.HasValue)
-        {
-            return await CalcularValorTotalDoAluguelReservaAsync(aluguel);
-        }
-
         double diasReais = (aluguel.DataDevolucao.Value - aluguel.DataSaida).TotalDays;
 
         if (diasReais <= 0) diasReais = 1;
@@ -199,21 +194,6 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorio
         decimal valorTotalFinal = custoRealLocacao + custoSeguroReal + multaPorAtraso + taxasAdicionais;
 
         return valorTotalFinal;
-    }
-
-    public async Task<decimal> CalcularValorTotalDoAluguelReservaAsync(Aluguel aluguel)
-    {
-        double diasPrevistos = (aluguel.DataRetornoPrevista - aluguel.DataSaida).TotalDays;
-
-        if (diasPrevistos <= 0) diasPrevistos = 1;
-
-        decimal custoBase = CalcularCustoBaseLocacao(diasPrevistos, 0, aluguel.Plano);
-
-        decimal custoSeguro = CalcularCustoSeguro(diasPrevistos, aluguel.ValorSeguroPorDia);
-
-        aluguel.ValorTotal = custoBase + custoSeguro;
-
-        return aluguel.ValorTotal;
     }
 
     #region metodos privados
