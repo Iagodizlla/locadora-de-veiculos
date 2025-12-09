@@ -3,6 +3,12 @@ import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { AluguelService } from './aluguel.service';
 import { ListarAlugueis } from './listar/listar-alugueis';
 import { ExcluirAluguel } from './excluir/excluir-aluguel';
+import { ClienteService } from '../clientes/cliente.service';
+import { CondutorService } from '../condutores/condutor.service';
+import { TaxaService } from '../taxas/taxa.service';
+import { AutomovelService } from '../automoveis/automovel.service';
+import { CadastrarAluguel } from './cadastrar/cadastrar-aluguel';
+import { PlanoService } from '../planos/plano.service';
 
 
 export const listarAlugueisResolver = () => {
@@ -19,6 +25,26 @@ export const detalhesAluguelResolver = (route: ActivatedRouteSnapshot) => {
   return aluguelService.selecionarPorId(aluguelId);
 };
 
+export const listarClientesResolver = () => {
+  return inject(ClienteService).selecionarTodos();
+};
+
+export const listarPlanosResolver = () => {
+  return inject(PlanoService).selecionarTodos();
+}
+
+export const listarCondutoresResolver = () => {
+  return inject(CondutorService).selecionarTodos();
+};
+
+export const listarTaxasResolver = () => {
+  return inject(TaxaService).selecionarTodos();
+}
+
+export const listarAutomoveisResolver = () => {
+  return inject(AutomovelService).selecionarTodos();
+};
+
 export const aluguelRoutes: Routes = [
   {
     path: '',
@@ -28,10 +54,17 @@ export const aluguelRoutes: Routes = [
         component: ListarAlugueis,
         resolve: { alugueis: listarAlugueisResolver },
       },
-      // {
-      //   path: 'cadastrar',
-      //   component: CadastrarAluguel,
-      // },
+      {
+        path: 'cadastrar',
+        component: CadastrarAluguel,
+        resolve: {
+             clientes: listarClientesResolver,
+             condutores: listarCondutoresResolver,
+             automoveis: listarAutomoveisResolver,
+             taxas: listarTaxasResolver,
+             planos: listarPlanosResolver,
+        },
+      },
       // {
       //   path: 'editar/:id',
       //   component: EditarAluguel,
@@ -43,6 +76,6 @@ export const aluguelRoutes: Routes = [
         resolve: { alugueis: detalhesAluguelResolver },
       },
     ],
-    providers: [AluguelService],
+    providers: [AluguelService, AutomovelService, ClienteService, CondutorService, PlanoService, TaxaService],
   },
 ];

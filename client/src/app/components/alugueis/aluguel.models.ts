@@ -15,11 +15,12 @@ export interface ListarAlugueisModel {
   seguroTerceiro: boolean;
   valorSeguroPorDia: number | null;
   dataSaida: Date;
-  aataRetornoPrevista: Date;
+  dataRetornoPrevista: Date;
   dataDevolucao: Date | null;
   automovel: AutomovelAluguelModel;
   condutor: CondutorAluguelModel;
   cliente: ClienteAluguelModel;
+  plano: PlanoAluguelModel;
   taxas: TaxaAluguelModel[];
 }
 
@@ -35,30 +36,27 @@ export interface DetalhesAluguelModel {
   seguroTerceiro: boolean;
   valorSeguroPorDia: number | null;
   dataSaida: Date;
-  aataRetornoPrevista: Date;
+  dataRetornoPrevista: Date;
   dataDevolucao: Date | null;
   automovel: AutomovelAluguelModel;
   condutor: CondutorAluguelModel;
   cliente: ClienteAluguelModel;
+  plano: PlanoAluguelModel;
   taxas: TaxaAluguelModel[];
 }
 
 export interface CadastrarAluguelModel {
-  status: boolean;
-  valorTotal: number;
   quilometragemInicial: number;
-  quilometragemFinal: number | null;
   nivelCombustivelNaSaida: number;
-  nivelCombustivelNaDevolucao: number | null;
   seguroCliente: boolean;
   seguroTerceiro: boolean;
   valorSeguroPorDia: number | null;
   dataSaida: Date;
-  aataRetornoPrevista: Date;
-  dataDevolucao: Date | null;
-  automovel: AutomovelAluguelModel;
-  condutor: CondutorAluguelModel;
-  cliente: ClienteAluguelModel;
+  dataRetornoPrevista: Date;
+  automovelId: AutomovelAluguelModel;
+  condutorId: CondutorAluguelModel;
+  clienteId: ClienteAluguelModel;
+  planoId: PlanoAluguelModel;
   taxas: TaxaAluguelModel[];
 }
 
@@ -77,11 +75,12 @@ export interface EditarAluguelModel {
   seguroTerceiro: boolean;
   valorSeguroPorDia: number | null;
   dataSaida: Date;
-  aataRetornoPrevista: Date;
+  dataRetornoPrevista: Date;
   dataDevolucao: Date | null;
   automovel: AutomovelAluguelModel;
   condutor: CondutorAluguelModel;
   cliente: ClienteAluguelModel;
+  plano: PlanoAluguelModel;
   taxas: TaxaAluguelModel[];
 }
 
@@ -96,11 +95,12 @@ export interface EditarAluguelResponseModel {
   seguroTerceiro: boolean;
   valorSeguroPorDia: number | null;
   dataSaida: Date;
-  aataRetornoPrevista: Date;
+  dataRetornoPrevista: Date;
   dataDevolucao: Date | null;
   automovel: AutomovelAluguelModel;
   condutor: CondutorAluguelModel;
   cliente: ClienteAluguelModel;
+  plano: PlanoAluguelModel;
   taxas: TaxaAluguelModel[];
 }
 
@@ -199,4 +199,15 @@ export interface TaxaAluguelModel {
 export enum ServicoEnum {
   PrecoFixo = 'PrecoFixo',
   CobrancaDiaria = 'CobrancaDiaria'
+}
+
+export interface PlanoAluguelModel {
+  id: string;
+  grupoAutomovel: GrupoAutomovelAutomovelModel;
+  precoDiario: number;
+  precoDiarioControlado: number;
+  precoPorKm: number;
+  kmLivres: number;
+  precoPorKmExplorado: number;
+  precoLivre: number;
 }
