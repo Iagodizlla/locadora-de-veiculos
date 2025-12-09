@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { AluguelService } from './aluguel.service';
+import { ListarAlugueis } from './listar/listar-alugueis';
 
 
 export const listarAlugueisResolver = () => {
@@ -21,11 +22,11 @@ export const aluguelRoutes: Routes = [
   {
     path: '',
     children: [
-      //{
-      //   path: '',
-      //   component: ListarAlugueis,
-      //   resolve: { alugueis: listarAlugueisResolver },
-      // },
+      {
+        path: '',
+        component: ListarAlugueis,
+        resolve: { alugueis: listarAlugueisResolver },
+      },
       // {
       //   path: 'cadastrar',
       //   component: CadastrarAluguel,

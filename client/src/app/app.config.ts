@@ -83,6 +83,11 @@ const routes: Routes = [
     loadChildren: () => import('./components/funcionarios/funcionario.routes').then((c) => c.funcionarioRoutes),
     canMatch: [usuarioAutenticadoGuard],
   },
+  {
+    path: 'alugueis',
+    loadChildren: () => import('./components/alugueis/aluguel.routes').then((c) => c.aluguelRoutes),
+    canMatch: [usuarioAutenticadoGuard],
+  },
 ];
 
 export const appConfig: ApplicationConfig = {
