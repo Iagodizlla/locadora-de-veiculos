@@ -32,11 +32,23 @@
           </mat-card-content>
 
           <mat-card-actions align="end" class="flex items-center justify-end gap-2 pt-2">
-            <a [routerLink]="['editar', aluguel.id]" mat-icon-button aria-label="Editar">
+            <a [routerLink]="['finalizar', aluguel.id]"
+              mat-icon-button
+              aria-label="Finalizar Aluguel"
+              [hidden]="aluguel.status === false"
+              title="Finalizar Aluguel">
+              <mat-icon>check_circle</mat-icon>
+            </a>
+
+            <a [routerLink]="['editar', aluguel.id]"
+              [hidden]="aluguel.status === false"
+              mat-icon-button aria-label="Editar">
               <mat-icon>edit</mat-icon>
             </a>
 
-            <a [routerLink]="['excluir', aluguel.id]" mat-icon-button aria-label="Excluir">
+            <a [routerLink]="['excluir', aluguel.id]"
+              [hidden]="aluguel.status === true"
+              mat-icon-button aria-label="Excluir">
               <mat-icon>delete</mat-icon>
             </a>
           </mat-card-actions>
