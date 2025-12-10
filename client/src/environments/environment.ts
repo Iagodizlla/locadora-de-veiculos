@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://locadoraveiculo-fbcff7begfg8g5gk.brazilsouth-01.azurewebsites.net',
+  apiUrl: 'https://gentle-tree-08ce2610f.3.azurestaticapps.net',
 };
