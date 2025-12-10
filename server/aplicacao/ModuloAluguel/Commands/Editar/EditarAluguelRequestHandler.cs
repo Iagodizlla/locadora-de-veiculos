@@ -34,7 +34,7 @@ public class EditarAluguelRequestHandler(
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
         if (aluguelSelecionado.Status == false)
-            return Result.Fail(AluguelErrorResults.AluguelNaoPodeSerExcluidoError());
+            return Result.Fail(AluguelErrorResults.AluguelNaoPodeSerEditadoError());
 
         #region Cliar entidades
         var cliente = await repositorioCliente.SelecionarPorIdAsync(request.ClienteId);

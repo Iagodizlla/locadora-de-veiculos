@@ -1,4 +1,5 @@
-﻿using FluentResults;
+﻿using System.Data.SqlTypes;
+using FluentResults;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAluguel;
@@ -18,7 +19,7 @@ public class ExcluirAluguelRequestHandler(
         if (aluguelSelecionado is null)
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
-        if (aluguelSelecionado.Status == false)
+        if (aluguelSelecionado.Status == true)
             return Result.Fail(AluguelErrorResults.AluguelNaoPodeSerExcluidoError());
 
         try
