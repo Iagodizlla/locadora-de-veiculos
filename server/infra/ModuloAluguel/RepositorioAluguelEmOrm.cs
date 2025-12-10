@@ -76,26 +76,26 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorio
     public async Task<bool> VeiculoEmAluguelAtivoAsync(Guid automovelId)
     {
         return await registros
-            .AnyAsync(a => a.Automovel.Id == automovelId && a.Status == false);
+            .AnyAsync(a => a.Automovel.Id == automovelId && a.Status == true);
     }
 
     public async Task<bool> ClienteEmAluguelAtivoAsync(Guid clienteId)
     {
         return await registros
-            .AnyAsync(a => a.Cliente.Id == clienteId && a.Status == false);
+            .AnyAsync(a => a.Cliente.Id == clienteId && a.Status == true);
     }
 
     public async Task<bool> CondutorEmAluguelAtivoAsync(Guid condutorId)
     {
         return await registros
-            .AnyAsync(a => a.Condutor.Id == condutorId && a.Status == false);
+            .AnyAsync(a => a.Condutor.Id == condutorId && a.Status == true);
     }
 
     public async Task<bool> TaxaEmAluguelAtivoAsync(Guid taxaId)
     {
         return await registros
         .AnyAsync(a =>
-            a.Status == false &&
+            a.Status == true &&
             a.Taxas.Any(t => t.Id == taxaId)
         );
     }
@@ -105,7 +105,7 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorio
         return await registros
         .AnyAsync(a =>
             a.Cliente.Id == clienteId &&
-            a.Status == false &&
+            a.Status == true &&
             a.Id != idAluguelAtual
         );
     }
@@ -115,7 +115,7 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorio
         return await registros
         .AnyAsync(a =>
             a.Condutor.Id == condutorId &&
-            a.Status == false &&
+            a.Status == true &&
             a.Id != idAluguelAtual
         );
     }
@@ -125,7 +125,7 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorio
         return await registros
         .AnyAsync(a =>
             a.Automovel.Id == automovelId &&
-            a.Status == false &&
+            a.Status == true &&
             a.Id != idAluguelAtual
         );
     }
