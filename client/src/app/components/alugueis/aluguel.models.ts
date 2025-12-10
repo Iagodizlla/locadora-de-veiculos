@@ -92,8 +92,6 @@ export interface FinalizarAluguelModel {
 
 export interface FinalizarAluguelResponseModel {
   id: string;
-  status: boolean;
-  valorTotal: number;
 }
 
 export interface AutomovelAluguelModel {

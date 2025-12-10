@@ -10,6 +10,7 @@ import { AutomovelService } from '../automoveis/automovel.service';
 import { CadastrarAluguel } from './cadastrar/cadastrar-aluguel';
 import { PlanoService } from '../planos/plano.service';
 import { EditarAluguel } from './editar/editar-aluguel';
+import { FinalizarAluguel } from './finalizar/finalizar-aluguel';
 
 
 export const listarAlugueisResolver = () => {
@@ -83,6 +84,11 @@ export const aluguelRoutes: Routes = [
         component: ExcluirAluguel,
         resolve: { aluguel: detalhesAluguelResolver },
       },
+      {
+        path: 'finalizar/:id',
+        component: FinalizarAluguel,
+        resolve: { aluguel: detalhesAluguelResolver },
+      }
     ],
     providers: [AluguelService, AutomovelService, ClienteService, CondutorService, PlanoService, TaxaService],
   },

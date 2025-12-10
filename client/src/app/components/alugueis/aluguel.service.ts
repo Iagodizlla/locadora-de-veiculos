@@ -11,6 +11,8 @@ import {
   DetalhesAluguelModel,
   EditarAluguelModel,
   EditarAluguelResponseModel,
+  FinalizarAluguelModel,
+  FinalizarAluguelResponseModel,
   ListarAlugueisApiResponseModel,
   ListarAlugueisModel
 } from './aluguel.models';
@@ -35,6 +37,17 @@ export class AluguelService {
     return this.http
       .put<RespostaApiModel>(urlCompleto, editarAluguelModel)
       .pipe(map(mapearRespostaApi<EditarAluguelResponseModel>));
+  }
+
+  public finalizar(
+    id: string,
+    finalizarAluguelModel: FinalizarAluguelModel
+  ): Observable<FinalizarAluguelResponseModel> {
+    const urlCompleto = `${this.apiUrl}/finalizar/${id}`;
+
+    return this.http
+      .put<RespostaApiModel>(urlCompleto, finalizarAluguelModel)
+      .pipe(map(mapearRespostaApi<FinalizarAluguelResponseModel>));
   }
 
   public excluir(id: string): Observable<null> {
