@@ -1,0 +1,3 @@
+﻿namespace LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.CalcularValor;
+
+public record CalcularValorAluguelResponse(decimal ValorTotal);
