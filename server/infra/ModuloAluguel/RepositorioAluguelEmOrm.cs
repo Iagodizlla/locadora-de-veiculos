@@ -131,7 +131,7 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorio
     }
     #endregion
 
-    public async Task<decimal> CalcularValorTotalDoAluguelAsync(Aluguel aluguel)
+    public async Task CalcularValorTotalDoAluguelAsync(Aluguel aluguel)
     {
         double diasReais = (aluguel.DataDevolucao.Value - aluguel.DataSaida).TotalDays;
 
@@ -194,7 +194,9 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorio
 
         decimal valorTotalFinal = custoRealLocacao + custoSeguroReal + multaPorAtraso + taxasAdicionais;
 
-        return valorTotalFinal;
+        aluguel.ValorTotal = valorTotalFinal;
+        
+        registros.Update(aluguel);
     }
 
     #region metodos privados

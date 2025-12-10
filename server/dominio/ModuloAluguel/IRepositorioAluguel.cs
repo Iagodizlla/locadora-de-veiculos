@@ -20,5 +20,5 @@ public interface IRepositorioAluguel
     Task<bool> AutomovelEstaOcupadoAsync(Guid automovelId, Guid idAluguelAtual);
     Task<bool> CondutorEstaOcupadoAsync(Guid condutorId, Guid idAluguelAtual);
     #endregion
-    Task<decimal> CalcularValorTotalDoAluguelAsync(Aluguel aluguel);
+    Task CalcularValorTotalDoAluguelAsync(Aluguel aluguel);
 }

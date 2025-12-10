@@ -1,5 +1,4 @@
-﻿using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.CalcularValor;
-using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Editar;
+﻿using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Editar;
 using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Excluir;
 using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Finalizar;
 using LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Inserir;
@@ -110,15 +109,6 @@ public class AluguelController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> SelecionarFinalizados()
     {
         var resultado = await mediator.Send(new SelecionarAlugueisFinalizadosRequest());
-
-        return resultado.ToHttpResponse();
-    }
-
-    [HttpGet("calcular-valor/{id:guid}")]
-    [ProducesResponseType(typeof(CalcularValorAluguelResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> CalcularValorTotal(Guid id)
-    {
-        var resultado = await mediator.Send(new CalcularValorAluguelRequest(id));
 
         return resultado.ToHttpResponse();
     }

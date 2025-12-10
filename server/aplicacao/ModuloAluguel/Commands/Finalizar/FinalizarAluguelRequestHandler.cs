@@ -41,6 +41,8 @@ public class FinalizarAluguelRequestHandler(
         {
             await repositorioAluguel.EditarAsync(aluguel);
 
+            await repositorioAluguel.CalcularValorTotalDoAluguelAsync(aluguel);
+
             await contexto.GravarAsync();
         }
         catch (Exception ex)
