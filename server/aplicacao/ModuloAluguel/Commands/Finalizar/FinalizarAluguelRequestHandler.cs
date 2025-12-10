@@ -1,4 +1,5 @@
 ﻿using FluentResults;
+using FluentValidation;
 using LocadoraDeVeiculos.Aplicacao.Compartilhado;
 using LocadoraDeVeiculos.Dominio.Compartilhado;
 using LocadoraDeVeiculos.Dominio.ModuloAluguel;
@@ -8,7 +9,8 @@ namespace LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Finalizar;
 
 public class FinalizarAluguelRequestHandler(
     IRepositorioAluguel repositorioAluguel,
-    IContextoPersistencia contexto
+    IContextoPersistencia contexto,
+    IValidator<Aluguel> validador
 ) : IRequestHandler<FinalizarAluguelRequest, Result<FinalizarAluguelResponse>>
 {
     public async Task<Result<FinalizarAluguelResponse>> Handle(FinalizarAluguelRequest request, CancellationToken cancellationToken)
@@ -19,22 +21,35 @@ public class FinalizarAluguelRequestHandler(
             return Result.Fail(ErrorResults.NotFoundError(request.Id));
 
         aluguel.DataDevolucao = request.DataDevolucao;
-        aluguel.QuilometragemFinal = request.QuilometragemFinal;
+        aluguel.QuilometragemFinal = request.KmFinal;
         aluguel.NivelCombustivelNaDevolucao = request.NivelCombustivelNaDevolucao;
-
-        // marca como finalizado
         aluguel.Status = false;
 
-        // chama o método FinalizarAsync do repositório
-        var atualizado = await repositorioAluguel.FinalizarAsync(aluguel);
+        var resultadoValidacao = 
+            await validador.ValidateAsync(aluguel, cancellationToken);
+        
+        if (!resultadoValidacao.IsValid)
+        {
+            var erros = resultadoValidacao.Errors
+                .Select(failure => failure.ErrorMessage)
+                .ToList();
 
-        if (!atualizado)
-            return Result.Fail("Não foi possível finalizar o aluguel.");
+            return Result.Fail(ErrorResults.BadRequestError(erros));
+        }
 
-        await contexto.GravarAsync();
+        try
+        {
+            await repositorioAluguel.EditarAsync(aluguel);
 
-        var response = new FinalizarAluguelResponse(aluguel.Id, aluguel.Status, aluguel.ValorTotal);
+            await contexto.GravarAsync();
+        }
+        catch (Exception ex)
+        {
+            await contexto.RollbackAsync();
 
-        return Result.Ok(response);
+            return Result.Fail(ErrorResults.InternalServerError(ex));
+        }
+
+        return Result.Ok(new FinalizarAluguelResponse(aluguel.Id));
     }
 }

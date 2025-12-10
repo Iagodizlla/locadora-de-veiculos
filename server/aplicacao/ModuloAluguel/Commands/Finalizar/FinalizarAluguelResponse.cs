@@ -1,3 +1,3 @@
 ﻿namespace LocadoraDeVeiculos.Aplicacao.ModuloAluguel.Commands.Finalizar;
 
-public record FinalizarAluguelResponse(Guid Id, bool StatusFinal, decimal valorTotal);
+public record FinalizarAluguelResponse(Guid Id);

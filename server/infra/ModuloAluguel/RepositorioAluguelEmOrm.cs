@@ -14,8 +14,6 @@ public class RepositorioAluguelEmOrm(IContextoPersistencia context, IRepositorio
 {
     public Task<bool> FinalizarAsync(Aluguel entidadeParaFinalizar)
     {
-        entidadeParaFinalizar.Status = true;
-
         var rastreador = registros.Update(entidadeParaFinalizar);
 
         return Task.FromResult(rastreador.State == EntityState.Modified);

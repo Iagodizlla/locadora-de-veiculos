@@ -88,7 +88,7 @@ public class AluguelController(IMediator mediator) : ControllerBase
     [ProducesResponseType(typeof(FinalizarAluguelResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> Finalizar(Guid id, FinalizarAluguelRequest request)
     {
-        var finalizarRequest = new FinalizarAluguelRequest(id, request.DataDevolucao, request.QuilometragemFinal, request.NivelCombustivelNaDevolucao);
+        var finalizarRequest = new FinalizarAluguelRequest(id, request.DataDevolucao, request.KmFinal, request.NivelCombustivelNaDevolucao);
 
         var resultado = await mediator.Send(finalizarRequest);
 
