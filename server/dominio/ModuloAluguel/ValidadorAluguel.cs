@@ -39,11 +39,6 @@ public class ValidadorAluguel : AbstractValidator<Aluguel>
         RuleFor(a => a.NivelCombustivelNaSaida)
             .NotNull()
             .WithMessage("O nível de combustivel inicial é obrigatório");
-
-        RuleFor(a => a.NivelCombustivelNaDevolucao)
-            .LessThanOrEqualTo(a => a.NivelCombustivelNaSaida)
-            .When(a => a.NivelCombustivelNaDevolucao.HasValue)
-            .WithMessage("O nível de combustível na devolução deve estar menos ou igual quando o automóvel saiu.");
         #endregion
         #region Seguro
         RuleFor(a => a.ValorSeguroPorDia)
@@ -63,10 +58,6 @@ public class ValidadorAluguel : AbstractValidator<Aluguel>
         RuleFor(a => a.Plano)
             .NotNull()
             .WithMessage("O plano é obrigatório.");
-
-        RuleFor(a => a.Taxas)
-            .NotNull()
-            .WithMessage("As taxas são obrigatórias.");
 
         RuleFor(a => a.Cliente)
             .NotNull()
