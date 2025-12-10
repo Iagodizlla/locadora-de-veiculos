@@ -18,11 +18,6 @@ public class ValidadorAluguel : AbstractValidator<Aluguel>
             .WithMessage("A data de fim prevista é obrigatória")
             .GreaterThanOrEqualTo(a => a.DataSaida)
             .WithMessage("A data de retorno prevista deve ser maior ou igual à data de saída.");
-
-        RuleFor(a => a.DataDevolucao)
-            .GreaterThanOrEqualTo(a => a.DataSaida)
-            .When(a => a.DataDevolucao.HasValue)
-            .WithMessage("A data de devolução deve ser maior ou igual à data de saída quando fornecida.");
         #endregion
         #region Distancia e Combustível
         RuleFor(a => a.QuilometragemInicial)
